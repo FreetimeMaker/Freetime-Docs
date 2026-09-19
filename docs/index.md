@@ -1,39 +1,36 @@
----
-layout: home
+# Freetime Docs
 
-hero:
-  name: Freetime Docs
-  text: One place for Freetime Maker documentation
-  tagline: Fast, searchable and independently versioned documentation for maintained projects.
-  actions:
-    - theme: brand
-      text: Browse Projects
-      link: /projects/
-    - theme: alt
-      text: All API
-      link: /projects/all-api/
+Welcome to the documentation for maintained Freetime Maker projects.
 
-features:
-  - title: All API
-    details: Central backend, authentication and service APIs.
-    link: /projects/all-api/
-  - title: GeoWeather
-    details: Android weather app, website and backend integration.
-    link: /projects/geoweather/
-  - title: Luma Store
-    details: Android, Linux and developer-dashboard documentation.
-    link: /projects/luma-store/
-  - title: SuperSMP Companion
-    details: Android companion app and development information.
-    link: /projects/supersmp-companion/
-  - title: Freetime News & MD-Blog
-    details: Native news client and Markdown publishing platform.
-    link: /projects/freetime-news/
-  - title: Developer projects
-    details: Lumex Client, Multi AI Chat and other actively maintained tooling.
-    link: /projects/
----
+Use the **documentation tree on the left** or the search field in the navigation to find a topic. The documentation is organized by project, similar to a traditional technical wiki.
+
+## Start here
+
+- [Getting started](/getting-started/) — understand how Freetime Docs is organized.
+- [Projects](/projects/) — browse all documented projects.
+- [All API](/projects/all-api/) — backend services, authentication and API reference.
+- [GeoWeather](/projects/geoweather/) — Android weather application documentation.
+- [Luma Store](/projects/luma-store/) — Android, dashboard, sources, submissions and Linux.
+- [SuperSMP Companion](/projects/supersmp-companion/) — Android companion application.
+- [Freetime News](/projects/freetime-news/) — native Android news reader.
+- [MD-Blog](/projects/md-blog/) — Markdown publishing platform.
+- [Lumex Client](/projects/lumex-client/) — Neutralino-based Minecraft launcher/client.
+- [Multi AI Chat](/projects/multi-ai-chat/) — JetBrains IDE plugin.
+
+## Finding documentation
+
+### Search
+
+Use the search field in the top navigation or press **Ctrl+K** / **⌘K**. Search is local to the generated documentation and does not require an external search service.
+
+### Navigation
+
+The left sidebar contains the complete documentation tree. Project sections can be expanded and collapsed without leaving the current page.
+
+### On this page
+
+Long documentation pages show their headings in the right-hand **On this page** navigation.
 
 ## Documentation versions
 
-Freetime Docs versions are independent from application releases and Git tags. Archived documentation snapshots are available from the version selector in the navigation.
+Freetime Docs versions are independent from software releases and Git tags. Use the documentation-version menu to open an archived snapshot when you need documentation for an older state.
