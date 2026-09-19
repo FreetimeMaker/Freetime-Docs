@@ -26,6 +26,7 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
+      { text: 'Search', link: '/search/' },
       {
         text: 'Projects',
         items: projectItems
@@ -74,7 +75,13 @@ export default defineConfig({
     ],
 
     search: {
-      provider: 'local'
+      provider: 'local',
+      options: {
+        translations: {
+          button: { buttonText: 'Search docs', buttonAriaLabel: 'Search documentation' },
+          modal: { noResultsText: 'No documentation found', resetButtonTitle: 'Clear query', footer: { selectText: 'select', navigateText: 'navigate', closeText: 'close' } }
+        }
+      }
     },
 
     outline: {
