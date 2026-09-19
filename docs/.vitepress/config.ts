@@ -53,6 +53,7 @@ export default defineConfig({
         { text: 'All API', items: [
           { text: 'Overview', link: '/projects/all-api/' },
           { text: 'Getting Started', link: '/projects/all-api/getting-started' },
+          { text: 'API Reference', link: '/projects/all-api/api-reference' },
           { text: 'Authentication', link: '/projects/all-api/authentication' },
           { text: 'Development', link: '/projects/all-api/development' },
           { text: 'Troubleshooting', link: '/projects/all-api/troubleshooting' }
@@ -63,6 +64,8 @@ export default defineConfig({
           { text: 'Overview', link: '/projects/geoweather/' },
           { text: 'Getting Started', link: '/projects/geoweather/getting-started' },
           { text: 'Installation & Build', link: '/projects/geoweather/installation' },
+          { text: 'Features', link: '/projects/geoweather/features' },
+          { text: 'Configuration', link: '/projects/geoweather/configuration' },
           { text: 'Architecture', link: '/projects/geoweather/architecture' },
           { text: 'Troubleshooting', link: '/projects/geoweather/troubleshooting' }
         ]}
@@ -72,6 +75,7 @@ export default defineConfig({
           { text: 'Overview', link: '/projects/luma-store/' },
           { text: 'Getting Started', link: '/projects/luma-store/getting-started' },
           { text: 'Sources', link: '/projects/luma-store/sources' },
+          { text: 'App Submissions', link: '/projects/luma-store/submissions' },
           { text: 'Android', link: '/projects/luma-store/android' },
           { text: 'Developer Dashboard', link: '/projects/luma-store/developer-dashboard' },
           { text: 'Linux', link: '/projects/luma-store/linux' },
