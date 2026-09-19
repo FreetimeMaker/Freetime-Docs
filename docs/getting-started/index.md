@@ -6,21 +6,10 @@ Freetime Docs is the central technical documentation for maintained Freetime Mak
 
 Start from the [Projects overview](/projects/) and select the application or service you are working with.
 
-## Documentation types
+## Documentation structure
 
-Each project uses the same documentation model where applicable:
+Projects use the same model where applicable: Getting Started, User Guide/Features, Configuration, Architecture, Development, API/Backend, Troubleshooting and Releases.
 
-- **Getting Started** — prerequisites and first successful run.
-- **User Guide / Features** — how the product behaves.
-- **Configuration** — settings, environment and integrations.
-- **Architecture** — major components and data flow.
-- **Development** — source build and contributor workflow.
-- **API / Backend** — endpoints, authentication and service contracts.
-- **Troubleshooting** — common failure modes.
-- **Releases** — version-specific information.
+## Documentation versions
 
-Not every project needs every category. A small library or website may have fewer sections than a backend or application ecosystem.
-
-## Docs versions
-
-Documentation versions are independent from application versions. Use the version selector in the top navigation to open archived documentation snapshots.
+Docs versions are independent from application releases. Use the version selector to open archived documentation snapshots.
