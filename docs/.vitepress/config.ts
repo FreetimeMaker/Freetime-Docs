@@ -42,14 +42,63 @@ export default defineConfig({
     ],
 
     sidebar: {
+      '/projects/all-api/': [
+        { text: 'All API', items: [
+          { text: 'Overview', link: '/projects/all-api/' },
+          { text: 'Authentication', link: '/projects/all-api/authentication' },
+          { text: 'Development', link: '/projects/all-api/development' }
+        ]}
+      ],
+      '/projects/geoweather/': [
+        { text: 'GeoWeather', items: [
+          { text: 'Overview', link: '/projects/geoweather/' },
+          { text: 'Installation & Build', link: '/projects/geoweather/installation' },
+          { text: 'Architecture', link: '/projects/geoweather/architecture' }
+        ]}
+      ],
+      '/projects/luma-store/': [
+        { text: 'Luma Store', items: [
+          { text: 'Overview', link: '/projects/luma-store/' },
+          { text: 'Android', link: '/projects/luma-store/android' },
+          { text: 'Developer Dashboard', link: '/projects/luma-store/developer-dashboard' },
+          { text: 'Linux', link: '/projects/luma-store/linux' }
+        ]}
+      ],
+      '/projects/supersmp-companion/': [
+        { text: 'SuperSMP Companion', items: [
+          { text: 'Overview', link: '/projects/supersmp-companion/' },
+          { text: 'Development', link: '/projects/supersmp-companion/development' }
+        ]}
+      ],
+      '/projects/freetime-news/': [
+        { text: 'Freetime News', items: [
+          { text: 'Overview', link: '/projects/freetime-news/' },
+          { text: 'Development', link: '/projects/freetime-news/development' }
+        ]}
+      ],
+      '/projects/md-blog/': [
+        { text: 'MD-Blog', items: [
+          { text: 'Overview', link: '/projects/md-blog/' },
+          { text: 'Architecture', link: '/projects/md-blog/architecture' }
+        ]}
+      ],
+      '/projects/lumex-client/': [
+        { text: 'Lumex Client', items: [
+          { text: 'Overview', link: '/projects/lumex-client/' },
+          { text: 'Architecture', link: '/projects/lumex-client/architecture' }
+        ]}
+      ],
+      '/projects/multi-ai-chat/': [
+        { text: 'Multi AI Chat', items: [
+          { text: 'Overview', link: '/projects/multi-ai-chat/' },
+          { text: 'Development', link: '/projects/multi-ai-chat/development' }
+        ]}
+      ],
       '/projects/': [
-        {
-          text: 'Projects',
-          items: [
-            { text: 'Overview', link: '/projects/' },
-            ...projectItems
-          ]
-        }
+        { text: 'Projects', items: [
+          { text: 'Overview', link: '/projects/' },
+          ...projectItems
+        ]}
       ],
       '/guide/': [
         {
