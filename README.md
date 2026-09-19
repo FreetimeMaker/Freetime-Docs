@@ -39,4 +39,4 @@ Use:
 
 - Build Command: `npm run build`
 - Output Directory: `docs/.vitepress/dist`
-- Install Command: `npm ci`
+- Install Command: `npm install`
