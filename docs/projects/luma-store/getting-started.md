@@ -1,16 +1,14 @@
 # Getting Started
 
-Luma Store is an ecosystem rather than a single executable.
+Luma Store is an ecosystem with separate Android, web/dashboard and Linux clients.
 
-## Choose a component
-
-| Component | Use it for |
+| Component | Purpose |
 | --- | --- |
-| Android | Browse, search and manage store apps on Android |
-| Developer Dashboard | Submit and maintain application metadata |
-| Linux | Browse/install packages on Linux |
+| Android | Browse, search and manage apps |
+| Developer Dashboard | Submit and maintain app metadata |
+| Linux | Browse and install Linux packages |
 
-## Android development
+## Android
 
 ```bash
 git clone https://github.com/FreetimeMaker/Luma-Store-Android.git
@@ -18,7 +16,7 @@ cd Luma-Store-Android
 ./gradlew assembleDebug
 ```
 
-## Dashboard development
+## Developer Dashboard
 
 ```bash
 git clone https://github.com/FreetimeMaker/Luma-Store-Website.git
@@ -27,10 +25,4 @@ npm install
 npm run dev
 ```
 
-## Linux development
-
-Clone the Linux repository and run the Python/GTK client or build a native package with `make deb` / `make rpm`.
-
-## Next steps
-
-Read the component-specific pages for Android, Developer Dashboard and Linux.
+See the component-specific chapters for further setup.
