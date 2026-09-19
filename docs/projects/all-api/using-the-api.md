@@ -2,7 +2,22 @@
 
 All API is the central HTTP backend used by multiple Freetime Maker services. This guide explains how to consume it from applications, websites, scripts and third-party clients.
 
+## Base URL
+
+The public All API base URL is:
+
+```text
+https://api.free-time.me
+```
+
+For example, the v1 health endpoint is:
+
+```text
+https://api.free-time.me/api/v1/health
+```
+
 ## API versions
+
 
 Most established endpoints are exposed below:
 
@@ -23,7 +38,7 @@ Do not silently replace a v1 path with v2. Treat API versions as separate contra
 Start with a health request before debugging a service-specific integration.
 
 ```js
-const response = await fetch('/api/v1/health')
+const response = await fetch('https://api.free-time.me/api/v1/health')
 
 if (!response.ok) {
   throw new Error(`API unavailable: ${response.status}`)
@@ -33,14 +48,14 @@ const data = await response.json()
 console.log(data)
 ```
 
-In a real client, prepend the deployed All API origin to the path.
+The examples below use a shared base URL so the same client helper can be reused for every All API service.
 
 ## Request pattern
 
 Use one shared API client instead of scattering `fetch` calls throughout UI components.
 
 ```js
-async function api(path, options = {}) {
+const API_BASE_URL = 'https://api.free-time.me'\n\nasync function api(path, options = {}) {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     ...options,
     headers: {
