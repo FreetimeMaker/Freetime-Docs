@@ -26,6 +26,7 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
+      { text: 'Get Started', link: '/getting-started/' },
       { text: 'Search', link: '/search/' },
       {
         text: 'Projects',
@@ -45,53 +46,70 @@ export default defineConfig({
       '/projects/all-api/': [
         { text: 'All API', items: [
           { text: 'Overview', link: '/projects/all-api/' },
+          { text: 'Getting Started', link: '/projects/all-api/getting-started' },
           { text: 'Authentication', link: '/projects/all-api/authentication' },
-          { text: 'Development', link: '/projects/all-api/development' }
+          { text: 'Development', link: '/projects/all-api/development' },
+          { text: 'Troubleshooting', link: '/projects/all-api/troubleshooting' }
         ]}
       ],
       '/projects/geoweather/': [
         { text: 'GeoWeather', items: [
           { text: 'Overview', link: '/projects/geoweather/' },
+          { text: 'Getting Started', link: '/projects/geoweather/getting-started' },
           { text: 'Installation & Build', link: '/projects/geoweather/installation' },
-          { text: 'Architecture', link: '/projects/geoweather/architecture' }
+          { text: 'Architecture', link: '/projects/geoweather/architecture' },
+          { text: 'Troubleshooting', link: '/projects/geoweather/troubleshooting' }
         ]}
       ],
       '/projects/luma-store/': [
         { text: 'Luma Store', items: [
           { text: 'Overview', link: '/projects/luma-store/' },
+          { text: 'Getting Started', link: '/projects/luma-store/getting-started' },
+          { text: 'Sources', link: '/projects/luma-store/sources' },
           { text: 'Android', link: '/projects/luma-store/android' },
           { text: 'Developer Dashboard', link: '/projects/luma-store/developer-dashboard' },
-          { text: 'Linux', link: '/projects/luma-store/linux' }
+          { text: 'Linux', link: '/projects/luma-store/linux' },
+          { text: 'Troubleshooting', link: '/projects/luma-store/troubleshooting' }
         ]}
       ],
       '/projects/supersmp-companion/': [
         { text: 'SuperSMP Companion', items: [
           { text: 'Overview', link: '/projects/supersmp-companion/' },
-          { text: 'Development', link: '/projects/supersmp-companion/development' }
+          { text: 'Getting Started', link: '/projects/supersmp-companion/getting-started' },
+          { text: 'Development', link: '/projects/supersmp-companion/development' },
+          { text: 'Troubleshooting', link: '/projects/supersmp-companion/troubleshooting' }
         ]}
       ],
       '/projects/freetime-news/': [
         { text: 'Freetime News', items: [
           { text: 'Overview', link: '/projects/freetime-news/' },
-          { text: 'Development', link: '/projects/freetime-news/development' }
+          { text: 'Getting Started', link: '/projects/freetime-news/getting-started' },
+          { text: 'Development', link: '/projects/freetime-news/development' },
+          { text: 'Troubleshooting', link: '/projects/freetime-news/troubleshooting' }
         ]}
       ],
       '/projects/md-blog/': [
         { text: 'MD-Blog', items: [
           { text: 'Overview', link: '/projects/md-blog/' },
-          { text: 'Architecture', link: '/projects/md-blog/architecture' }
+          { text: 'Getting Started', link: '/projects/md-blog/getting-started' },
+          { text: 'Architecture', link: '/projects/md-blog/architecture' },
+          { text: 'Troubleshooting', link: '/projects/md-blog/troubleshooting' }
         ]}
       ],
       '/projects/lumex-client/': [
         { text: 'Lumex Client', items: [
           { text: 'Overview', link: '/projects/lumex-client/' },
-          { text: 'Architecture', link: '/projects/lumex-client/architecture' }
+          { text: 'Getting Started', link: '/projects/lumex-client/getting-started' },
+          { text: 'Architecture', link: '/projects/lumex-client/architecture' },
+          { text: 'Troubleshooting', link: '/projects/lumex-client/troubleshooting' }
         ]}
       ],
       '/projects/multi-ai-chat/': [
         { text: 'Multi AI Chat', items: [
           { text: 'Overview', link: '/projects/multi-ai-chat/' },
-          { text: 'Development', link: '/projects/multi-ai-chat/development' }
+          { text: 'Getting Started', link: '/projects/multi-ai-chat/getting-started' },
+          { text: 'Development', link: '/projects/multi-ai-chat/development' },
+          { text: 'Troubleshooting', link: '/projects/multi-ai-chat/troubleshooting' }
         ]}
       ],
       '/projects/': [
