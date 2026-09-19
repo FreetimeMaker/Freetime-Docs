@@ -166,7 +166,6 @@ api/
   client.js
   auth.js
   geoweather.js
-  fport.js
   wallora.js
   sol-arcade.js
 ```
@@ -176,10 +175,6 @@ The shared client owns transport behavior while each service module owns its pat
 ## GeoWeather
 
 GeoWeather endpoints include subscription-related operations. Use the API reference to determine the current route and whether authentication is required.
-
-## F-Port
-
-F-Port exposes application/catalog operations including app listing, app lookup and supported authenticated interactions.
 
 ## Wallora
 

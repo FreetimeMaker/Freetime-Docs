@@ -6,7 +6,7 @@ All API is the central backend for Freetime Maker services. It is built with Exp
 
 ## API versions
 
-Endpoints are mounted under `/api/v1`. Most services are also mirrored under `/api/v2`, while Sol Arcade is documented as v2-only.
+Endpoints are mounted under `/v1`. Most services are also mirrored under `/v2`, while Sol Arcade is documented as v2-only.
 
 ## Services
 
@@ -14,7 +14,6 @@ Endpoints are mounted under `/api/v1`. Most services are also mirrored under `/a
 | --- | --- |
 | GeoWeather | Subscription plans and subscription management |
 | Wallora | Wallpaper catalog, details and purchases |
-| F-Port | App directory and cloud-synced likes |
 | Sol Arcade | Solana Arcade Pass sessions, minting and plays |
 | Auth | Supabase OAuth authentication and linked accounts |
 
@@ -22,7 +21,7 @@ Endpoints are mounted under `/api/v1`. Most services are also mirrored under `/a
 
 ### Health
 
-`GET /api/v1/health`
+`GET /v1/health`
 
 Returns service status and a timestamp.
 
@@ -32,23 +31,16 @@ Authentication uses Supabase OAuth. The API provides configuration, login, callb
 
 ### GeoWeather
 
-- `GET /api/v1/geoweather/subscriptions/plans`
-- `POST /api/v1/geoweather/subscriptions/redeem`
-- `GET /api/v1/geoweather/subscriptions`
-
-### F-Port
-
-- `GET /api/v1/fport/apps`
-- `GET /api/v1/fport/apps/:id`
-- `POST /api/v1/fport/apps/:id/like`
-- `POST /api/v1/fport/apps`
+- `GET /v1/geoweather/subscriptions/plans`
+- `POST /v1/geoweather/subscriptions/redeem`
+- `GET /v1/geoweather/subscriptions`
 
 ### Wallora
 
-- `GET /api/v1/wallora/wallpapers`
-- `GET /api/v1/wallora/wallpapers/:id`
-- `POST /api/v1/wallora/wallpapers/:id/purchase`
-- `POST /api/v1/wallora/wallpapers`
+- `GET /v1/wallora/wallpapers`
+- `GET /v1/wallora/wallpapers/:id`
+- `POST /v1/wallora/wallpapers/:id/purchase`
+- `POST /v1/wallora/wallpapers`
 
 ### Sol Arcade
 
