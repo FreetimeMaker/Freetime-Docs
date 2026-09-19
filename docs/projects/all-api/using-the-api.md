@@ -110,7 +110,7 @@ Authorization: Bearer <access-token>
 With the helper above:
 
 ```js
-await api('/api/v1/protected-resource', {
+await api('/v1/protected-resource', {
   headers: {
     Authorization: `Bearer ${accessToken}`
   }
