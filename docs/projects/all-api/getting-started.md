@@ -1,8 +1,6 @@
 # Getting Started
 
-## Requirements
-
-All API is a Node.js backend. Install a current Node.js runtime and npm.
+All API is the central Node.js backend.
 
 ## Install
 
@@ -10,26 +8,19 @@ All API is a Node.js backend. Install a current Node.js runtime and npm.
 git clone https://github.com/FreetimeMaker/All-API-Node.git
 cd All-API-Node
 npm install
-```
-
-## Configure
-
-Create the required environment configuration for the services you intend to use. Supabase-backed features require the relevant Supabase URL and server credentials. Sol Arcade has additional Solana/JWT configuration.
-
-::: danger
-Service-role keys, JWT secrets, admin tokens and wallet private keys are server secrets. Never place them in a public client.
-:::
-
-## Run
-
-```bash
 npm start
 ```
 
 The package starts `src/index.js`.
 
+## Configuration
+
+Configure only the services you use. Supabase-backed functionality needs server-side Supabase configuration; Sol Arcade additionally needs its Solana/JWT configuration.
+
+::: danger
+Never expose service-role keys, JWT secrets, admin tokens or wallet private keys to clients.
+:::
+
 ## Next steps
 
-- [Authentication](./authentication)
-- [Development](./development)
-- [Troubleshooting](./troubleshooting)
+Read [Authentication](./authentication), [Development](./development) and [Troubleshooting](./troubleshooting).
