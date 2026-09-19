@@ -1,12 +1,12 @@
 # Getting Started
 
+GeoWeather currently targets Android.
+
 ## Requirements
 
-GeoWeather currently targets Android only.
-
 - Android SDK 37 for compilation
-- Android 8.0 / API 26 or newer on devices
-- A compatible JDK/Android Studio toolchain
+- Android API 26 or newer
+- Compatible Android Studio/JDK toolchain
 
 ## Build
 
@@ -16,10 +16,8 @@ cd GeoWeather
 ./gradlew assembleDebug
 ```
 
-The APK is produced by the `:app` module.
+The current project has one `:app` module.
 
-## What to read next
+## Next steps
 
-- [Installation & Build](./installation)
-- [Architecture](./architecture)
-- [Troubleshooting](./troubleshooting)
+Continue with [Installation & Build](./installation), [Architecture](./architecture) and [Troubleshooting](./troubleshooting).
