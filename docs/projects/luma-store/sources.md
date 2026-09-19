@@ -1,23 +1,20 @@
 # Sources
 
-Sources determine which application catalogs the Android client can browse.
+Sources define the application catalogs visible in the Android client.
 
-## Source model
+## Source types
 
-Luma Store can work with Luma Store metadata as well as F-Droid-compatible/custom repositories. Source availability and enable/disable state are client concerns.
+Luma Store can work with its own metadata as well as F-Droid-compatible/custom repositories. Each source is fetched, parsed and filtered independently.
 
-## Custom repositories
+## Debugging an empty source
 
-A repository must expose metadata in the format expected by the corresponding source implementation. A repository being reachable does not guarantee that all icons, packages or metadata fields are valid.
+Check these stages separately:
 
-## Troubleshooting sources
+1. Repository URL and connectivity.
+2. Index response.
+3. Metadata parsing.
+4. App visibility/filtering.
+5. Package metadata.
+6. Icon/screenshot URLs.
 
-When a source appears empty, check these independently:
-
-1. repository URL/reachability,
-2. index parsing,
-3. app filtering,
-4. package metadata,
-5. icon/screenshot URLs.
-
-This separation is important because a successful repository request can still result in zero visible apps after parsing or filtering.
+A successful HTTP request does not necessarily mean that parsed applications will be visible.
