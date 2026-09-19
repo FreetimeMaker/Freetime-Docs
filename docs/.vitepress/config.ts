@@ -63,6 +63,7 @@ export default defineConfig({
         items: [
           { text: 'Overview', link: '/projects/all-api/' },
           { text: 'Getting Started', link: '/projects/all-api/getting-started' },
+          { text: 'Using the API', link: '/projects/all-api/using-the-api' },
           { text: 'API Reference', link: '/projects/all-api/api-reference' },
           { text: 'Authentication', link: '/projects/all-api/authentication' },
           { text: 'Development', link: '/projects/all-api/development' },
@@ -88,6 +89,7 @@ export default defineConfig({
         items: [
           { text: 'Overview', link: '/projects/luma-store/' },
           { text: 'Getting Started', link: '/projects/luma-store/getting-started' },
+          { text: 'Building Custom Clients', link: '/projects/luma-store/custom-clients' },
           { text: 'Sources', link: '/projects/luma-store/sources' },
           { text: 'App Submissions', link: '/projects/luma-store/submissions' },
           { text: 'Android', link: '/projects/luma-store/android' },
