@@ -2,7 +2,16 @@
 
 All API groups its HTTP endpoints by service.
 
+## Base URL
+
+```text
+https://api.free-time.me
+```
+
+All endpoint paths below are relative to this public API origin.
+
 ## Base path
+
 
 Most routes are available below `/api/v1`. Services that expose a v2 contract use `/api/v2`.
 
