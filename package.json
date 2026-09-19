@@ -8,7 +8,12 @@
     "start": "vitepress dev docs",
     "build": "vitepress build docs",
     "preview": "vitepress preview docs",
-    "docs:version": "node scripts/version-docs.mjs"
+    "docs:version": "node scripts/version-docs.mjs",
+    "sync:static": "node scripts/sync-static.mjs",
+    "predev": "npm run sync:static",
+    "prestart": "npm run sync:static",
+    "prebuild": "npm run sync:static",
+    "prepreview": "npm run sync:static"
   },
   "devDependencies": {
     "vitepress": "^1.6.4",
