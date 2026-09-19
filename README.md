@@ -1,22 +1,13 @@
-# Website
+# Freetime Docs
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+Freetime Docs is a VitePress-based documentation site with documentation-specific versioning.
 
-## Installation
+## Development
 
 ```bash
 npm install
+npm run dev
 ```
-
-**Note**: feel free to use the package manager of your choice.
-
-## Local Development
-
-```bash
-npm run start
-```
-
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
 
 ## Build
 
@@ -24,20 +15,28 @@ This command starts a local development server and opens up a browser window. Mo
 npm run build
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+VitePress writes the static build to:
 
-## Deployment
-
-Using SSH:
-
-```bash
-USE_SSH=true npm run deploy
+```text
+docs/.vitepress/dist
 ```
 
-Not using SSH:
+## Versioning
+
+Documentation versions are independent from Git tags and application releases.
+
+Create a snapshot with:
 
 ```bash
-GIT_USER=<Your GitHub username> npm run deploy
+npm run docs:version -- 1.0
 ```
 
-If you are using GitHub Pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+Archived versions are stored under `docs/versions/<version>/` and are automatically exposed through the VitePress version selector.
+
+## Vercel
+
+Use:
+
+- Build Command: `npm run build`
+- Output Directory: `docs/.vitepress/dist`
+- Install Command: `npm ci`
