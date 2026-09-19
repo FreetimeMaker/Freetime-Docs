@@ -13,7 +13,7 @@ https://api.free-time.me
 For example, the v1 health endpoint is:
 
 ```text
-https://api.free-time.me/api/v1/health
+https://api.free-time.me/v1/health
 ```
 
 ## API versions
@@ -22,13 +22,13 @@ https://api.free-time.me/api/v1/health
 Most established endpoints are exposed below:
 
 ```text
-/api/v1
+/v1
 ```
 
 Services with a newer contract can use:
 
 ```text
-/api/v2
+/v2
 ```
 
 Do not silently replace a v1 path with v2. Treat API versions as separate contracts and migrate a client deliberately.
@@ -38,7 +38,7 @@ Do not silently replace a v1 path with v2. Treat API versions as separate contra
 Start with a health request before debugging a service-specific integration.
 
 ```js
-const response = await fetch('https://api.free-time.me/api/v1/health')
+const response = await fetch('https://api.free-time.me/v1/health')
 
 if (!response.ok) {
   throw new Error(`API unavailable: ${response.status}`)
@@ -84,7 +84,7 @@ This centralizes status handling, JSON parsing and authentication.
 For endpoints accepting JSON:
 
 ```js
-await api('/api/v1/example', {
+await api('/v1/example', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
