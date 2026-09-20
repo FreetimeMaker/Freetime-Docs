@@ -7,6 +7,7 @@ const archivedVersions = versions.versions.map((version) => ({
 }))
 
 const projectItems = [
+  { text: 'Freetime Core', link: '/projects/freetime-core/' },
   { text: 'All API', link: '/projects/all-api/' },
   { text: 'GeoWeather', link: '/projects/geoweather/' },
   { text: 'Luma Store', link: '/projects/luma-store/' },
@@ -55,6 +56,15 @@ export default defineConfig({
           { text: 'Documentation home', link: '/' },
           { text: 'Getting started', link: '/getting-started/' },
           { text: 'Projects', link: '/projects/' }
+        ]
+      },
+      {
+        text: 'Freetime Core',
+        collapsed: true,
+        items: [
+          { text: 'Overview', link: '/projects/freetime-core/' },
+          { text: 'Getting Started', link: '/projects/freetime-core/getting-started' },
+          { text: 'Modules', link: '/projects/freetime-core/modules' }
         ]
       },
       {
