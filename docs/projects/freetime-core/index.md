@@ -8,7 +8,6 @@ Freetime Core is the shared Android library suite for Freetime Maker application
 | --- | --- |
 | `freetime-core` | Common models, results and lightweight utilities |
 | `freetime-design` | Material You and Freetime's Liquid Glass design system |
-| `freetime-updater` | Source-agnostic application update checking |
 | `freetime-browser` | External and in-app URL routing |
 | `freetime-donations` | Donation models and reusable Compose UI |
 
@@ -18,8 +17,8 @@ Freetime Core is built as a set of Android libraries.
 
 - **Minimum SDK:** 24
 - **Compile SDK:** 37
-- **Kotlin:** 2.4.10
-- **Group:** `me.free-time`
+- **Kotlin:** 2.4.20
+- **Group:** `com.freetime`
 - **License:** GPL-3.0
 
 ## Design principles
