@@ -14,7 +14,6 @@ Use the **documentation tree on the left** or the search field in the navigation
 - [SuperSMP Companion](/projects/supersmp-companion/) — Android companion application.
 - [Freetime News](/projects/freetime-news/) — native Android news reader.
 - [MD-Blog](/projects/md-blog/) — Markdown publishing platform.
-- [Lumex Client](/projects/lumex-client/) — Neutralino-based Minecraft launcher/client.
 - [Multi AI Chat](/projects/multi-ai-chat/) — JetBrains IDE plugin.
 
 ## Finding documentation
