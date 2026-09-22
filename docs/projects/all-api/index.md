@@ -1,55 +1,44 @@
 # All API
 
-All API is the central backend for Freetime Maker services. It is built with Express.js and designed for Vercel serverless deployment.
-
-**Repository:** [FreetimeMaker/All-API-Node](https://github.com/FreetimeMaker/All-API-Node)
+All API is the central Node.js backend for Freetime Maker services. The current backend package version is **2.7.0** and uses Express 5.
 
 ## API versions
 
-Endpoints are mounted under `/v1`. Most services are also mirrored under `/v2`, while Sol Arcade is documented as v2-only.
+The server mounts legacy-compatible v1 routes under `/v1` and the current v2 router under `/v2`.
 
-## Services
+## Current services
 
-| Service | Purpose |
+| Service | Current role |
 | --- | --- |
-| GeoWeather | Subscription plans and subscription management |
-| Wallora | Wallpaper catalog, details and purchases |
-| Sol Arcade | Solana Arcade Pass sessions, minting and plays |
-| Auth | Supabase OAuth authentication and linked accounts |
+| Auth | Supabase OAuth/session and linked-account routes |
+| GeoWeather | Subscription plans, subscriptions and code redemption |
+| Wallora | Wallpaper catalog and purchase operations |
+| Sol Arcade | Wallet challenge/login, pass payment/minting, plays and scores |
+| Luma Store | Public catalog, platform filtering and ratings |
+| MD-Blog | Blog posts, post Markdown and categories |
 
-## Core endpoints
+GeoWeather code lookup/redemption models now use Appwrite TablesDB, while other backend areas continue to use their configured data services.
 
-### Health
+## v2 highlights
 
-`GET /v1/health`
+```text
+GET /v2/health
+GET /v2/lumastore/apps
+GET /v2/lumastore/apps/:id
+GET /v2/blog/posts
+GET /v2/blog/posts/:slug
+GET /v2/blog/categories
+```
 
-Returns service status and a timestamp.
+Sol Arcade remains a v2 service.
 
-### Authentication
+## Runtime
 
-Authentication uses Supabase OAuth. The API provides configuration, login, callback, logout, current-user and linked-account endpoints. Protected routes use Bearer authentication.
+The API is designed for Vercel/serverless deployment but can also be started directly with Node. The entry point normalizes bundled router exports to handle Vercel/Rolldown CommonJS interop.
 
-### GeoWeather
+## Continue
 
-- `GET /v1/geoweather/subscriptions/plans`
-- `POST /v1/geoweather/subscriptions/redeem`
-- `GET /v1/geoweather/subscriptions`
-
-### Wallora
-
-- `GET /v1/wallora/wallpapers`
-- `GET /v1/wallora/wallpapers/:id`
-- `POST /v1/wallora/wallpapers/:id/purchase`
-- `POST /v1/wallora/wallpapers`
-
-### Sol Arcade
-
-Sol Arcade uses the v2 API and includes challenge/login, session status, pass payment/minting and play-management endpoints.
-
-## Configuration
-
-The backend uses Supabase configuration for database/auth functionality. Sol Arcade additionally supports Solana RPC, mint wallet, recipient, JWT/admin secrets, asset base URL and play-limit configuration through environment variables.
-
-::: warning
-Never put service-role keys, private wallet keys or admin secrets into client applications or public documentation.
-:::
+- [Using the API](/projects/all-api/using-the-api)
+- [API Reference](/projects/all-api/api-reference)
+- [Authentication](/projects/all-api/authentication)
+- [Development](/projects/all-api/development)

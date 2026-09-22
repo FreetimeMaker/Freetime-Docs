@@ -1,6 +1,6 @@
 # Getting Started
 
-All API is the central Node.js backend.
+All API 2.7.0 is the central Express backend.
 
 ## Install
 
@@ -11,16 +11,28 @@ npm install
 npm start
 ```
 
-The package starts `src/index.js`.
+Direct local execution uses port 3000 unless `PORT` is configured.
+
+## Base URL
+
+Production clients use the configured All API origin. Routes themselves are mounted under `/v1` and `/v2`.
+
+Start integration testing with:
+
+```text
+GET /v2/health
+```
 
 ## Configuration
 
-Configure only the services you use. Supabase-backed functionality needs server-side Supabase configuration; Sol Arcade additionally needs its Solana/JWT configuration.
+Supabase-backed services require their configured public/server credentials. Luma Store can use its own Supabase configuration rather than the generic project.
+
+GeoWeather code operations require Appwrite endpoint/project/API-key configuration. Sol Arcade additionally requires its Solana/JWT/admin configuration.
 
 ::: danger
-Never expose service-role keys, JWT secrets, admin tokens or wallet private keys to clients.
+Never expose service-role keys, Appwrite API keys, JWT/admin secrets or wallet private keys to browser, Android or desktop clients.
 :::
 
-## Next steps
+## Next
 
-Read [Authentication](./authentication), [Development](./development) and [Troubleshooting](./troubleshooting).
+Read [Using the API](/projects/all-api/using-the-api), [API Reference](/projects/all-api/api-reference) and [Development](/projects/all-api/development).

@@ -1,21 +1,27 @@
 # Authentication
 
-All API uses Supabase-backed authentication for authenticated service endpoints.
+All API uses Supabase-backed user authentication for authenticated service endpoints.
 
-## OAuth flow
+## Bearer authentication
 
-The API exposes endpoints to start provider login, process callbacks, retrieve the current user and sign out.
-
-Protected endpoints expect a Bearer token:
+Protected endpoints expect:
 
 ```http
 Authorization: Bearer <access-token>
 ```
 
-## Linked accounts
+Auth routes provide the configured login/logout/current-user and linked-account flows.
 
-Authenticated users can query, link and unlink external accounts through the linked-account endpoints.
+## Luma Store ratings
+
+Public rating summaries need no user session. Reading, setting or deleting `/v2/lumastore/apps/:id/rating/me` requires an authenticated Luma Store user. The backend resolves that user from the bearer token.
+
+## Multiple backend projects
+
+The current server can keep Luma Store Supabase configuration separate from the generic Supabase client. This prevents Luma Store authentication/data configuration from implicitly replacing other All API services.
+
+GeoWeather code storage is a separate Appwrite-backed concern and its API key is server-only.
 
 ## Client security
 
-Public clients may use publishable/anonymous Supabase credentials where required. Never ship the Supabase service-role key, Arcade admin token, JWT signing secret or private wallet keys in Android, browser or desktop clients.
+Public clients may contain only public/publishable configuration. Never ship Supabase service-role credentials, Appwrite API keys, Arcade admin/JWT secrets or private wallet keys.

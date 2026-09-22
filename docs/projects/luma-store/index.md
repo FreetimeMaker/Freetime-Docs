@@ -1,25 +1,55 @@
 # Luma Store
 
-Luma Store is an app-store ecosystem focused on open-source/community sources and cross-platform app discovery.
+Luma Store is an open-source app-store ecosystem with an Android client, public web discovery, developer tools and platform-aware store metadata.
 
-## Repositories
+## Current architecture
 
-- [Android](https://github.com/FreetimeMaker/Luma-Store-Android)
-- [Website / Developer Dashboard](https://github.com/FreetimeMaker/Luma-Store-Website)
-- [Linux](https://github.com/FreetimeMaker/Luma-Store-Linux)
+| Component | Role |
+| --- | --- |
+| Luma Store Android | Native Android store client |
+| Luma Store Website | Public Discover pages and Developer Dashboard |
+| All API | Public v2 store API, including ratings and platform filtering |
+| Supabase | Store metadata, developer accounts, submissions, download statistics and related data |
 
 ## Android
 
-The Android client uses Kotlin and Jetpack Compose with Material 3/Material You. It supports multiple F-Droid-compatible sources, search, app management, source filtering, custom repositories, background updates and developer functionality.
+The Android client is written in Kotlin with Jetpack Compose. It supports Luma Store data together with F-Droid-compatible/community sources, search, app details, installed-app management and update workflows.
 
-## Developer dashboard
+The current dependency catalog uses Freetime Core/Design and the app is progressively moving shared UI behavior into Freetime Core.
 
-The web dashboard is used for submitting and managing apps. It supports developer verification, Fastlane metadata import, categories, update resubmission and submission status/timeline functionality.
+## Website and developer tools
 
-## Linux
+The website provides public app discovery and developer pages as well as the authenticated Developer Dashboard.
 
-The Linux client is built with Python 3 and GTK 3. It supports browsing/searching the store API and native DEB/RPM package workflows.
+Current developer functionality includes app submission/maintenance, status timelines, developer verification/invite flow, platform metadata for Android/Windows/Linux, download statistics, per-app and per-developer README badges, and developer-wide funding methods.
 
-## Backend
+Public app pages expose ratings and total download information without requiring a developer account.
 
-Luma Store metadata, authentication and submission workflows are backed by the Freetime backend infrastructure. Client applications should use public/publishable credentials only; privileged backend credentials must remain server-side.
+## Developer funding
+
+Funding is configured **per developer**, not per app. Supported profile fields currently include a general donation URL, Liberapay, OpenCollective, Bitcoin and Litecoin. The same funding methods can be displayed across all apps owned by that developer.
+
+## Downloads and badges
+
+Luma-hosted downloads are counted across published versions. The dashboard exposes all-time totals and can generate badges for an individual app or all apps belonging to a developer.
+
+## Store API
+
+All API 2.7 exposes Luma Store through the v2 contract:
+
+```text
+GET /v2/lumastore/apps
+GET /v2/lumastore/apps/:id
+GET /v2/lumastore/apps/:id/ratings
+GET /v2/lumastore/package-formats
+```
+
+Authenticated rating endpoints are documented in [All API](/projects/all-api/api-reference).
+
+## Continue
+
+- [Getting Started](/projects/luma-store/getting-started)
+- [Android](/projects/luma-store/android)
+- [Developer Dashboard](/projects/luma-store/developer-dashboard)
+- [Sources](/projects/luma-store/sources)
+- [Building Custom Clients](/projects/luma-store/custom-clients)

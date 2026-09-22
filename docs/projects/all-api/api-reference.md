@@ -1,58 +1,74 @@
 # API Reference
 
-All API groups its HTTP endpoints by service.
-
-## Base URL
-
-```text
-https://api.free-time.me
-```
-
-All endpoint paths below are relative to this public API origin.
-
-## Base path
-
-
-Most routes are available below `/v1`. Services that expose a v2 contract use `/v2`.
+Current backend package: **2.7.0**.
 
 ## Health
 
-### GET /v1/health
+```text
+GET /v1/health
+GET /v2/health
+```
 
-Use the health endpoint to verify that the API process is reachable before debugging a service-specific request.
+## Auth
+
+Both versioned routers expose authentication routes including login/logout and the configured Supabase authentication flow. Protected service operations use bearer authentication.
 
 ## GeoWeather
 
-### GET /v1/geoweather/subscriptions/plans
+```text
+GET  /v1/geoweather/subscriptions/plans
+POST /v1/geoweather/subscriptions/redeem
+GET  /v1/geoweather/subscriptions
+```
 
-Returns available subscription plans.
-
-### POST /v1/geoweather/subscriptions/redeem
-
-Redeems a subscription/code for the authenticated flow.
-
-### GET /v1/geoweather/subscriptions
-
-Returns subscription information.
+Equivalent service routing exists in v2. GeoWeather code storage/lookup is backed by Appwrite TablesDB in the current backend models.
 
 ## Wallora
 
-### GET /v1/wallora/wallpapers
+```text
+GET  /v1/wallora/wallpapers
+GET  /v1/wallora/wallpapers/:id
+POST /v1/wallora/wallpapers/:id/purchase
+POST /v1/wallora/wallpapers
+```
 
-Lists wallpapers.
+## Luma Store — v2
 
-### GET /v1/wallora/wallpapers/:id
+### Catalog
 
-Returns a wallpaper.
+```text
+GET /v2/lumastore/apps
+GET /v2/lumastore/apps/:id
+GET /v2/lumastore/package-formats
+```
 
-### POST /v1/wallora/wallpapers/:id/purchase
+List filters include `category`, `platform` and `search`. Linux package filtering additionally accepts `package_format` with `platform=Linux`.
 
-Starts/records a purchase flow.
+### Ratings
 
-## Sol Arcade
+```text
+GET    /v2/lumastore/apps/:id/ratings
+GET    /v2/lumastore/apps/:id/rating/me
+PUT    /v2/lumastore/apps/:id/rating/me
+DELETE /v2/lumastore/apps/:id/rating/me
+```
 
-Sol Arcade is exposed through the v2 API and includes challenge/login, session, pass payment/minting and play-management operations.
+The summary endpoint is public. The `/rating/me` endpoints require authentication. PUT accepts an integer rating from 1 through 5; developers cannot rate their own app.
+
+## MD-Blog — v2
+
+```text
+GET /v2/blog/posts
+GET /v2/blog/posts/:slug
+GET /v2/blog/categories
+```
+
+`/posts` supports category filtering and sorts by release timestamp. Individual posts include Markdown content. Responses use short public cache headers.
+
+## Sol Arcade — v2
+
+The v2 Arcade routes cover service info, wallet challenge/login, current session/pass, pass payment session/confirmation, play start, score recording/querying and admin setup.
 
 ## Errors
 
-Clients should handle HTTP status codes before assuming a JSON success shape. Authentication failures, validation errors and backend/provider failures are separate conditions and should not be collapsed into a generic empty result.
+Check HTTP status before reading a response as successful data. Authentication, validation, missing resources and upstream failures are separate states.

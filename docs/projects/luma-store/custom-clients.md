@@ -1,130 +1,60 @@
 # Building custom Luma Store clients
 
-Luma Store is not limited to the official Android, Linux and web clients. A custom client can consume the same public store data and implement its own user interface, platform integration or package workflow.
+Custom Android, desktop, CLI or web clients can consume the public Luma Store catalog without using the official UI.
 
-## Client responsibilities
+## Recommended API
 
-A client normally needs to:
-
-1. load the available store/source data;
-2. parse application and release metadata;
-3. select metadata for the user's language;
-4. display app lists, search results and app details;
-5. choose a release for the current platform;
-6. expose the download URL or perform the platform-specific installation flow;
-7. handle authentication only for operations that require a user account.
-
-Keep the network/data layer separate from the UI. This makes source parsing and API changes easier to test.
-
-## Application model
-
-Do not model an app as only a name and download URL. A client should be prepared to handle:
-
-- application/package identifier;
-- name and description;
-- icon and other media;
-- localized metadata;
-- categories;
-- source/repository information;
-- platform-specific releases;
-- version name and version code;
-- changelog;
-- download information and file metadata;
-- visibility/review state where exposed by the API.
-
-Fields can be optional. Clients should degrade gracefully instead of failing an entire listing because one optional metadata field is missing.
-
-## Localization
-
-When localized metadata is available, select it in this order:
-
-1. exact device/requested language;
-2. compatible language fallback where appropriate;
-3. the application's default metadata.
-
-Keep localization selection in the data layer so every screen displays the same language consistently.
-
-## Sources
-
-Luma Store can aggregate more than one source. Treat a source as a data provider rather than hard-coding a single repository into the UI.
-
-A robust source pipeline is:
+Use All API v2:
 
 ```text
-source
-  -> fetch
-  -> validate
-  -> parse
-  -> normalize
-  -> filter
-  -> present
+GET /v2/lumastore/apps
+GET /v2/lumastore/apps/:id
+GET /v2/lumastore/package-formats
+GET /v2/lumastore/apps/:id/ratings
 ```
 
-If one source fails, the client should report that source failure without making healthy sources unusable.
+The list endpoint accepts `category`, `platform` and `search`. Linux package filtering uses `platform=Linux&package_format=...`.
 
-See [Sources](/projects/luma-store/sources) for the source model and debugging stages.
+## Data model
 
-## Browsing apps
+Do not reduce an app to a name and URL. Preserve the application/package identifier, developer, description, category, media, repository/license data and the complete platform list. Platform rows can carry version/download metadata and Linux package format.
 
-Cache or retain normalized app objects after loading them. Search and category filters should operate on normalized metadata instead of repeatedly parsing the source response.
+Clients should ignore unknown optional fields and degrade gracefully when optional media or metadata is absent.
 
-Typical UI flow:
+## Ratings
+
+Rating summaries are public. Writing or deleting the current user's rating requires authentication:
 
 ```text
-Sources -> App list -> Search/filter -> App details -> Release -> Download/install
+GET    /v2/lumastore/apps/:id/rating/me
+PUT    /v2/lumastore/apps/:id/rating/me
+DELETE /v2/lumastore/apps/:id/rating/me
 ```
 
-## App details
+A submitted rating must be an integer from 1 to 5. The backend prevents a developer from rating their own app.
 
-An app-details view should be driven by the application identifier and should resolve its current metadata and available releases. Do not depend on list position or UI state as the permanent identifier.
+## Architecture
 
-## Releases and downloads
-
-Choose releases using explicit platform and version metadata. Before starting a download, validate that a usable download URL exists.
-
-A client that installs packages itself is also responsible for platform security rules and package verification. A browser-style client may instead hand the download to the operating system.
-
-## Authentication
-
-Public catalog browsing should not require credentials unless the backend explicitly protects that resource.
-
-For authenticated operations, use the supported Luma Store/Supabase authentication flow and keep session tokens out of logs and source control. Never embed privileged server credentials in a distributed client.
-
-## Submission and developer features
-
-Developer submission/review functionality is separate from ordinary store browsing. If a custom client implements developer functionality, follow the same submission lifecycle documented in [App submissions](/projects/luma-store/submissions).
-
-## Compatibility
-
-Custom clients should tolerate:
-
-- additional JSON fields;
-- missing optional fields;
-- new source types;
-- new platforms;
-- localized metadata they do not recognize;
-- applications without media or changelogs.
-
-Avoid binding parsing logic to the exact visual structure of an official Luma Store client.
-
-## Recommended architecture
+Keep source/API adapters separate from UI and installation logic:
 
 ```text
 UI
  |
-View/Application state
+Application state
  |
 Repository
- |------------------|
-Source adapters     Luma Store API/Auth
+ |--------------------|
+F-Droid adapters      Luma Store API
  |
 Normalized models
  |
 Platform download/install integration
 ```
 
-This keeps the client portable and allows Android, desktop, CLI or web clients to share the same conceptual data model.
+## Security
 
-## Next steps
+Public catalog browsing does not require privileged credentials. Never embed Supabase service-role keys or other server secrets in a distributed client.
 
-Read [Sources](/projects/luma-store/sources) for repository integration, [Android](/projects/luma-store/android) for the official Android implementation stack, and [Troubleshooting](/projects/luma-store/troubleshooting) when a source or listing is empty.
+## Compatibility
+
+Support additional JSON fields, missing optional fields, new platforms and future package formats without failing the entire catalog. Use stable app/package identifiers instead of list positions.
