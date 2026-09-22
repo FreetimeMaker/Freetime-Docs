@@ -1,33 +1,52 @@
 # Freetime Core
 
-Freetime Core is the shared Android library suite for Freetime Maker applications. It keeps common design, update, browser and donation behavior reusable while consuming apps remain independently installable and usable.
+Freetime Core is the shared, open-source Android library suite for Freetime Maker applications. The current release line is **1.10.x**. It centralizes reusable application infrastructure while consuming apps remain independently installable and do not require a Freetime account or Luma Store.
 
 ## Modules
 
-| Artifact | Purpose |
+| Module | Purpose |
 | --- | --- |
-| `freetime-core` | Common models, results and lightweight utilities |
-| `freetime-design` | Material You and Freetime's Liquid Glass design system |
-| `freetime-browser` | External and in-app URL routing |
-| `freetime-donations` | Donation models and reusable Compose UI |
+| `Core` | Shared models, result types, preferences and lightweight Android utilities |
+| `Design` | Standalone Freetime Compose design system, Liquid Glass, accessibility, layout and reusable controls |
+| `Browser` | External and app-owned in-app URL routing |
+| `Donations` | Donation models and reusable Compose UI built on Freetime Design |
+
+The repository also contains a `Sample` application demonstrating the modules together.
 
 ## Platform
 
-Freetime Core is built as a set of Android libraries.
-
+- **Current release:** 1.10.0
 - **Minimum SDK:** 24
 - **Compile SDK:** 37
 - **Kotlin:** 2.4.20
-- **Group:** `com.freetime`
 - **License:** GPL-3.0
 
-## Design principles
+## Freetime Design
 
-The libraries are designed so that consuming applications remain independent. Freetime Core does not require a Freetime account or Luma Store, and shared integrations use interfaces and callbacks instead of forcing a specific backend.
+Since 1.6, `Design` is its own Material-free UI foundation built with Compose UI/Foundation, Freetime tokens and Kyant Backdrop/Shapes. It owns its palette, typography, shapes, spacing, sizing, motion and glass tokens.
 
-The Design module follows Material color roles and provides the current Freetime/GeoWeather Liquid Glass system.
+The 1.10 release substantially expands Liquid Glass. The effect now follows the interaction and optical behavior used by SimpMusic more closely while keeping **Freetime's own tintable glass colors**. It includes adaptive backdrop blur, vibrancy, saturation, refraction, dynamic scrims, press highlights, shadows, recorded-backdrop luminance sampling and spring-driven navigation interactions.
+
+## App environment and accessibility
+
+`FreetimeApp` can own a shared `FreetimePreferencesController`, making appearance changes immediately available throughout the composition. Persisted settings include system/light/dark/OLED/time-based themes, automatic light/dark hours, reduced motion, reduced transparency, high contrast, browser mode and whether Liquid Glass is enabled.
+
+`FreetimeAccessibilitySettings()` can consume the controller supplied by `FreetimeApp` automatically.
+
+## Layout and navigation
+
+Freetime Design includes Material-free screen and navigation primitives such as `FreetimeScaffold`, tabs, floating action buttons, bottom sheets, adaptive bottom navigation/navigation rail and popup menus. The current bottom navigation uses a draggable Liquid Glass selection blob with spring snapping, velocity squash/stretch and press deformation.
+
+## Principles
+
+1. Consuming apps stay independently usable.
+2. No mandatory Freetime account or Luma Store dependency.
+3. Shared UI is not built on Material 3.
+4. Dependencies remain open-source and F-Droid-friendly.
+5. Shared infrastructure prefers callbacks and generic models over app-specific backends.
 
 ## Continue
 
 - [Getting Started](/projects/freetime-core/getting-started)
 - [Modules](/projects/freetime-core/modules)
+- [Design & Liquid Glass](/projects/freetime-core/design)
