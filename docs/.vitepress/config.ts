@@ -14,7 +14,6 @@ const projectItems = [
   { text: 'SuperSMP Companion', link: '/projects/supersmp-companion/' },
   { text: 'Freetime News', link: '/projects/freetime-news/' },
   { text: 'MD-Blog', link: '/projects/md-blog/' },
-  { text: 'Lumex Client', link: '/projects/lumex-client/' },
   { text: 'Multi AI Chat', link: '/projects/multi-ai-chat/' }
 ]
 
@@ -50,14 +49,6 @@ export default defineConfig({
     ],
 
     sidebar: [
-      {
-        text: 'Freetime Docs',
-        items: [
-          { text: 'Documentation home', link: '/' },
-          { text: 'Getting started', link: '/getting-started/' },
-          { text: 'Projects', link: '/projects/' }
-        ]
-      },
       {
         text: 'Freetime Core',
         collapsed: true,
@@ -138,16 +129,6 @@ export default defineConfig({
           { text: 'Getting Started', link: '/projects/md-blog/getting-started' },
           { text: 'Architecture', link: '/projects/md-blog/architecture' },
           { text: 'Troubleshooting', link: '/projects/md-blog/troubleshooting' }
-        ]
-      },
-      {
-        text: 'Lumex Client',
-        collapsed: true,
-        items: [
-          { text: 'Overview', link: '/projects/lumex-client/' },
-          { text: 'Getting Started', link: '/projects/lumex-client/getting-started' },
-          { text: 'Architecture', link: '/projects/lumex-client/architecture' },
-          { text: 'Troubleshooting', link: '/projects/lumex-client/troubleshooting' }
         ]
       },
       {
