@@ -65,7 +65,8 @@ export default defineConfig({
           { text: 'Overview', link: '/projects/freetime-core/' },
           { text: 'Getting Started', link: '/projects/freetime-core/getting-started' },
           { text: 'Modules', link: '/projects/freetime-core/modules' },
-          { text: 'Design & Liquid Glass', link: '/projects/freetime-core/design' }
+          { text: 'Design & Liquid Glass', link: '/projects/freetime-core/design' },
+          { text: 'FreetimeWarn', link: '/projects/freetime-core/freetime-warn' }
         ]
       },
       {

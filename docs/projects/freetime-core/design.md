@@ -98,3 +98,12 @@ FreetimeTheme {
 ## Reusable UI
 
 Beyond glass modifiers, Design provides Material-free layout, navigation, settings, state and control components. See [Modules](/projects/freetime-core/modules) for the current component groups.
+
+
+## FreetimeWarn integration
+
+The `FreetimeWarn` module depends on Freetime Design and composes its warning UI from `FreetimeDialog`, `FreetimeText` and `FreetimeButton`. This means warning dialogs inherit the same Freetime typography, colors and Liquid Glass surface behavior as other Design dialogs instead of introducing Material UI.
+
+The warning mechanism and warning copy are separate. Apps can provide current, app-specific wording through `FreetimeWarnContent` while retaining the shared Design presentation.
+
+See [FreetimeWarn](/projects/freetime-core/freetime-warn) for integration details.

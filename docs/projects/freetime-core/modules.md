@@ -5,7 +5,7 @@ Freetime Core is split into focused Android library modules so applications only
 ## Core
 
 ```text
-com.github.FreetimeMaker.Freetime-Core:Core:1.10.0
+com.github.FreetimeMaker.Freetime-Core:Core:1.10.1
 ```
 
 Provides shared models, result types, lightweight Android utilities and persisted Freetime preferences.
@@ -15,7 +15,7 @@ Provides shared models, result types, lightweight Android utilities and persiste
 ## Design
 
 ```text
-com.github.FreetimeMaker.Freetime-Core:Design:1.10.0
+com.github.FreetimeMaker.Freetime-Core:Design:1.10.1
 ```
 
 Freetime's standalone Compose UI system. It does **not** use Material 3 as its UI foundation.
@@ -73,7 +73,7 @@ Keep the backdrop source separate from foreground glass content to avoid shader 
 ## Browser
 
 ```text
-com.github.FreetimeMaker.Freetime-Core:Browser:1.10.0
+com.github.FreetimeMaker.Freetime-Core:Browser:1.10.1
 ```
 
 Provides URL routing without forcing a WebView implementation.
@@ -87,10 +87,20 @@ For app-owned WebView or Custom Tabs behavior, use in-app mode and provide the c
 ## Donations
 
 ```text
-com.github.FreetimeMaker.Freetime-Core:Donations:1.10.0
+com.github.FreetimeMaker.Freetime-Core:Donations:1.10.1
 ```
 
 Provides reusable donation models and Compose UI for links and wallet addresses. The host app retains control over link opening, browser preference and wallet-address behavior. Its UI uses Freetime Design rather than Material 3.
+
+## FreetimeWarn
+
+```text
+com.github.FreetimeMaker.Freetime-Core:FreetimeWarn:1.10.1
+```
+
+Provides Kotlin/Jetpack Compose warning notices built on Freetime Design. The public state API requires a non-default `appName`, rejects blank values, and supports `ONCE`, `ONCE_PER_VERSION` and `ALWAYS` display frequencies. Acknowledgement can be persisted with SharedPreferences and reset through the state API. Warning copy and the Learn more action remain host-controlled so policy-specific wording is not permanently coupled to the library.
+
+See [FreetimeWarn](/projects/freetime-core/freetime-warn) for the complete API and examples.
 
 ## Sample
 

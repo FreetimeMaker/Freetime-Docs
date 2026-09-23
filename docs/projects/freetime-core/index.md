@@ -10,12 +10,13 @@ Freetime Core is the shared, open-source Android library suite for Freetime Make
 | `Design` | Standalone Freetime Compose design system, Liquid Glass, accessibility, layout and reusable controls |
 | `Browser` | External and app-owned in-app URL routing |
 | `Donations` | Donation models and reusable Compose UI built on Freetime Design |
+| `FreetimeWarn` | Kotlin/Compose warning notices with mandatory app naming and persistent acknowledgement |
 
 The repository also contains a `Sample` application demonstrating the modules together.
 
 ## Platform
 
-- **Current release:** 1.10.0
+- **Current release:** 1.10.1
 - **Minimum SDK:** 24
 - **Compile SDK:** 37
 - **Kotlin:** 2.4.20
@@ -50,3 +51,4 @@ Freetime Design includes Material-free screen and navigation primitives such as 
 - [Getting Started](/projects/freetime-core/getting-started)
 - [Modules](/projects/freetime-core/modules)
 - [Design & Liquid Glass](/projects/freetime-core/design)
+- [FreetimeWarn](/projects/freetime-core/freetime-warn)
