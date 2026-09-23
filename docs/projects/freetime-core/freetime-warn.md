@@ -1,11 +1,13 @@
 # FreetimeWarn
 
+**Available since Freetime Core 1.11.0.**
+
 `FreetimeWarn` is a Kotlin and Jetpack Compose warning library in Freetime Core. It is inspired by the idea of FreeDroidWarn, but uses Freetime Design for its UI and deliberately keeps the warning mechanism separate from policy-specific text.
 
 ## Dependency
 
 ```kotlin
-implementation("com.github.FreetimeMaker.Freetime-Core:FreetimeWarn:1.10.1")
+implementation("com.github.FreetimeMaker.Freetime-Core:FreetimeWarn:1.11.0")
 ```
 
 The module exposes Freetime Design transitively and uses the same Compose/Freetime UI foundation as the rest of the library suite.

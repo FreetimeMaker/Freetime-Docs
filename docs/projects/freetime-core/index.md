@@ -1,6 +1,6 @@
 # Freetime Core
 
-Freetime Core is the shared, open-source Android library suite for Freetime Maker applications. The current release line is **1.10.x**. It centralizes reusable application infrastructure while consuming apps remain independently installable and do not require a Freetime account or Luma Store.
+Freetime Core is the shared, open-source Android library suite for Freetime Maker applications. The current release line is **1.11.x**. It centralizes reusable application infrastructure while consuming apps remain independently installable and do not require a Freetime account or Luma Store.
 
 ## Modules
 
@@ -16,7 +16,7 @@ The repository also contains a `Sample` application demonstrating the modules to
 
 ## Platform
 
-- **Current release:** 1.10.1
+- **Current release:** 1.11.0
 - **Minimum SDK:** 24
 - **Compile SDK:** 37
 - **Kotlin:** 2.4.20
@@ -26,7 +26,7 @@ The repository also contains a `Sample` application demonstrating the modules to
 
 Since 1.6, `Design` is its own Material-free UI foundation built with Compose UI/Foundation, Freetime tokens and Kyant Backdrop/Shapes. It owns its palette, typography, shapes, spacing, sizing, motion and glass tokens.
 
-The 1.10 release substantially expands Liquid Glass. The effect now follows the interaction and optical behavior used by SimpMusic more closely while keeping **Freetime's own tintable glass colors**. It includes adaptive backdrop blur, vibrancy, saturation, refraction, dynamic scrims, press highlights, shadows, recorded-backdrop luminance sampling and spring-driven navigation interactions.
+The 1.10 release substantially expanded Liquid Glass; 1.11 adds the FreetimeWarn module while retaining that Design foundation. The effect now follows the interaction and optical behavior used by SimpMusic more closely while keeping **Freetime's own tintable glass colors**. It includes adaptive backdrop blur, vibrancy, saturation, refraction, dynamic scrims, press highlights, shadows, recorded-backdrop luminance sampling and spring-driven navigation interactions.
 
 ## App environment and accessibility
 

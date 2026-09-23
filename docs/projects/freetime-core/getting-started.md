@@ -1,6 +1,6 @@
 # Getting Started
 
-Freetime Core 1.10.1 is split into `Core`, `Design`, `Browser`, `Donations` and `FreetimeWarn`. Include only the modules an app needs.
+Freetime Core 1.11.0 is split into `Core`, `Design`, `Browser`, `Donations` and `FreetimeWarn`. Include only the modules an app needs.
 
 ## Dependency
 
@@ -8,11 +8,11 @@ The current dependency coordinates used by Freetime Core are:
 
 ```kotlin
 dependencies {
-    implementation("com.github.FreetimeMaker.Freetime-Core:Core:1.10.1")
-    implementation("com.github.FreetimeMaker.Freetime-Core:Design:1.10.1")
-    implementation("com.github.FreetimeMaker.Freetime-Core:Browser:1.10.1")
-    implementation("com.github.FreetimeMaker.Freetime-Core:Donations:1.10.1")
-    implementation("com.github.FreetimeMaker.Freetime-Core:FreetimeWarn:1.10.1")
+    implementation("com.github.FreetimeMaker.Freetime-Core:Core:1.11.0")
+    implementation("com.github.FreetimeMaker.Freetime-Core:Design:1.11.0")
+    implementation("com.github.FreetimeMaker.Freetime-Core:Browser:1.11.0")
+    implementation("com.github.FreetimeMaker.Freetime-Core:Donations:1.11.0")
+    implementation("com.github.FreetimeMaker.Freetime-Core:FreetimeWarn:1.11.0")
 }
 ```
 
