@@ -1,40 +1,44 @@
 # All API
 
-All API is the central Node.js backend for Freetime Maker services. The current backend package version is **2.7.0** and uses Express 5.
+All API is the central Node.js backend for Freetime Maker services. The current backend package version is **2.8.0** and uses Express 5.
 
 ## API versions
 
-The server mounts legacy-compatible v1 routes under `/v1` and the current v2 router under `/v2`.
+The API is mounted under `/api/v1` and mirrored under `/api/v2`. Sol Arcade is available on v2.
 
 ## Current services
 
 | Service | Current role |
 | --- | --- |
-| Auth | Supabase OAuth/session and linked-account routes |
+| Auth | Supabase OAuth, sessions and linked accounts |
 | GeoWeather | Subscription plans, subscriptions and code redemption |
-| Wallora | Wallpaper catalog and purchase operations |
-| Sol Arcade | Wallet challenge/login, pass payment/minting, plays and scores |
-| Luma Store | Public catalog, platform filtering and ratings |
-| MD-Blog | Blog posts, post Markdown and categories |
+| Wallora | Wallpaper catalog and purchases |
+| F-Port | Open-source app directory and cloud-synced likes |
+| Sol Arcade | Wallet login, on-chain pass payments, compressed NFT passes, plays and scores |
 
-GeoWeather code lookup/redemption models now use Appwrite TablesDB, while other backend areas continue to use their configured data services.
+## Runtime and data
 
-## v2 highlights
+The backend is built for Vercel serverless deployment and can also run directly with Node.js. Supabase/PostgreSQL stores the service data with Row Level Security where applicable. The backend also includes Appwrite support where individual services require it.
+
+The v2 Sol Arcade flow uses wallet challenge/signature authentication, JWT sessions, Solana payment confirmation and compressed NFT pass minting. A pass has a configurable play limit and each game start consumes one play.
+
+## Selected endpoints
 
 ```text
-GET /v2/health
-GET /v2/lumastore/apps
-GET /v2/lumastore/apps/:id
-GET /v2/blog/posts
-GET /v2/blog/posts/:slug
-GET /v2/blog/categories
+GET  /api/v1/health
+GET  /api/v1/auth/me
+GET  /api/v1/geoweather/subscriptions/plans
+GET  /api/v1/wallora/wallpapers
+GET  /api/v1/fport/apps
+GET  /api/v2/arcade
+POST /api/v2/arcade/login
+POST /api/v2/arcade/pass/confirm
+POST /api/v2/arcade/play/start
 ```
 
-Sol Arcade remains a v2 service.
+## Security
 
-## Runtime
-
-The API is designed for Vercel/serverless deployment but can also be started directly with Node. The entry point normalizes bundled router exports to handle Vercel/Rolldown CommonJS interop.
+Service-role keys, Solana mint keys, Arcade JWT/admin secrets and other privileged credentials are server-only. Clients should authenticate through the exposed API flows rather than receiving privileged backend keys.
 
 ## Continue
 

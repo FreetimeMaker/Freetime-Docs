@@ -1,50 +1,47 @@
 # Freetime Core
 
-Freetime Core is the shared, open-source Android library suite for Freetime Maker applications. The current release line is **1.11.x**. It centralizes reusable application infrastructure while consuming apps remain independently installable and do not require a Freetime account or Luma Store.
+Freetime Core is the shared, open-source Android library suite for Freetime Maker applications. The current release is **3.0.0**.
+
+## Current direction
+
+Freetime Core 3.x uses **Material 3 Expressive + Material You** as the UI foundation. Liquid Glass is intentionally limited to the dedicated floating bottom navigation instead of being a second general-purpose component system.
+
+- Material 3 Expressive components and motion
+- Material You dynamic colors on Android 12+
+- automatic light mode from 07:00 and dark mode from 19:00
+- optional OLED, system, light, dark and time-based theme modes
+- Liquid Glass for the floating bottom navigation
+- minimum SDK 24 and compile SDK 37
+- F-Droid-friendly open-source dependencies
 
 ## Modules
 
 | Module | Purpose |
 | --- | --- |
-| `Core` | Shared models, result types, preferences and lightweight Android utilities |
-| `Design` | Standalone Freetime Compose design system, Liquid Glass, accessibility, layout and reusable controls |
-| `Browser` | External and app-owned in-app URL routing |
-| `Donations` | Donation models and reusable Compose UI built on Freetime Design |
-| `FreetimeWarn` | Kotlin/Compose warning notices with mandatory app naming and persistent acknowledgement |
+| `Core` | Shared models, results, SDK metadata and Android helpers |
+| `Design` | Material 3 Expressive/Material You theme helpers and floating bottom-navigation glass |
+| `Browser` | External and in-app URL routing and browser UI |
+| `Donations` | Donation targets, wallet helpers and Compose donation UI |
+| `FreetimeWarn` | Reusable acknowledgement/warning flow |
+| `Sample` | Example application |
 
-The repository also contains a `Sample` application demonstrating the modules together.
+## 3.0 migration
 
-## Platform
+Generic 2.x Liquid Glass APIs such as `Modifier.liquidGlass()`, `LiquidGlassContainer`, `LiquidGlassIconButton` and `LiquidGlassRoot` are no longer the supported UI direction. Apps should use Material 3 directly for normal surfaces and `FloatingBottomNavigationGlassRoot` with `FloatingBottomNavigationBar` for the floating navigation.
 
-- **Current release:** 1.11.0
-- **Minimum SDK:** 24
-- **Compile SDK:** 37
-- **Kotlin:** 2.4.20
-- **License:** GPL-3.0
+The floating bar follows the SimpMusic-style layout with a capsule container, sliding frosted selection pill and optional separate circular search action.
 
-## Freetime Design
+## Installation
 
-Since 1.6, `Design` is its own Material-free UI foundation built with Compose UI/Foundation, Freetime tokens and Kyant Backdrop/Shapes. It owns its palette, typography, shapes, spacing, sizing, motion and glass tokens.
+Freetime Core is distributed as JitPack multi-module artifacts:
 
-The 1.10 release substantially expanded Liquid Glass; 1.11 adds the FreetimeWarn module while retaining that Design foundation. The effect now follows the interaction and optical behavior used by SimpMusic more closely while keeping **Freetime's own tintable glass colors**. It includes adaptive backdrop blur, vibrancy, saturation, refraction, dynamic scrims, press highlights, shadows, recorded-backdrop luminance sampling and spring-driven navigation interactions.
-
-## App environment and accessibility
-
-`FreetimeApp` can own a shared `FreetimePreferencesController`, making appearance changes immediately available throughout the composition. Persisted settings include system/light/dark/OLED/time-based themes, automatic light/dark hours, reduced motion, reduced transparency, high contrast, browser mode and whether Liquid Glass is enabled.
-
-`FreetimeAccessibilitySettings()` can consume the controller supplied by `FreetimeApp` automatically.
-
-## Layout and navigation
-
-Freetime Design includes Material-free screen and navigation primitives such as `FreetimeScaffold`, tabs, floating action buttons, bottom sheets, adaptive bottom navigation/navigation rail and popup menus. The current bottom navigation uses a draggable Liquid Glass selection blob with spring snapping, velocity squash/stretch and press deformation.
-
-## Principles
-
-1. Consuming apps stay independently usable.
-2. No mandatory Freetime account or Luma Store dependency.
-3. Shared UI is not built on Material 3.
-4. Dependencies remain open-source and F-Droid-friendly.
-5. Shared infrastructure prefers callbacks and generic models over app-specific backends.
+```kotlin
+implementation("com.github.FreetimeMaker.Freetime-Core:Core:3.0.0")
+implementation("com.github.FreetimeMaker.Freetime-Core:Design:3.0.0")
+implementation("com.github.FreetimeMaker.Freetime-Core:Browser:3.0.0")
+implementation("com.github.FreetimeMaker.Freetime-Core:Donations:3.0.0")
+implementation("com.github.FreetimeMaker.Freetime-Core:FreetimeWarn:3.0.0")
+```
 
 ## Continue
 

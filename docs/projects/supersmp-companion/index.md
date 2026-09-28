@@ -1,23 +1,21 @@
 # SuperSMP Companion
 
-SuperSMP Companion is an unofficial Android companion application for the SuperSMP Minecraft server.
+SuperSMP Companion is an Android companion application for the SuperSMP Minecraft server.
 
-**Repository:** [FreetimeMaker/SuperSMP-Companion-App](https://github.com/FreetimeMaker/SuperSMP-Companion-App)
+**Repository:** [FreetimeMaker/SuperSMP-Companion](https://github.com/FreetimeMaker/SuperSMP-Companion)
 
 ## Features
 
-- In-app access to voting
-- Integrated shop
-- Interactive server map
-- Modern Jetpack Compose interface
-- Material 3 and dynamic colors
-- Dark/light themes and OLED mode
-- Privacy-focused embedded web content with tracker blocking
+- in-app access to SuperSMP voting
+- integrated official SuperSMP shop
+- integrated official SuperSMP map
+- native Android navigation around the companion features
+- Jetpack Compose and Material 3 UI
 
-## Technology
+## Android stack
 
-The application is Kotlin-first and uses Jetpack Compose. It supports Android API 24 and newer.
+The current project uses Android Gradle Plugin 9.0.0, Jetpack Compose and Material 3. The dependency catalog currently tracks AndroidX Core 1.15.0, Lifecycle 2.8.4 and Activity Compose 1.9.1.
 
-## Distribution and translations
+## Distribution
 
-The app is published through GitHub releases and F-Droid-compatible distribution. Translation work is maintained through the project's translation workflow.
+The app is distributed through GitHub Releases and F-Droid. The package on F-Droid is `com.freetime.ssmpc`.

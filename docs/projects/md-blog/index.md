@@ -6,18 +6,29 @@ MD-Blog is a lightweight Markdown publishing platform for blogs, changelogs and 
 
 ## Features
 
-- Markdown files rendered as web pages
-- Automatic post discovery
-- Readable slug-based URLs
-- Reusable templates
-- Light and dark themes
-- Vercel deployment
+- Markdown files rendered to HTML with Marked
+- automatic post discovery from `public/blogs`
+- readable filename-based slugs
+- reusable homepage and post templates
+- light and dark themes
+- Vercel-ready routing
 
-## Content
+## Content structure
 
-Blog posts live in `public/blogs`. The homepage content is Markdown-based as well.
+```text
+api/
+  index.js
+  blog.js
+  blog/[slug].js
+public/
+  blogs/
+  md/index.md
+  views/
+  styles/
+vercel.json
+```
 
-A post is created by adding a Markdown file:
+Create a post by adding a Markdown file to `public/blogs`. A level-one heading becomes the post title; otherwise a title is generated from the filename.
 
 ```md
 # My First Post
@@ -25,4 +36,8 @@ A post is created by adding a Markdown file:
 Post content goes here.
 ```
 
-The filename becomes the post URL slug.
+The example above is available under `/blog/my-first-post`.
+
+## Deployment
+
+The repository includes Vercel routing. The homepage is sourced from `public/md/index.md`, `/blog` lists posts and `/blog/<slug>` renders an individual post.
