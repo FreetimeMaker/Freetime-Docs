@@ -1,27 +1,40 @@
 # Authentication
 
-All API uses Supabase-backed user authentication for authenticated service endpoints.
+All API uses Supabase-backed user authentication for authenticated service endpoints and can also receive matching VCS provider credentials for Luma Store release resolution.
 
 ## Bearer authentication
 
-Protected endpoints expect:
+Protected All API endpoints expect:
 
 ```http
 Authorization: Bearer <access-token>
 ```
 
-Auth routes provide the configured login/logout/current-user and linked-account flows.
+Auth routes provide login/logout/current-user and linked-account flows.
 
-## Luma Store ratings
+## VCS provider tokens
 
-Public rating summaries need no user session. Reading, setting or deleting `/v2/lumastore/apps/:id/rating/me` requires an authenticated Luma Store user. The backend resolves that user from the bearer token.
+The Luma Store source resolver can receive a forge OAuth token using:
 
-## Multiple backend projects
+```http
+Authorization: Bearer <provider-token>
+X-VCS-Provider: github
+```
 
-The current server can keep Luma Store Supabase configuration separate from the generic Supabase client. This prevents Luma Store authentication/data configuration from implicitly replacing other All API services.
+Supported provider identities are GitHub, GitLab and Codeberg (`custom:codeberg` is normalized to Codeberg). The provider token is forwarded only when the provider matches the repository being resolved.
 
-GeoWeather code storage is a separate Appwrite-backed concern and its API key is server-only.
+This allows release lookups to use the signed-in user's forge account and avoids depending on anonymous API request quotas.
+
+## Codeberg
+
+Luma Store's Supabase OAuth integration requests the Codeberg scopes needed for identity and repository verification:
+
+```text
+openid profile email read:user read:repository write:repository
+```
+
+Developer submissions require a public repository and verify that the authenticated Codeberg identity owns it or has push/admin access.
 
 ## Client security
 
-Public clients may contain only public/publishable configuration. Never ship Supabase service-role credentials, Appwrite API keys, Arcade admin/JWT secrets or private wallet keys.
+Public clients may contain only public/publishable configuration. Never expose Supabase service-role credentials, Appwrite API keys, Arcade admin/JWT secrets, private wallet keys or unrelated provider tokens.

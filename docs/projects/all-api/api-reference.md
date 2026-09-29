@@ -1,69 +1,69 @@
 # API Reference
 
-Current backend package: **2.7.0**.
+Current backend package: **2.8.0**.
 
 ## Health
 
 ```text
-GET /v1/health
-GET /v2/health
+GET /api/v1/health
+GET /api/v2/health
 ```
 
 ## Auth
 
-Both versioned routers expose authentication routes including login/logout and the configured Supabase authentication flow. Protected service operations use bearer authentication.
+Both versioned routers expose Supabase authentication routes for login/logout, the current user and linked accounts. Protected service operations use bearer authentication.
 
 ## GeoWeather
 
 ```text
-GET  /v1/geoweather/subscriptions/plans
-POST /v1/geoweather/subscriptions/redeem
-GET  /v1/geoweather/subscriptions
+GET  /api/v1/geoweather/subscriptions/plans
+POST /api/v1/geoweather/subscriptions/redeem
+GET  /api/v1/geoweather/subscriptions
 ```
 
-Equivalent service routing exists in v2. GeoWeather code storage/lookup is backed by Appwrite TablesDB in the current backend models.
+Equivalent service routing exists in v2.
 
 ## Wallora
 
 ```text
-GET  /v1/wallora/wallpapers
-GET  /v1/wallora/wallpapers/:id
-POST /v1/wallora/wallpapers/:id/purchase
-POST /v1/wallora/wallpapers
+GET  /api/v1/wallora/wallpapers
+GET  /api/v1/wallora/wallpapers/:id
+POST /api/v1/wallora/wallpapers/:id/purchase
+POST /api/v1/wallora/wallpapers
+```
+
+## F-Port
+
+```text
+GET  /api/v1/fport/apps
+GET  /api/v1/fport/apps/:id
+POST /api/v1/fport/apps/:id/like
+POST /api/v1/fport/apps
 ```
 
 ## Luma Store — v2
 
-### Catalog
+### Catalog and ratings
 
 ```text
-GET /v2/lumastore/apps
-GET /v2/lumastore/apps/:id
-GET /v2/lumastore/package-formats
+GET    /api/v2/lumastore/apps
+GET    /api/v2/lumastore/apps/:id
+GET    /api/v2/lumastore/apps/:id/ratings
+GET    /api/v2/lumastore/apps/:id/rating/me
+PUT    /api/v2/lumastore/apps/:id/rating/me
+DELETE /api/v2/lumastore/apps/:id/rating/me
+GET    /api/v2/lumastore/package-formats
 ```
 
-List filters include `category`, `platform` and `search`. Linux package filtering additionally accepts `package_format` with `platform=Linux`.
-
-### Ratings
+### Tracked release source resolver
 
 ```text
-GET    /v2/lumastore/apps/:id/ratings
-GET    /v2/lumastore/apps/:id/rating/me
-PUT    /v2/lumastore/apps/:id/rating/me
-DELETE /v2/lumastore/apps/:id/rating/me
+GET /api/v2/lumastore/sources/resolve?url=<repository-or-direct-url>&platform=<Linux|Android|Windows>
 ```
 
-The summary endpoint is public. The `/rating/me` endpoints require authentication. PUT accepts an integer rating from 1 through 5; developers cannot rate their own app.
+The resolver accepts GitHub, GitLab and Codeberg repository URLs plus arbitrary direct HTTPS download URLs. Forge sources resolve the latest release and return platform-classified assets; direct URLs return one artifact.
 
-## MD-Blog — v2
-
-```text
-GET /v2/blog/posts
-GET /v2/blog/posts/:slug
-GET /v2/blog/categories
-```
-
-`/posts` supports category filtering and sorts by release timestamp. Individual posts include Markdown content. Responses use short public cache headers.
+Clients can pass the matching VCS provider OAuth token as a bearer token together with `X-VCS-Provider`. All API forwards credentials only when that provider matches the source. This lets authenticated GitHub/GitLab/Codeberg requests use the user's provider account rather than anonymous API quotas.
 
 ## Sol Arcade — v2
 
@@ -71,4 +71,4 @@ The v2 Arcade routes cover service info, wallet challenge/login, current session
 
 ## Errors
 
-Check HTTP status before reading a response as successful data. Authentication, validation, missing resources and upstream failures are separate states.
+Check HTTP status before treating a response as successful data. Authentication, validation, missing resources and upstream provider failures are separate states.
