@@ -21,7 +21,7 @@
 
 3. Expect HTTP **200** with the JSON body `{"status":"ok"}` from the directly mounted handler. If you set `PORT`, use that port instead. This proves only that the Express process responds, not that its database or release providers work.
 
-Need help? Start with [Troubleshooting](/projects/all-api/troubleshooting).
+Need help? Start with [Troubleshooting](./troubleshooting.md).
 
 All API has separate backend and frontend repositories. The inspected backend package is **2.8.1**.
 
@@ -62,10 +62,10 @@ Copy `.env.example` to a local environment file, set `API_BASE` to the backend o
 
 Clients in the inspected sources use `https://api.free-time.me` as the backend origin. Append `/v1` or `/v2`, not `/api/v2`. Next.js routes such as `/api/proxy/v2/health` and `/api/luma/apps` belong to the frontend and are separate contracts. Production rewrites/aliases are deployment-specific and were not verified here.
 
-::: danger
+::: callout danger
 Never expose service-role credentials, OAuth client secrets, email keys or webhook secrets in browser or Android configuration.
 :::
 
 ## Next
 
-Read [Using the API](/projects/all-api/using-the-api), [API Reference](/projects/all-api/api-reference) and [Development](/projects/all-api/development).
+Read [Using the API](./using-the-api.md), [API Reference](./api-reference.md) and [Development](./development.md).

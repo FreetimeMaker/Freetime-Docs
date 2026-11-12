@@ -22,7 +22,7 @@
 
    Expect HTTP **200** and HTML. No backend call is required by this homepage handler. Use your chosen `PORT` if different.
 
-Need help? See [Troubleshooting](/projects/md-blog/troubleshooting).
+Need help? See [Troubleshooting](./troubleshooting.md).
 
 ## Local setup
 

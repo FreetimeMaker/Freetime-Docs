@@ -16,7 +16,7 @@
 2. Open the right-side chat tool window and choose that provider and a model in its model selector. Model selection is in the tool window, not the API-key settings page.
 3. Enter `Reply with a short greeting.` and click **Send**. Expect your prompt and a provider response in the conversation; exact wording is not deterministic. This sends data to that provider and may incur charges. Do not use private code for this test.
 
-The bundled model choices are historical. If none is available to your account, this source revision needs a model-list update before this quick start can succeed; entering a valid key alone cannot fix that. See [Troubleshooting](/projects/multi-ai-chat/troubleshooting).
+The bundled model choices are historical. If none is available to your account, this source revision needs a model-list update before this quick start can succeed; entering a valid key alone cannot fix that. See [Troubleshooting](./troubleshooting.md).
 
 ## Build from source
 

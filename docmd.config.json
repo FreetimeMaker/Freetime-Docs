@@ -1,0 +1,58 @@
+{
+  "title": "Freetime Docs",
+  "src": "./docs",
+  "out": "./site",
+  "url": "https://docs.free-time.me",
+  "base": "/",
+  "logo": {
+      "light": "assets/images/icon.png",
+      "href": "/",
+      "alt": "Freetime Maker Logo",
+      "height": "32px"
+    },
+    "favicon": "assets/images/favicon.ico",
+  "theme": {
+    "appearance": "system",
+    "copyWidgets": {
+      "enabled": false
+    },
+    "name": "summer"
+  },
+  "layout": {
+    "sidebar": {
+      "collapsible": true,
+      "defaultCollapsed": false
+    },
+    "menubar": {
+      "enabled": true,
+      "right": [
+        {
+          "title": "GitHub",
+          "path": "https://github.com/FreetimeMaker/Freetime-Docs",
+          "icon": "github",
+          "external": true
+        }
+      ]
+    },
+    "optionsMenu": {
+      "components": {
+        "themeSwitch": true,
+        "sponsor": "https://donation.free-time.me"
+      }
+    }
+  },
+  "versions": {
+      "current": "v2",           
+      "position": "sidebar-top", 
+      "all": [
+        { "id": "v2", "dir": "docs",    "label": "v2.x (Latest)" },
+        { "id": "v1", "dir": "docs-v1", "label": "v1.x" }
+      ]
+    },
+  "plugins": {
+    "ai": false
+  },
+  "markdown": {
+    "breaks": false
+  }
+}

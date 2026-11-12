@@ -1,23 +1,28 @@
 # Getting Started
 
-Freetime Docs is the central technical documentation for maintained Freetime Maker projects.
+Freetime Docs provides setup guides, architecture notes and source links for seven Freetime Maker projects. The current documentation is rendered by **docmd** with the Summer theme.
 
 ## Choose a project
 
-Start from the [Projects overview](/projects/) and select the application or service you are working with.
+Open the [Projects overview](../projects/index.md) to choose an application, library or service. Each project overview links to its source repositories and practical starting points. Setup and troubleshooting pages distinguish required prerequisites from optional tools and publishing credentials.
 
-## Documentation structure
+## Find your way around
 
-Projects use the same model where applicable: Getting Started, User Guide/Features, Configuration, Architecture, Development, API/Backend, Troubleshooting and Releases.
+The sidebar lists **Getting Started**, **Overview**, **Projects** and the seven project groups. Expand a group to browse its guides. Use the page outline to jump between headings on longer pages, and the documentation search to find a topic across the current documentation.
 
-## Navigation and options
-
-The sidebar begins with **Documentation version**, followed by **Getting Started**, the overview and the project documentation. On smaller screens, choose **Menu** to open it. The right-hand **On this page** outline links to sections within the current guide.
-
-The separate section bar links to Documentation, Projects and the source repository. Use the search in the header or **Ctrl+K** / **⌘K** to find a topic.
-
-Open **Options** in the header to choose System, Light or Dark appearance and the reading language. German introductory pages are available; the technical project guides remain in English. Code blocks have their own copy button. No AI assistant or whole-page copy widgets are enabled.
+The Summer theme provides native navigation, search and code-block copy controls. Appearance follows your system by default; use the theme switch to choose light or dark mode. The GitHub link opens the documentation repository. AI integration and whole-page copy widgets are disabled in this site's configuration.
 
 ## Documentation versions
 
-Docs versions are independent from application releases. The selector at the very top of the sidebar contains only the current version and recorded past versions. It keeps the current page when that page exists in the selected version; otherwise it opens that version's overview. Each archive has its own navigation based on its actual files.
+Use the native version selector at the top of the sidebar to choose **v2.x (Latest)** or the **v1.x** archive. Documentation versions are independent from application releases. Internal guide links stay within the selected documentation context; repository links lead to the external source code.
+
+## Read the source context
+
+Project overviews include a static **Source review** section with the recorded review date, actual scope, inspected revisions and file links. These manually maintained records are independent of documentation edits and builds. They do not certify every guide, published release, successful build or live deployment.
+
+Version numbers in project pages describe the inspected source state, not necessarily the latest downloadable release. Follow the source links when comparing your checkout or deployment with a guide.
+
+## Next steps
+
+- [Browse all projects](../projects/index.md).
+- [Return to the documentation overview](../index.md).

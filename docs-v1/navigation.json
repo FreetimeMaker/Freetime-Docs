@@ -1,0 +1,210 @@
+[
+  {
+    "title": "Getting Started",
+    "path": "/getting-started/"
+  },
+  {
+    "title": "Overview",
+    "path": "/"
+  },
+  {
+    "title": "Projects",
+    "path": "/projects/"
+  },
+  {
+    "title": "All API",
+    "path": "/projects/all-api/",
+    "children": [
+      {
+        "title": "Getting Started",
+        "path": "/projects/all-api/getting-started/"
+      },
+      {
+        "title": "Using All API",
+        "path": "/projects/all-api/using-the-api/"
+      },
+      {
+        "title": "API Reference",
+        "path": "/projects/all-api/api-reference/"
+      },
+      {
+        "title": "Authentication",
+        "path": "/projects/all-api/authentication/"
+      },
+      {
+        "title": "Development",
+        "path": "/projects/all-api/development/"
+      },
+      {
+        "title": "Troubleshooting",
+        "path": "/projects/all-api/troubleshooting/"
+      }
+    ]
+  },
+  {
+    "title": "Freetime Core",
+    "path": "/projects/freetime-core/",
+    "children": [
+      {
+        "title": "Getting Started",
+        "path": "/projects/freetime-core/getting-started/"
+      },
+      {
+        "title": "Modules",
+        "path": "/projects/freetime-core/modules/"
+      },
+      {
+        "title": "Design & Liquid Glass",
+        "path": "/projects/freetime-core/design/"
+      },
+      {
+        "title": "FreetimeWarn",
+        "path": "/projects/freetime-core/freetime-warn/"
+      },
+      {
+        "title": "Troubleshooting",
+        "path": "/projects/freetime-core/troubleshooting/"
+      }
+    ]
+  },
+  {
+    "title": "GeoWeather",
+    "path": "/projects/geoweather/",
+    "children": [
+      {
+        "title": "Getting Started",
+        "path": "/projects/geoweather/getting-started/"
+      },
+      {
+        "title": "Installation & Build",
+        "path": "/projects/geoweather/installation/"
+      },
+      {
+        "title": "Features",
+        "path": "/projects/geoweather/features/"
+      },
+      {
+        "title": "Configuration",
+        "path": "/projects/geoweather/configuration/"
+      },
+      {
+        "title": "Architecture",
+        "path": "/projects/geoweather/architecture/"
+      },
+      {
+        "title": "Troubleshooting",
+        "path": "/projects/geoweather/troubleshooting/"
+      }
+    ]
+  },
+  {
+    "title": "Luma Store",
+    "path": "/projects/luma-store/",
+    "children": [
+      {
+        "title": "Getting Started",
+        "path": "/projects/luma-store/getting-started/"
+      },
+      {
+        "title": "Android client",
+        "path": "/projects/luma-store/android/"
+      },
+      {
+        "title": "Developer Dashboard",
+        "path": "/projects/luma-store/developer-dashboard/"
+      },
+      {
+        "title": "Linux client",
+        "path": "/projects/luma-store/linux/"
+      },
+      {
+        "title": "Sources",
+        "path": "/projects/luma-store/sources/"
+      },
+      {
+        "title": "App submissions",
+        "path": "/projects/luma-store/submissions/"
+      },
+      {
+        "title": "Building custom Luma Store clients",
+        "path": "/projects/luma-store/custom-clients/"
+      },
+      {
+        "title": "Troubleshooting",
+        "path": "/projects/luma-store/troubleshooting/"
+      }
+    ]
+  },
+  {
+    "title": "SuperSMP Companion",
+    "path": "/projects/supersmp-companion/",
+    "children": [
+      {
+        "title": "Getting Started",
+        "path": "/projects/supersmp-companion/getting-started/"
+      },
+      {
+        "title": "Development",
+        "path": "/projects/supersmp-companion/development/"
+      },
+      {
+        "title": "Troubleshooting",
+        "path": "/projects/supersmp-companion/troubleshooting/"
+      }
+    ]
+  },
+  {
+    "title": "Freetime News",
+    "path": "/projects/freetime-news/",
+    "children": [
+      {
+        "title": "Getting Started",
+        "path": "/projects/freetime-news/getting-started/"
+      },
+      {
+        "title": "Development",
+        "path": "/projects/freetime-news/development/"
+      },
+      {
+        "title": "Troubleshooting",
+        "path": "/projects/freetime-news/troubleshooting/"
+      }
+    ]
+  },
+  {
+    "title": "MD-Blog",
+    "path": "/projects/md-blog/",
+    "children": [
+      {
+        "title": "Getting Started",
+        "path": "/projects/md-blog/getting-started/"
+      },
+      {
+        "title": "Architecture",
+        "path": "/projects/md-blog/architecture/"
+      },
+      {
+        "title": "Troubleshooting",
+        "path": "/projects/md-blog/troubleshooting/"
+      }
+    ]
+  },
+  {
+    "title": "Multi AI Chat",
+    "path": "/projects/multi-ai-chat/",
+    "children": [
+      {
+        "title": "Getting Started",
+        "path": "/projects/multi-ai-chat/getting-started/"
+      },
+      {
+        "title": "Development",
+        "path": "/projects/multi-ai-chat/development/"
+      },
+      {
+        "title": "Troubleshooting",
+        "path": "/projects/multi-ai-chat/troubleshooting/"
+      }
+    ]
+  }
+]

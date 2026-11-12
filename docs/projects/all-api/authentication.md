@@ -4,7 +4,7 @@ All API uses Supabase authentication. Distinguish a Supabase user access token f
 
 ## User authentication
 
-Both versioned routers expose login, logout, callback, current-user and linked-account routes. See the [API Reference](/projects/all-api/api-reference) for methods and paths.
+Both versioned routers expose login, logout, callback, current-user and linked-account routes. See the [API Reference](./api-reference.md) for methods and paths.
 
 Protected operations expect:
 

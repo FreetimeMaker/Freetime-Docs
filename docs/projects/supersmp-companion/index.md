@@ -2,11 +2,21 @@
 title: SuperSMP Companion
 ---
 
-<ProjectHeader project="supersmp-companion" />
+# SuperSMP Companion
+
+An unofficial Android companion for the SuperSMP community.
+
+**Technologies:** Android, Community, Companion
+
+[Get started](./getting-started.md) · [Source code](https://github.com/FreetimeMaker/SuperSMP-Companion-App)
+
+Version numbers below describe inspected source, not necessarily the latest published release.
 
 ## Find your starting point
 
-<ProjectPaths project="supersmp-companion" />
+- [Use the companion](./getting-started.md) — Explore server status, coordinates and community links.
+- [Build from source](./development.md) — Configure and build the Android application.
+- [Resolve a problem](./troubleshooting.md) — Check connectivity and external service limitations.
 
 SuperSMP Companion is a free, open-source **unofficial** Android companion app for the SuperSMP Minecraft server. It is not affiliated with or endorsed by the server.
 
@@ -25,7 +35,7 @@ The local Android build declares **2.0.1** (version code **23**), with applicati
 - settings, changelog and donation screens
 - Compose navigation and Material 3 UI
 
-::: info Remote service availability
+::: callout info Remote service availability
 Shop, map and voting pages are remote services, not native implementations of those services. Their availability depends on the upstream sites.
 :::
 
@@ -41,6 +51,28 @@ The README links to [GitHub Releases](https://github.com/FreetimeMaker/SuperSMP-
 
 ## Continue
 
-- [Getting Started](./getting-started)
-- [Development](./development)
-- [Troubleshooting](./troubleshooting)
+- [Getting Started](./getting-started.md)
+- [Development](./development.md)
+- [Troubleshooting](./troubleshooting.md)
+
+## Source review
+
+Last checked against source: **2026-11-12**.
+
+**Review scope:** Setup, prerequisites and troubleshooting.
+
+This manually maintained, scoped review is independent of page edits and documentation builds. It does not certify every page, build results, published artifacts or live services. The listed source checkouts were clean when inspected.
+
+### SuperSMP-Companion-App
+
+Inspected revision: [`8fef7a15dabc00e2bdd3b245b51d14e196dc9f7c`](https://github.com/FreetimeMaker/SuperSMP-Companion-App/tree/8fef7a15dabc00e2bdd3b245b51d14e196dc9f7c).
+
+- [`settings.gradle.kts`](https://github.com/FreetimeMaker/SuperSMP-Companion-App/blob/8fef7a15dabc00e2bdd3b245b51d14e196dc9f7c/settings.gradle.kts)
+- [`app/build.gradle.kts`](https://github.com/FreetimeMaker/SuperSMP-Companion-App/blob/8fef7a15dabc00e2bdd3b245b51d14e196dc9f7c/app/build.gradle.kts)
+- [`gradle/libs.versions.toml`](https://github.com/FreetimeMaker/SuperSMP-Companion-App/blob/8fef7a15dabc00e2bdd3b245b51d14e196dc9f7c/gradle/libs.versions.toml)
+- [`gradle/gradle-daemon-jvm.properties`](https://github.com/FreetimeMaker/SuperSMP-Companion-App/blob/8fef7a15dabc00e2bdd3b245b51d14e196dc9f7c/gradle/gradle-daemon-jvm.properties)
+- [`app/src/main/AndroidManifest.xml`](https://github.com/FreetimeMaker/SuperSMP-Companion-App/blob/8fef7a15dabc00e2bdd3b245b51d14e196dc9f7c/app/src/main/AndroidManifest.xml)
+- [`app/src/main/res/values/strings.xml`](https://github.com/FreetimeMaker/SuperSMP-Companion-App/blob/8fef7a15dabc00e2bdd3b245b51d14e196dc9f7c/app/src/main/res/values/strings.xml)
+- [`app/src/main/java/com/freetime/ssmpc/ui/screens/CoordinatesScreen.kt`](https://github.com/FreetimeMaker/SuperSMP-Companion-App/blob/8fef7a15dabc00e2bdd3b245b51d14e196dc9f7c/app/src/main/java/com/freetime/ssmpc/ui/screens/CoordinatesScreen.kt)
+- [`app/src/main/java/com/freetime/ssmpc/ui/viewmodels/CoordinatesViewModel.kt`](https://github.com/FreetimeMaker/SuperSMP-Companion-App/blob/8fef7a15dabc00e2bdd3b245b51d14e196dc9f7c/app/src/main/java/com/freetime/ssmpc/ui/viewmodels/CoordinatesViewModel.kt)
+- [`app/src/main/java/com/freetime/ssmpc/data/status/ServerStatusRepository.kt`](https://github.com/FreetimeMaker/SuperSMP-Companion-App/blob/8fef7a15dabc00e2bdd3b245b51d14e196dc9f7c/app/src/main/java/com/freetime/ssmpc/data/status/ServerStatusRepository.kt)

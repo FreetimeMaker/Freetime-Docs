@@ -28,7 +28,7 @@ Provider tokens are used for the matching forge only. A missing or expired provi
 
 Developers can submit and maintain Android apps, inspect submission state/history, edit published metadata and manage developer-wide funding. The current submission handler retains only `platform: "Android"` / `packageType: "apk"` entries and rejects final submissions without an APK download. Older multi-platform UI/data fields do not establish current Linux/Windows publishing support.
 
-The dashboard requires a Supabase session. Drafts can be saved before final repository verification; final submissions enter `Pending` review. See [App Submissions](/projects/luma-store/submissions) for validation and resubmission rules.
+The dashboard requires a Supabase session. Drafts can be saved before final repository verification; final submissions enter `Pending` review. See [App Submissions](./submissions.md) for validation and resubmission rules.
 
 The dashboard also provides app/developer download analytics, profile/avatar management, verification status, review/status information and README download badges.
 
@@ -36,7 +36,7 @@ The dashboard also provides app/developer download analytics, profile/avatar man
 
 The website also exposes a separate **Tracked sources** page for APKs distributed directly through GitHub, GitLab, Codeberg or a direct HTTPS download URL. It currently fixes the requested platform to Android and stores the source list in browser local storage. This does not require a developer submission.
 
-When signed in with the matching forge, release checks use the user's provider token rather than anonymous forge API access. See [Sources](/projects/luma-store/sources).
+When signed in with the matching forge, release checks use the user's provider token rather than anonymous forge API access. See [Sources](./sources.md).
 
 ## Developer funding
 
@@ -48,7 +48,7 @@ Discover remains separate from developer authentication. Public app and develope
 
 ## Local development
 
-Configure `.env.local` from the repository's `.env.example` first; see [Getting Started](/projects/luma-store/getting-started). The following scripts are declared in the website package:
+Configure `.env.local` from the repository's `.env.example` first; see [Getting Started](./getting-started.md). The following scripts are declared in the website package:
 
 ```bash
 npm install

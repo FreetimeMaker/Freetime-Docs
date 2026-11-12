@@ -13,7 +13,7 @@ curl -i --max-time 5 http://localhost:3000/v2/health
 
 **Expected:** The directly mounted health route returns HTTP 200 and `{"status":"ok"}`; frontend-only routes must be requested from Next.js, not Express.
 
-**Fix:** The current Express backend mounts `/v1` and `/v2`, not `/api/v1` or `/api/v2`. GeoWeather, F-Port, Arcade and Luma `/package-formats` are not mounted in backend 2.8.1. Consult the [API Reference](/projects/all-api/api-reference) before debugging deployment routing.
+**Fix:** The current Express backend mounts `/v1` and `/v2`, not `/api/v1` or `/api/v2`. GeoWeather, F-Port, Arcade and Luma `/package-formats` are not mounted in backend 2.8.1. Consult the [API Reference](./api-reference.md) before debugging deployment routing.
 
 Next.js `/api/luma/apps` is a separate manually reviewed submission feed, not an alias for `/v2/lumastore/apps`.
 
@@ -59,7 +59,7 @@ curl -i --max-time 2 http://localhost:3000/v2/health
 
 ## Supabase operations fail
 
-**Check:** Compare server environment variable names with [Getting Started](/projects/all-api/getting-started), then inspect the failing database/RPC error and policies in the intended project. Do not print secrets.
+**Check:** Compare server environment variable names with [Getting Started](./getting-started.md), then inspect the failing database/RPC error and policies in the intended project. Do not print secrets.
 
 **Expected:** The selected project contains the schema/RPCs used by that handler and permits the operation for the requesting user.
 

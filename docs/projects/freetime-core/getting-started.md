@@ -30,7 +30,7 @@ This is a target for a **prepared environment**: checkout, SDK/JDK setup, emulat
 2. Expected build/install result: Gradle ends with `BUILD SUCCESSFUL`, an APK is present in that directory, and adb installation reports `Success`. These are expected checkpoints, not results from an executed build in this documentation review.
 3. Expected UI: the sample displays **Freetime Core**, a **Material 3 Expressive** heading and **Design**, **Settings**, **Donate** and **Browser** navigation actions. On Design, press **Show message**: the snackbar should read **Hello from Material 3 Expressive**.
 
-If any checkpoint differs, use [Troubleshooting](./troubleshooting) before changing dependency versions.
+If any checkpoint differs, use [Troubleshooting](./troubleshooting.md) before changing dependency versions.
 
 ## Repository and dependencies
 
@@ -88,13 +88,13 @@ The host app owns observable UI state and maps stored settings into its theme. D
 
 ## Navigation glass and templates
 
-Only floating bottom navigation uses Liquid Glass. See [Design & Liquid Glass](./design) for the backdrop root and bar APIs. Ordinary screens, cards, dialogs and controls use Material 3.
+Only floating bottom navigation uses Liquid Glass. See [Design & Liquid Glass](./design.md) for the backdrop root and bar APIs. Ordinary screens, cards, dialogs and controls use Material 3.
 
 Version 3.1.0 also includes copyable classic Material 3 and Expressive theme templates with app-owned tokens and no Liquid Glass.
 
 ## Next
 
-- [Modules](./modules)
-- [Design & Liquid Glass](./design)
-- [FreetimeWarn](./freetime-warn)
-- [Troubleshooting](./troubleshooting)
+- [Modules](./modules.md)
+- [Design & Liquid Glass](./design.md)
+- [FreetimeWarn](./freetime-warn.md)
+- [Troubleshooting](./troubleshooting.md)

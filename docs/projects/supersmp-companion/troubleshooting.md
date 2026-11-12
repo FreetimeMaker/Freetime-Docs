@@ -24,7 +24,7 @@ adb shell dumpsys webviewupdate
 
 ## Saved coordinates are wrong or disappear
 
-**Check:** repeat the [local coordinate exercise](./getting-started#first-success-in-five-minutes), navigate away and back, and inspect Room/ViewModel errors. Enter numeric X/Y/Z values using a period for decimals.
+**Check:** repeat the [local coordinate exercise](./getting-started.md#first-success-in-five-minutes), navigate away and back, and inspect Room/ViewModel errors. Enter numeric X/Y/Z values using a period for decimals.
 
 **Expected:** the named record appears with its values and dimension and remains in the local list. The current dialog uses `toDoubleOrNull() ?: 0.0`: invalid or empty numeric input becomes zero rather than producing a validation message.
 
@@ -66,4 +66,4 @@ adb devices
 
 **Fix:** isolate the missing or renamed class/resource before changing keep rules. A release-specific fix needs validation against the release variant in a separately prepared build environment; this review did not run either variant. Do not disable shrinking globally just to hide the symptom.
 
-Return to [Getting Started](./getting-started) or see [Development](./development).
+Return to [Getting Started](./getting-started.md) or see [Development](./development.md).

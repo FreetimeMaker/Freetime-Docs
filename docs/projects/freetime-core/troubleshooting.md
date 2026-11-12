@@ -18,7 +18,7 @@ cat local.properties
 
 ## A consumer cannot resolve Core or Design
 
-**Check:** compare the consumer's `settings.gradle.kts` and dependency declarations with [Getting Started](./getting-started). To inspect public POM availability independently of Gradle, if curl is installed:
+**Check:** compare the consumer's `settings.gradle.kts` and dependency declarations with [Getting Started](./getting-started.md). To inspect public POM availability independently of Gradle, if curl is installed:
 
 ```bash
 curl --fail --show-error --location --max-time 30 'https://repo.free-time.me/maven/com/freetime/Design/3.1.0/Design-3.1.0.pom'
@@ -38,7 +38,7 @@ ls Sample/build/outputs/apk/debug/
 adb shell am start -n com.freetime.sample/.MainActivity
 ```
 
-**Expected:** one authorized target marked `device`, a debug APK, and the sample activity opening on API 24+. See the [first-success checkpoints](./getting-started#first-success-in-five-minutes).
+**Expected:** one authorized target marked `device`, a debug APK, and the sample activity opening on API 24+. See the [first-success checkpoints](./getting-started.md#first-success-in-five-minutes).
 
 **Fix:** start or authorize the device, select a target with adb's `-s` option if several are attached, and install the actual APK filename. If installation reports an incompatible signing certificate, use a separate emulator or back up data before uninstalling the older app; do not clear data as a first diagnostic step.
 
@@ -48,7 +48,7 @@ adb shell am start -n com.freetime.sample/.MainActivity
 
 **Expected:** `AppTheme` wraps host-owned composables. It does not create navigation, a preferences controller or a `FreetimeApp` shell.
 
-**Fix:** replace removed API usage with Material 3 components and explicit host state. Start with the minimal text example in [Getting Started](./getting-started), then follow [Design & Liquid Glass](./design) for the backdrop root and floating bar. Glass is deliberately limited to floating bottom navigation; flat cards and dialogs are not a rendering failure.
+**Fix:** replace removed API usage with Material 3 components and explicit host state. Start with the minimal text example in [Getting Started](./getting-started.md), then follow [Design & Liquid Glass](./design.md) for the backdrop root and floating bar. Glass is deliberately limited to floating bottom navigation; flat cards and dialogs are not a rendering failure.
 
 ## A saved preference does not update the visible UI
 

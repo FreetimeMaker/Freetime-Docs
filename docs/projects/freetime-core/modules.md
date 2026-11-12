@@ -1,6 +1,6 @@
 # Modules
 
-Freetime Core 3.1.0 contains five independently selectable Android libraries and a sample app. Use the `com.freetime` Maven group and [repository configuration](./getting-started).
+Freetime Core 3.1.0 contains five independently selectable Android libraries and a sample app. Use the `com.freetime` Maven group and [repository configuration](./getting-started.md).
 
 | Module       | Dependency                        |
 | ------------ | --------------------------------- |
@@ -22,7 +22,7 @@ The UI foundation is **Material 3 Expressive + Material You**, not a separate Fr
 
 Version 3.1.0 includes classic Material 3 and Expressive templates in `com.freetime.design.templates.material3` and `com.freetime.design.templates.expressive`. They separate colors, typography, shapes and theme composition; optional Freetime adapters disable navigation glass. Material You is opt-in in the templates.
 
-See [Design & Liquid Glass](./design).
+See [Design & Liquid Glass](./design.md).
 
 ## Browser
 
@@ -42,7 +42,7 @@ Reusable donation targets and Material 3 Compose UI for links and wallet address
 
 Reusable Material 3 warning dialogs with a required non-blank app name, configurable text and a host-controlled Learn more action. Supports `ONCE`, `ONCE_PER_VERSION` and `ALWAYS`; acknowledgements use private SharedPreferences.
 
-See [FreetimeWarn](./freetime-warn) for state and dialog examples.
+See [FreetimeWarn](./freetime-warn.md) for state and dialog examples.
 
 ## Sample
 

@@ -12,4 +12,4 @@ Earlier instructions describing a Python/GTK client, `make deb`, `make rpm` and 
 
 These facts do not prove that no separate Linux client exists elsewhere. They mean Linux package distribution and client features cannot be documented as verified capabilities of these local sources.
 
-For a client running on Linux that only browses the current Android catalog, see [Building Custom Clients](/projects/luma-store/custom-clients). Do not infer native Linux installation support from the host platform of a catalog browser.
+For a client running on Linux that only browses the current Android catalog, see [Building Custom Clients](./custom-clients.md). Do not infer native Linux installation support from the host platform of a catalog browser.

@@ -38,7 +38,7 @@ Allow five minutes only for a **prepared environment** with the checkout, SDK/JD
 3. Complete or skip onboarding if shown. Open city search, enter **Berlin**, and select the result whose region/country matches your intended location. Expected UI: search results show city names with region/country (or coordinates); selecting one saves it and returns from search.
 4. Open the saved location's forecast. Expected UI after a successful fetch: the selected location's name, weather/temperature data and an update timestamp. Verify that timestamp rather than assuming any visible forecast is fresh. Exact temperatures and result ordering depend on the live service and are not fixed test values.
 
-If search, installation or refresh fails, follow [Troubleshooting](./troubleshooting). A successful build alone does not verify weather service availability.
+If search, installation or refresh fails, follow [Troubleshooting](./troubleshooting.md). A successful build alone does not verify weather service availability.
 
 ## First-use settings and dependency notes
 
@@ -48,4 +48,4 @@ The dependency catalog currently pins Freetime Core **3.0.0** through JitPack, n
 
 ## Next steps
 
-Continue with [Installation & Build](./installation), [Features](./features), [Architecture](./architecture), [Configuration](./configuration) and [Troubleshooting](./troubleshooting).
+Continue with [Installation & Build](./installation.md), [Features](./features.md), [Architecture](./architecture.md), [Configuration](./configuration.md) and [Troubleshooting](./troubleshooting.md).

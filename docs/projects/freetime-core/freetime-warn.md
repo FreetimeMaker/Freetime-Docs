@@ -10,7 +10,7 @@
 implementation("com.freetime:FreetimeWarn:3.1.0")
 ```
 
-Add `https://repo.free-time.me/maven/` as described in [Getting Started](./getting-started). The current UI uses Material 3 directly, not the removed Freetime-prefixed Design components.
+Add `https://repo.free-time.me/maven/` as described in [Getting Started](./getting-started.md). The current UI uses Material 3 directly, not the removed Freetime-prefixed Design components.
 
 ## Required app name
 

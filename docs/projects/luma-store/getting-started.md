@@ -12,11 +12,11 @@
 
 **Goal: browse the Android catalog without a developer account.** This estimate assumes the client is already installed, any APK downloads are complete and the public service is available. Installing SDKs, building from source, creating accounts and publishing an app are not five-minute steps.
 
-1. Obtain the Android client using the options in [Android](/projects/luma-store/android), if it is not installed yet.
+1. Obtain the Android client using the options in [Android](./android.md), if it is not installed yet.
 2. Open the client and browse the Luma catalog. It is enabled by default; built-in F-Droid/community sources are not.
 3. Open an available catalog entry. Expect an app detail screen for that entry; the actual entries depend on the live catalog. Public browsing does not require developer sign-in. An empty catalog is not proof of a working end-to-end integration.
 
-If the list is empty or details fail, use [Troubleshooting](/projects/luma-store/troubleshooting). For source setup instead, continue below; these build instructions are not a guarantee of a five-minute build.
+If the list is empty or details fail, use [Troubleshooting](./troubleshooting.md). For source setup instead, continue below; these build instructions are not a guarantee of a five-minute build.
 
 ## Android client
 
@@ -77,4 +77,4 @@ The website dashboard's `AuthGate` requires a Supabase session and redirects una
 
 ## Next
 
-Read [Android](/projects/luma-store/android), [Developer Dashboard](/projects/luma-store/developer-dashboard), [Submissions](/projects/luma-store/submissions), [Sources](/projects/luma-store/sources) and [Custom Clients](/projects/luma-store/custom-clients).
+Read [Android](./android.md), [Developer Dashboard](./developer-dashboard.md), [Submissions](./submissions.md), [Sources](./sources.md) and [Custom Clients](./custom-clients.md).

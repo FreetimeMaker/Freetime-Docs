@@ -3,35 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "type": "module",
-  "scripts": {
-    "dev": "vitepress dev docs",
-    "host-dev": "vitepress dev docs --host",
-    "start": "vitepress dev docs",
-    "build": "vitepress build docs",
-    "build:pages": "npm test && npm run typecheck && npm run build && npm run check:docs",
-    "preview": "vitepress preview docs",
-    "docs:version": "node scripts/version-docs.mjs",
-    "test": "node --test scripts/*.test.mjs",
-    "typecheck": "vue-tsc --noEmit",
-    "check:docs": "node scripts/check-docs.mjs",
-    "test:browser": "node scripts/browser-smoke.mjs && node scripts/navigation-smoke.mjs",
-    "check": "npm test && npm run typecheck && npm run build && npm run check:docs && npm run test:browser",
-    "sync:static": "node scripts/sync-static.mjs",
-    "predev": "npm run sync:static",
-    "prestart": "npm run sync:static",
-    "prebuild": "npm run sync:static",
-    "prepreview": "npm run sync:static"
-  },
-  "devDependencies": {
-    "@playwright/test": "1.65.0",
-    "@vueuse/core": "^15.0.0",
-    "@types/node": "^26.6.6",
-    "parse5": "^8.1.1",
-    "vue-tsc": "^3.3.14",
-    "vitepress": "^1.6.4",
-    "typescript": "6.0.3"
-  },
-  "engines": {
-    "node": "24.x"
+  "dependencies": {
+    "@docmd/core": "^0.9.9"
   }
 }

@@ -65,4 +65,4 @@ cat settings.gradle.kts
 
 **Fix:** use the repository wrapper with SDK 37 configured and JDK 21 available. Distinguish repository/dependency-resolution failures from compiler errors. Do not silently replace the pinned Core dependency with 3.1.0 or change the JVM target to match the daemon version.
 
-Return to [Getting Started](./getting-started) or see [Installation & Build](./installation).
+Return to [Getting Started](./getting-started.md) or see [Installation & Build](./installation.md).

@@ -53,6 +53,6 @@ Send a user bearer token from the Luma Store Supabase project. A rating write ac
 
 Keep catalog/source adapters, normalized models, application state, UI and platform download/install integration separate. F-Droid data and Luma API responses need their own adapters; the separate All API frontend's `/api/luma/apps` feed is not an interchangeable catalog response.
 
-Public catalog browsing does not need privileged credentials. Never embed service-role keys or email/webhook secrets in a client. Distinguish Supabase user tokens from forge provider tokens used by [tracked sources](/projects/luma-store/sources).
+Public catalog browsing does not need privileged credentials. Never embed service-role keys or email/webhook secrets in a client. Distinguish Supabase user tokens from forge provider tokens used by [tracked sources](./sources.md).
 
 Validate HTTP status, tolerate empty bodies and preserve stable IDs. Installing an APK is Android-specific; a desktop browser of this catalog must not advertise Linux package installation merely because it runs on Linux.

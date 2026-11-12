@@ -38,7 +38,7 @@ The five-minute target assumes a **prepared environment** with source, SDK/JDK, 
 3. Open **Coords**, press the **+** action, and enter name **First base**, X **100**, Y **64**, Z **-200**. Keep the default dimension and press **Add** (labels follow the device language).
 4. Expected UI: a coordinate card named **First base**, the entered X/Y/Z values and the dimension. Navigate away and back: the record should still be listed because it is stored locally in Room. This checks local functionality independently of server status or embedded websites. The test record can be removed with its delete action.
 
-If a checkpoint differs, use [Troubleshooting](./troubleshooting). Do not use an online-server indicator as the only installation test.
+If a checkpoint differs, use [Troubleshooting](./troubleshooting.md). Do not use an online-server indicator as the only installation test.
 
 ## Explore the app
 
@@ -48,4 +48,4 @@ Freetime Core dependencies remain pinned to **3.0.0** via JitPack. The newer Cor
 
 For installable releases, use the project's [GitHub Releases](https://github.com/FreetimeMaker/SuperSMP-Companion-App/releases/latest) or its [F-Droid package](https://f-droid.org/packages/com.freetime.ssmpc). Those distribution links do not establish that a downloaded release matches the local checkout version.
 
-See [Development](./development) for the stack and [Troubleshooting](./troubleshooting) for build and remote-content checks.
+See [Development](./development.md) for the stack and [Troubleshooting](./troubleshooting.md) for build and remote-content checks.

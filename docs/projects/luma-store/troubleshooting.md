@@ -75,4 +75,4 @@ npm run lint
 npm run build
 ```
 
-These are troubleshooting commands, not results from this documentation update. Keep service-role keys and email/webhook secrets server-only. See [Getting Started](/projects/luma-store/getting-started) for configuration.
+These are troubleshooting commands, not results from this documentation update. Keep service-role keys and email/webhook secrets server-only. See [Getting Started](./getting-started.md) for configuration.

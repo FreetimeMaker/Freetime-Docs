@@ -70,7 +70,7 @@ GET /sources/resolve?url=<https-url>&platform=Android
 
 Supported forge hosts are `github.com`, `gitlab.com` and `codeberg.org`; other HTTPS URLs are treated as direct downloads. Forge lookup requests the latest release. Only assets whose names end in `.apk` survive the current Android-only filter. Non-APK direct URLs can therefore resolve successfully with an empty asset list.
 
-The response contains `source_url`, `provider`, `version`, `title`, `published_at` and `assets`. Provider credentials are optional; see [Authentication](/projects/all-api/authentication).
+The response contains `source_url`, `provider`, `version`, `title`, `published_at` and `assets`. Provider credentials are optional; see [Authentication](./authentication.md).
 
 ## MD-Blog — v2
 
