@@ -4,7 +4,7 @@
     "path": "/getting-started/"
   },
   {
-    "title": "Overview",
+    "title": "Freetime Docs",
     "path": "/"
   },
   {
@@ -12,14 +12,14 @@
     "collapsible": true,
     "children": [
       {
-        "title": "index.md",
+        "title": "Projects",
         "path": "/projects/"
       },
       {
         "title": "All API",
         "children": [
           {
-            "title": "index.md",
+            "title": "All API",
             "path": "/projects/all-api/"
           },
           {
@@ -53,7 +53,7 @@
         "title": "Freetime Core",
         "children": [
           {
-            "title": "index.md",
+            "title": "Freetime Core",
             "path": "/projects/freetime-core/"
           },
           {
@@ -83,7 +83,7 @@
         "title": "GeoWeather",
         "children": [
           {
-            "title": "index.md",
+            "title": "GeoWeather",
             "path": "/projects/geoweather/"
           },
           {
@@ -117,7 +117,7 @@
         "title": "Luma Store",
         "children": [
           {
-            "title": "index.md",
+            "title": "Luma Store",
             "path": "/projects/luma-store/"
           },
           {
@@ -159,7 +159,7 @@
         "title": "SuperSMP Companion",
         "children": [
           {
-            "title": "index.md",
+            "title": "SuperSMP Companion",
             "path": "/projects/supersmp-companion/"
           },
           {
@@ -181,7 +181,7 @@
         "title": "Freetime News",
         "children": [
           {
-            "title": "index.md",
+            "title": "Freetime News",
             "path": "/projects/freetime-news/"
           },
           {
@@ -203,7 +203,7 @@
         "title": "MD-Blog",
         "children": [
           {
-            "title": "index.md",
+            "title": "MD-Blog",
             "path": "/projects/md-blog/"
           },
           {
@@ -225,7 +225,7 @@
         "title": "Multi AI Chat",
         "children": [
           {
-            "title": "index.md",
+            "title": "Multi AI Chat",
             "path": "/projects/multi-ai-chat/"
           },
           {
