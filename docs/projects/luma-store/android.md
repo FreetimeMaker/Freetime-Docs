@@ -1,13 +1,16 @@
 # Android client
 
-The Luma Store Android application is the native mobile store client.
+The Luma Store Android application is the native mobile store client. The inspected app version is **4.4.1** (version code **31**).
+
+Source code: [Luma-Store-Android](https://github.com/FreetimeMaker/Luma-Store-Android), verified against the local Git remote.
 
 ## Platform
 
 - Application ID: `com.freetime.lumastore`
 - Minimum SDK: 24
-- Kotlin: 2.4.20
-- Android Gradle Plugin: 9.4.1
+- Compile/target SDK: 37
+- Kotlin: 2.4.21
+- Android Gradle Plugin: 9.5.1
 - Compose BOM: 2026.09.00
 - Freetime Core: **3.0.0**
 
@@ -36,7 +39,9 @@ Authentication and developer metadata use Supabase.
 
 ## Sources and updates
 
-The client combines Luma Store data with F-Droid-compatible/community repositories. It supports custom sources, search, installed-app management and update workflows. Background work is handled with WorkManager.
+The default enabled catalog is `https://api.free-time.me/v2/lumastore/apps?platform=android`. Built-in Freetime F-Droid, F-Droid and IzzyOnDroid sources are optional and disabled by default. The repository layer also supports custom sources, search, installed-app management and update workflows.
+
+APK installation is handled by the platform integration in `install/ApkInstaller.kt`. Developer notification synchronization uses Android `JobService` (`NotificationSyncJobService`), not WorkManager. A saved developer session is required to load dashboard notifications.
 
 ## Build
 
@@ -44,4 +49,4 @@ The client combines Luma Store data with F-Droid-compatible/community repositori
 ./gradlew assembleDebug
 ```
 
-Release builds should use the repository's configured CI flow. The release workflow also contains distribution automation for the project's configured stores.
+The build requires a compatible Android SDK/JDK and the repository's Gradle configuration. No Android build or device installation was executed for this documentation update; the command above is a build instruction, not a validation result.

@@ -1,21 +1,19 @@
 # Configuration
 
-## Android SDK
+## Android and build toolchain
 
-GeoWeather compiles and targets Android SDK 37 and supports devices from API 26.
+The local 4.7.3 build uses application ID `com.freetime.geoweather`, minimum API 26 and compile/target SDK 37. Gradle daemon criteria request JDK 21; Kotlin output targets JVM 11. The bytecode target is not the JDK requirement for running Gradle.
 
-## Networking
+The version catalog pins Kotlin 2.4.21, AGP 9.5.1 and Freetime Core 3.0.0. This app still resolves its Core artifacts from JitPack; do not confuse that with Core 3.1.0's newer Maven publishing configuration.
 
-Ktor is the primary HTTP client. Keep service URLs and request behavior in the networking/data layer rather than embedding them in Compose UI.
+## User settings
 
-## Persistence
+Startup and display settings choose the initial location/overview and Compact or Detailed presentation. Unit preferences cover temperature, wind and pressure. Location notification settings and smart rain alerts control alert delivery, including quiet hours.
 
-Room is used for structured persistent data. Schema changes should include a deliberate migration strategy.
+## Networking and persistence
 
-## Preferences
-
-Lightweight application preferences use the settings layer. UI code should consume settings through application state rather than duplicating persistence logic.
+Open-Meteo endpoint definitions live in `ApiConstants`; Ktor requests and forecast parsing belong in the data layer. Room stores structured records and snapshots, while the settings layer stores preferences. Schema changes need a deliberate migration strategy.
 
 ## Background execution
 
-Use WorkManager for deferrable reliable work and Glance for widgets. Android background restrictions should be considered when choosing refresh intervals.
+WorkManager and Glance support scheduled weather work and widgets. Refreshes must account for connectivity, cached-data freshness and Android background restrictions. Alert and refresh intervals are not exact delivery guarantees.

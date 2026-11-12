@@ -7,10 +7,10 @@
 ## Dependency
 
 ```kotlin
-implementation("com.github.FreetimeMaker.Freetime-Core:FreetimeWarn:1.11.0")
+implementation("com.freetime:FreetimeWarn:3.1.0")
 ```
 
-The module exposes Freetime Design transitively and uses the same Compose/Freetime UI foundation as the rest of the library suite.
+Add `https://repo.free-time.me/maven/` as described in [Getting Started](./getting-started). The current UI uses Material 3 directly, not the removed Freetime-prefixed Design components.
 
 ## Required app name
 
@@ -51,11 +51,11 @@ FreetimeWarn(
 
 `FreetimeWarnFrequency` supports three modes:
 
-| Mode | Behavior |
-| --- | --- |
-| `ONCE` | Shows until acknowledged, then stores the acknowledgement for this app/warning ID |
-| `ONCE_PER_VERSION` | Default; shows once for every supplied app version code |
-| `ALWAYS` | Does not persist acknowledgement; the host controls when the warning is shown |
+| Mode               | Behavior                                                                          |
+| ------------------ | --------------------------------------------------------------------------------- |
+| `ONCE`             | Shows until acknowledged, then stores the acknowledgement for this app/warning ID |
+| `ONCE_PER_VERSION` | Default; shows once for every supplied app version code                           |
+| `ALWAYS`           | Does not persist acknowledgement; the host controls when the warning is shown     |
 
 Example:
 
@@ -137,16 +137,9 @@ FreetimeWarnDialog(
 
 The direct dialog API also requires a non-blank `appName`.
 
-## Freetime Design
+## Material 3 presentation
 
-The dialog is implemented with:
-
-- `FreetimeDialog`
-- `FreetimeText`
-- `FreetimeButton`
-- `FreetimeDesign` typography and colors
-
-Because `FreetimeDialog` uses the shared wide-glass surface, FreetimeWarn follows the active Freetime Design/Liquid Glass presentation instead of maintaining a second Material dialog style.
+The dialog uses Material 3 `AlertDialog`, `Text`, `TextButton` and `MaterialTheme`. It inherits the host's Material theme and does not use Liquid Glass. Navigation glass is a separate Design-module feature.
 
 ## Browser independence
 

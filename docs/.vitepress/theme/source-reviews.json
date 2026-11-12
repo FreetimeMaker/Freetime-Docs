@@ -1,0 +1,64 @@
+{
+  "freetime-core": {
+    "reviewedAt": "2026-11-12",
+    "scope": "Setup, prerequisites and troubleshooting",
+    "sources": [{
+      "repository": "Freetime-Core",
+      "commit": "64c85f88656cb7bd2ec8912f32d5fa2153605092",
+      "paths": ["build.gradle.kts", "settings.gradle.kts", "gradle/libs.versions.toml", "gradle/gradle-daemon-jvm.properties", "Design/build.gradle.kts", "Sample/build.gradle.kts", "Sample/src/main/AndroidManifest.xml", "Sample/src/main/java/com/freetime/sample/MainActivity.kt", "Design/src/main/java/com/freetime/design/Theme.kt", "Core/src/main/java/com/freetime/core/FreetimePreferences.kt", ".github/scripts/publish_public_maven.py"]
+    }]
+  },
+  "geoweather": {
+    "reviewedAt": "2026-11-12",
+    "scope": "Setup, prerequisites and troubleshooting",
+    "sources": [{
+      "repository": "GeoWeather",
+      "commit": "74c21ab67e7357b3f1dc5797e17f175fa3d2b348",
+      "paths": ["settings.gradle.kts", "app/build.gradle.kts", "gradle/libs.versions.toml", "gradle/gradle-daemon-jvm.properties", "app/src/main/AndroidManifest.xml", "app/src/main/java/com/freetime/geoweather/ui/SearchScreen.kt", "app/src/main/java/com/freetime/geoweather/ui/OnboardingScreen.kt", "app/src/main/java/com/freetime/geoweather/data/WeatherApiClient.kt", "app/src/main/java/com/freetime/geoweather/data/WeatherRepository.kt", "app/src/main/java/com/freetime/geoweather/data/Backup.kt"]
+    }]
+  },
+  "supersmp-companion": {
+    "reviewedAt": "2026-11-12",
+    "scope": "Setup, prerequisites and troubleshooting",
+    "sources": [{
+      "repository": "SuperSMP-Companion-App",
+      "commit": "8fef7a15dabc00e2bdd3b245b51d14e196dc9f7c",
+      "paths": ["settings.gradle.kts", "app/build.gradle.kts", "gradle/libs.versions.toml", "gradle/gradle-daemon-jvm.properties", "app/src/main/AndroidManifest.xml", "app/src/main/res/values/strings.xml", "app/src/main/java/com/freetime/ssmpc/ui/screens/CoordinatesScreen.kt", "app/src/main/java/com/freetime/ssmpc/ui/viewmodels/CoordinatesViewModel.kt", "app/src/main/java/com/freetime/ssmpc/data/status/ServerStatusRepository.kt"]
+    }]
+  },
+  "all-api": {
+    "reviewedAt": "2026-11-12",
+    "scope": "Setup, prerequisites and troubleshooting",
+    "sources": [
+      { "repository": "All-API-Node", "commit": "a51436ed31f7a8f6082ac387bff7ce50fb3e1051", "paths": ["package.json", "src/index.js", "src/lib/supabase.js", "src/v2/index.js", "src/v2/health/health.js", "src/v2/lumastore/store.js", "src/v2/blog/index.js"] },
+      { "repository": "All-API-FrontEnd", "commit": "5ecab236b32c955e7bd98d904dbc8f688c7a41a8", "paths": ["package.json", ".env.example", "app/api/proxy/[...path]/route.ts"] }
+    ]
+  },
+  "luma-store": {
+    "reviewedAt": "2026-11-12",
+    "scope": "Setup, prerequisites and troubleshooting",
+    "sources": [
+      { "repository": "Luma-Store-Android", "commit": "7a99f332cf3628d71b71440d2395c924c9761e95", "paths": ["app/build.gradle.kts", "gradle/gradle-daemon-jvm.properties", "gradle/libs.versions.toml", "app/src/main/java/com/freetime/lumastore/MainActivity.kt", "app/src/main/java/com/freetime/lumastore/data/AppRepository.kt", "app/src/main/java/com/freetime/lumastore/data/LumaStoreApi.kt"] },
+      { "repository": "Luma-Store-Website", "commit": "6af34c11fc609055318a358e48413f8816d8e94e", "paths": ["package.json", ".env.example", "app/dashboard/AuthGate.tsx", "app/page.tsx"] },
+      { "repository": "All-API-Node", "commit": "a51436ed31f7a8f6082ac387bff7ce50fb3e1051", "paths": ["src/index.js", "src/v2/lumastore/store.js"] }
+    ]
+  },
+  "md-blog": {
+    "reviewedAt": "2026-11-12",
+    "scope": "Setup, prerequisites and troubleshooting",
+    "sources": [{
+      "repository": "MD-Blog",
+      "commit": "973314ab1a7e81e61767dff3f82572ca535e90ca",
+      "paths": ["package.json", "server.js", "vercel.json", "api/index.js", "api/blog.js", "api/blog/[slug].js", "public/md/index.md"]
+    }]
+  },
+  "multi-ai-chat": {
+    "reviewedAt": "2026-11-12",
+    "scope": "Setup, prerequisites and troubleshooting",
+    "sources": [{
+      "repository": "Multi-AI-Chat",
+      "commit": "45bc792f205b7770d8994a3f1b1050b7f164f591",
+      "paths": ["build.gradle.kts", "src/main/resources/META-INF/plugin.xml", "src/main/kotlin/com/freetime/maic/actions/ExplainCodeAction.kt", "src/main/kotlin/com/freetime/maic/api/AiClient.kt", "src/main/kotlin/com/freetime/maic/services/ChatService.kt", "src/main/kotlin/com/freetime/maic/settings/AppSettingsConfigurable.kt", "src/main/kotlin/com/freetime/maic/settings/AppSettingsState.kt", "src/main/kotlin/com/freetime/maic/toolWindow/MyToolWindowFactory.kt"]
+    }]
+  }
+}

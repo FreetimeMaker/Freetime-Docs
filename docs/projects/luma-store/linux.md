@@ -1,30 +1,15 @@
-# Linux client
+# Linux client status
 
-Luma Store Linux is the native Linux store client.
+No Luma Store Linux repository was present among the local projects inspected for this documentation update. Consequently, a current Linux implementation, Git remote, package repository, build command or installation path could not be verified.
 
-## Stack
+Earlier instructions describing a Python/GTK client, `make deb`, `make rpm` and system-wide installation paths are not retained as current setup guidance without a source checkout to confirm them.
 
-The client uses Python 3, GTK 3 and PyGObject.
+## Current verified platform support
 
-## Packages
+- [All-API-Node](https://github.com/FreetimeMaker/All-API-Node) **2.8.1** normalizes the Luma catalog to Android platform rows and filters tracked release assets to APKs.
+- [Luma-Store-Website](https://github.com/FreetimeMaker/Luma-Store-Website) currently requires Android APK entries for final submissions; its tracked-sources page requests Android.
+- There is no `/v2/lumastore/package-formats` endpoint or `package_format` filtering in the inspected backend.
 
-The project supports building both Debian and RPM packages.
+These facts do not prove that no separate Linux client exists elsewhere. They mean Linux package distribution and client features cannot be documented as verified capabilities of these local sources.
 
-```bash
-make deb
-make rpm
-```
-
-The Makefile packages the Python entry point, desktop file and application icon.
-
-## Native installation
-
-The install target places the launcher under `/usr/local/bin/store`, the desktop entry under `/usr/share/applications`, and the icon in the hicolor icon hierarchy.
-
-::: warning
-The `install` target writes to system directories and therefore normally requires appropriate system permissions.
-:::
-
-## Runtime behavior
-
-The client consumes the Luma Store API, displays package metadata and can hand downloaded DEB/RPM packages to the platform's normal installation workflow.
+For a client running on Linux that only browses the current Android catalog, see [Building Custom Clients](/projects/luma-store/custom-clients). Do not infer native Linux installation support from the host platform of a catalog browser.

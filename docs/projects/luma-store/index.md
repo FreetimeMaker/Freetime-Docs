@@ -1,45 +1,65 @@
-# Luma Store
+---
+title: Luma Store
+---
 
-Luma Store is an open-source app-store ecosystem with Android and Linux clients, a public web experience, developer tooling and shared store metadata.
+<ProjectHeader project="luma-store" />
 
-## Components
+## Find your starting point
 
-| Component | Role |
-| --- | --- |
-| Luma Store Android | Native Kotlin/Compose store client |
-| Luma Store Website | Public discovery and developer dashboard |
-| Luma Store Linux | Native Python/GTK 3 Linux client |
-| Supabase | Authentication, profiles, submissions, store metadata, analytics and storage |
+<ProjectPaths project="luma-store" />
+
+Luma Store is an open-source Android app-store ecosystem with a native Android client, public web discovery, a developer dashboard and shared Supabase-backed metadata. The inspected backend and website submission handler currently expose Android/APK distribution, not a general Linux/Windows package catalog.
+
+## At a glance
+
+<ProjectDiagram project="luma-store" />
+
+## Source code
+
+| Repository                                                                | Current role                                                                                  |
+| ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| [Luma-Store-Android](https://github.com/FreetimeMaker/Luma-Store-Android) | Kotlin/Compose Android client, version **4.4.1** (code 31)                                    |
+| [Luma-Store-Website](https://github.com/FreetimeMaker/Luma-Store-Website) | Public discovery, tracked sources and standalone developer dashboard                          |
+| [All-API-Node](https://github.com/FreetimeMaker/All-API-Node)             | Shared `/v2/lumastore` catalog, profiles, ratings/reviews, favorites and APK release resolver |
+| [All-API-FrontEnd](https://github.com/FreetimeMaker/All-API-FrontEnd)     | Separate account/developer frontend and manually reviewed `/api/luma/apps` feed               |
+
+These URLs were checked against local Git remotes.
+
+::: info Platform scope
+The inspected backend and website submission handler expose Android/APK distribution, not a general Linux/Windows package catalog.
+
+No local Linux client repository was available; its implementation and distribution instructions are not verified. See [Linux status](/projects/luma-store/linux).
+:::
 
 ## Android
 
-The Android client now uses **Freetime Core 3.0.0**, Material 3 Expressive and Material You, including the new floating Liquid Glass bottom navigation.
+The Android client uses **Freetime Core 3.0.0**, Material 3 Expressive and Material You, with floating Liquid Glass navigation. Discover includes collections, filtering and sorting. App details expose developer information, ratings, download metrics and funding.
 
-Discover includes trending, recommended, recently viewed, new and updated collections, full collection views, advanced filters and sorting, ratings and download metrics. App details include richer developer information, ratings, downloads and update information.
+The developer area includes profile/avatar and funding management, app analytics and notifications. The client combines the Luma catalog with optional F-Droid-compatible repositories and includes APK download/installation integration.
 
-The developer area includes public developer profiles, avatars and verified status, profile/funding management, developer donation methods, app-specific analytics and developer notifications. Supabase Storage is used for developer profile images.
+## Inside the Android client
 
-## Website and Developer Dashboard
+<ProjectScreenshot src="/img/projects/luma-store-discover.jpg" alt="Luma Store Discover screen with app cards, category filters, an app list and bottom navigation." caption="The Discover screen brings app browsing and category filters together. This repository screenshot shows an earlier interface, not the current build." />
 
-The web dashboard supports Fastlane metadata import, current F-Droid categories, app update resubmission, developer verification and submission status/timeline handling. The current web stack uses Next.js 16.3.3, React 19.2.8 and Supabase.
+## Website and dashboard
 
-## Linux
+The standalone website uses Next.js **16.4.5**, React **19.3.1**, TypeScript, Tailwind CSS 4 and Supabase. It provides public app/developer pages, saved apps, tracked sources, support funding and authenticated developer tools.
 
-The Linux client is a native GTK 3 application with DEB and RPM support. Its developer dashboard is native rather than a WebView and uses Supabase OAuth with PKCE.
+Developers can save drafts, import Fastlane metadata, submit Android APKs, resubmit updates, edit published metadata, inspect review/status history and manage profile/funding data. Final submissions verify a public GitHub, GitLab or Codeberg repository.
 
-It supports drafts, Android/Windows/Linux submissions and updates, multi-platform artifacts, localized metadata, status timelines, security information, version history, review comments, developer notifications, analytics, profile/funding editing and Fastlane metadata assistance.
+## Shared data and security
 
-Packages can be installed through the Freetime Packagecloud-style APT/YUM repositories documented by the Linux project.
+Supabase supplies authentication, profiles, submissions, store metadata, analytics and storage. Public catalog access differs from authenticated developer operations. Keep service-role keys and email/webhook secrets on the server; use the appropriate user session and matching forge authorization for protected actions.
 
-## Authentication and publishing
-
-Developer functionality uses Supabase authentication. Final submissions and metadata updates that require repository ownership verification use the GitHub provider token. Store metadata, download statistics, developer profiles and submission state are shared across the clients and dashboard.
+::: warning Deployment routing is not verified
+This documentation describes local source state, not a tested production deployment. In particular, the website's unversioned API aliases require deployment routing outside the inspected Express mounts.
+:::
 
 ## Continue
 
 - [Getting Started](/projects/luma-store/getting-started)
 - [Android](/projects/luma-store/android)
 - [Developer Dashboard](/projects/luma-store/developer-dashboard)
-- [Linux](/projects/luma-store/linux)
+- [App Submissions](/projects/luma-store/submissions)
 - [Sources](/projects/luma-store/sources)
 - [Building Custom Clients](/projects/luma-store/custom-clients)

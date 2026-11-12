@@ -1,114 +1,53 @@
 # Modules
 
-Freetime Core is split into focused Android library modules so applications only depend on the shared functionality they use.
+Freetime Core 3.1.0 contains five independently selectable Android libraries and a sample app. Use the `com.freetime` Maven group and [repository configuration](./getting-started).
+
+| Module       | Dependency                        |
+| ------------ | --------------------------------- |
+| Core         | `com.freetime:Core:3.1.0`         |
+| Design       | `com.freetime:Design:3.1.0`       |
+| Browser      | `com.freetime:Browser:3.1.0`      |
+| Donations    | `com.freetime:Donations:3.1.0`    |
+| FreetimeWarn | `com.freetime:FreetimeWarn:3.1.0` |
 
 ## Core
 
-```text
-com.github.FreetimeMaker.Freetime-Core:Core:1.11.0
-```
-
-Provides shared models, result types, lightweight Android utilities and persisted Freetime preferences.
-
-`FreetimePreferencesState` currently covers theme mode, browser mode, automatic theme hours, reduced motion, reduced transparency, high contrast and the Liquid Glass enable/disable state.
+Shared models, result types, SDK metadata, Android helpers and persisted preferences. `FreetimePreferences` stores theme/browser modes, automatic light/dark hours, accessibility flags and the floating-navigation glass setting in SharedPreferences. Applications own the UI state that consumes those values.
 
 ## Design
 
-```text
-com.github.FreetimeMaker.Freetime-Core:Design:1.11.0
-```
+The UI foundation is **Material 3 Expressive + Material You**, not a separate Freetime component framework. Use AndroidX Material 3 components directly.
 
-Freetime's standalone Compose UI system. It does **not** use Material 3 as its UI foundation.
+`AppTheme` supplies expressive motion, dynamic colors on Android 12+, regular schemes on older devices and five theme modes. `FloatingBottomNavigationGlassRoot` and `FloatingBottomNavigationBar` provide the dedicated navigation-only glass treatment, with a Material fallback when disabled.
 
-### Theme and tokens
+Version 3.1.0 includes classic Material 3 and Expressive templates in `com.freetime.design.templates.material3` and `com.freetime.design.templates.expressive`. They separate colors, typography, shapes and theme composition; optional Freetime adapters disable navigation glass. Material You is opt-in in the templates.
 
-Design exposes Freetime-owned palette, typography, shapes, spacing, sizing, motion and glass tokens through `FreetimeDesign`.
-
-### App-level components
-
-The reusable component set includes text, screens, section headers, list items, option groups, status banners, empty/loading/error states, dividers, badges and info cards.
-
-Controls include buttons, icon buttons, cards, top bars, text fields, switches, sliders, chips, dialogs, snackbars and progress indicators.
-
-### Layout and adaptive navigation
-
-Design includes:
-
-- `FreetimeScaffold`
-- `FreetimeTabRow`
-- `FreetimeFloatingActionButton`
-- `FreetimeExtendedFloatingActionButton`
-- `FreetimeBottomSheet`
-- `FreetimeBottomBar` and `FreetimeAdaptiveBottomBar`
-- adaptive bottom-navigation/navigation-rail support
-- popup menus and menu item models
-
-### Preferences and accessibility
-
-`FreetimeApp` can use one shared `FreetimePreferencesController` and exposes the same controller to child composables. `FreetimeAccessibilitySettings()` uses it automatically.
-
-### Liquid Glass
-
-The glass renderer uses Kyant Backdrop/Shapes and is intentionally close to SimpMusic's glass behavior except that Freetime retains its own tintable glass colors.
-
-The current implementation includes:
-
-- live backdrop sampling with separated backdrop/foreground layers
-- vibrancy and 1.5× saturation
-- adaptive blur driven by backdrop luminance
-- lens refraction without the central depth seam for standard interactive glass
-- press-driven blur, scale and radial highlight
-- dynamic light/dark scrims
-- selected-glass frosting, chromatic refraction, highlight, shadow and inner shadow
-- recorded `GraphicsLayer` backdrop capture
-- lightweight 5×5 Rec.709 luminance sampling with smooth transitions
-- observe-only gesture tracking so glass interactions do not steal normal clicks
-- draggable navigation selection with spring snapping and velocity deformation
-- reduced-motion, reduced-transparency and high-contrast behavior
-- persistent Liquid Glass enable/disable setting
-- translucent/non-glass fallbacks where the live effect is unavailable or disabled
-
-Keep the backdrop source separate from foreground glass content to avoid shader feedback loops.
+See [Design & Liquid Glass](./design).
 
 ## Browser
 
-```text
-com.github.FreetimeMaker.Freetime-Core:Browser:1.11.0
-```
-
-Provides URL routing without forcing a WebView implementation.
+URL routing and reusable browser UI. Open externally with:
 
 ```kotlin
 FreetimeBrowser.openExternal(context, "https://example.org")
 ```
 
-For app-owned WebView or Custom Tabs behavior, use in-app mode and provide the callback that handles the URL.
+`BrowserMode.IN_APP` supports host-owned handling through routing options or the reusable browser screen.
 
 ## Donations
 
-```text
-com.github.FreetimeMaker.Freetime-Core:Donations:1.11.0
-```
-
-Provides reusable donation models and Compose UI for links and wallet addresses. The host app retains control over link opening, browser preference and wallet-address behavior. Its UI uses Freetime Design rather than Material 3.
+Reusable donation targets and Material 3 Compose UI for links and wallet addresses. The host controls URL opening, wallet handling, clipboard actions and QR payloads.
 
 ## FreetimeWarn
 
-Added in **1.11.0**, this module provides reusable warning flows without coupling apps to fixed policy wording.
+Reusable Material 3 warning dialogs with a required non-blank app name, configurable text and a host-controlled Learn more action. Supports `ONCE`, `ONCE_PER_VERSION` and `ALWAYS`; acknowledgements use private SharedPreferences.
 
-
-```text
-com.github.FreetimeMaker.Freetime-Core:FreetimeWarn:1.11.0
-```
-
-Provides Kotlin/Jetpack Compose warning notices built on Freetime Design. The public state API requires a non-default `appName`, rejects blank values, and supports `ONCE`, `ONCE_PER_VERSION` and `ALWAYS` display frequencies. Acknowledgement can be persisted with SharedPreferences and reset through the state API. Warning copy and the Learn more action remain host-controlled so policy-specific wording is not permanently coupled to the library.
-
-See [FreetimeWarn](/projects/freetime-core/freetime-warn) for the complete API and examples.
+See [FreetimeWarn](./freetime-warn) for state and dialog examples.
 
 ## Sample
 
-`Sample` is an application module used to demonstrate Core, Design, Browser and Donations together; it is not a library dependency.
+`:Sample` demonstrates the library modules together. It is an Android application, not a published library dependency.
 
 ## Independence
 
-None of the modules requires Luma Store or a Freetime account. Applications remain independently installable and can select only the shared infrastructure they need.
+No module requires a Freetime account, Luma Store installation or proprietary backend. Apps can adopt only the modules they need.

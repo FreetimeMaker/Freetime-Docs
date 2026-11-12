@@ -1,60 +1,58 @@
 # Building custom Luma Store clients
 
-Custom Android, desktop, CLI or web clients can consume the public Luma Store catalog without using the official UI.
+A custom mobile, desktop, CLI or web client can browse the public catalog without reusing the official UI. The host platform does not change the current catalog's Android-only distribution scope.
 
-## Recommended API
+## Source code
 
-Use All API v2:
+- [All-API-Node](https://github.com/FreetimeMaker/All-API-Node/blob/HEAD/src/v2/lumastore/store.js) — backend contract.
+- [Luma-Store-Android](https://github.com/FreetimeMaker/Luma-Store-Android) — native client and F-Droid adapters.
+- [Luma-Store-Website](https://github.com/FreetimeMaker/Luma-Store-Website) — web client and developer workflow.
+
+## Public API
+
+Use the explicit backend mounts:
 
 ```text
 GET /v2/lumastore/apps
 GET /v2/lumastore/apps/:id
-GET /v2/lumastore/package-formats
+GET /v2/lumastore/developers/:id
 GET /v2/lumastore/apps/:id/ratings
+GET /v2/lumastore/apps/:id/reviews
 ```
 
-The list endpoint accepts `category`, `platform` and `search`. Linux package filtering uses `platform=Linux&package_format=...`.
+The list endpoint returns an array and accepts `category` (category ID), `platform` and `search` (name matching). It excludes archived apps and normalizes platform rows to Android only. Linux/Windows filters do not return matching apps. `/package-formats` and `package_format` are not implemented.
+
+App detail requests require the catalog's store app ID. Ratings, reviews and per-app favorites resolve either a UUID or a package name. Do not apply that flexible identifier contract to app details.
 
 ## Data model
 
-Do not reduce an app to a name and URL. Preserve the application/package identifier, developer, description, category, media, repository/license data and the complete platform list. Platform rows can carry version/download metadata and Linux package format.
+Preserve app ID, package name, developer, description, category, media, repository/license data and the returned platform metadata. App normalization supplies a category name plus selected `platform`, `download_url` and `file_size_mb`. Keep optional fields optional and tolerate additional JSON fields.
 
-Clients should ignore unknown optional fields and degrade gracefully when optional media or metadata is absent.
+The catalog includes public aggregate download counts. Do not request raw download-event rows as a replacement for that metric.
 
-## Ratings
+## Ratings and saved apps
 
-Rating summaries are public. Writing or deleting the current user's rating requires authentication:
+Public rating summaries contain `app_id`, `average` and `count`. Reviews support `sort=newest`, `oldest` or `highest` and return at most 100 non-empty review entries.
+
+Authenticated routes include:
 
 ```text
+GET    /v2/lumastore/ratings/me
 GET    /v2/lumastore/apps/:id/rating/me
 PUT    /v2/lumastore/apps/:id/rating/me
 DELETE /v2/lumastore/apps/:id/rating/me
+GET    /v2/lumastore/favorites/me
+GET    /v2/lumastore/apps/:id/favorite/me
+PUT    /v2/lumastore/apps/:id/favorite/me
+DELETE /v2/lumastore/apps/:id/favorite/me
 ```
 
-A submitted rating must be an integer from 1 to 5. The backend prevents a developer from rating their own app.
+Send a user bearer token from the Luma Store Supabase project. A rating write accepts `{"rating":5,"review_text":"Useful app"}` as JSON: integer rating 1–5, optional trimmed text up to 2,000 characters. Developers cannot rate their own app. Successful deletion returns 204 without JSON.
 
-## Architecture
+## Architecture and security
 
-Keep source/API adapters separate from UI and installation logic:
+Keep catalog/source adapters, normalized models, application state, UI and platform download/install integration separate. F-Droid data and Luma API responses need their own adapters; the separate All API frontend's `/api/luma/apps` feed is not an interchangeable catalog response.
 
-```text
-UI
- |
-Application state
- |
-Repository
- |--------------------|
-F-Droid adapters      Luma Store API
- |
-Normalized models
- |
-Platform download/install integration
-```
+Public catalog browsing does not need privileged credentials. Never embed service-role keys or email/webhook secrets in a client. Distinguish Supabase user tokens from forge provider tokens used by [tracked sources](/projects/luma-store/sources).
 
-## Security
-
-Public catalog browsing does not require privileged credentials. Never embed Supabase service-role keys or other server secrets in a distributed client.
-
-## Compatibility
-
-Support additional JSON fields, missing optional fields, new platforms and future package formats without failing the entire catalog. Use stable app/package identifiers instead of list positions.
+Validate HTTP status, tolerate empty bodies and preserve stable IDs. Installing an APK is Android-specific; a desktop browser of this catalog must not advertise Linux package installation merely because it runs on Linux.

@@ -1,43 +1,41 @@
-# MD-Blog
+---
+title: MD-Blog
+---
 
-MD-Blog is a lightweight Markdown publishing platform for blogs, changelogs and project updates.
+<ProjectHeader project="md-blog" />
 
-**Repository:** [FreetimeMaker/MD-Blog](https://github.com/FreetimeMaker/MD-Blog)
+## Find your starting point
+
+<ProjectPaths project="md-blog" />
+
+MD-Blog is a Node.js Markdown blog frontend. The current package version is **1.0.0**. Blog content is fetched from [All API](/projects/all-api/); the homepage remains a local Markdown file.
+
+**Source code:** [FreetimeMaker/MD-Blog](https://github.com/FreetimeMaker/MD-Blog)
+
+## At a glance
+
+<ProjectDiagram project="md-blog" />
 
 ## Features
 
-- Markdown files rendered to HTML with Marked
-- automatic post discovery from `public/blogs`
-- readable filename-based slugs
-- reusable homepage and post templates
-- light and dark themes
-- Vercel-ready routing
+- server-rendered HTML using Marked and reusable templates
+- post listing and category discovery through All API
+- comma-separated category filters that must all match a post
+- individual posts resolved by slug
+- Discord-style timestamps rendered through HTML time elements
+- light and dark styling
+- local Node HTTP server and Vercel routing
 
-## Content structure
+## Content and configuration
 
-```text
-api/
-  index.js
-  blog.js
-  blog/[slug].js
-public/
-  blogs/
-  md/index.md
-  views/
-  styles/
-vercel.json
-```
+`public/md/index.md` supplies the homepage. `public/views` contains the homepage and blog templates; styles and favicons are also local assets.
 
-Create a post by adding a Markdown file to `public/blogs`. A level-one heading becomes the post title; otherwise a title is generated from the filename.
+::: info Posts come from the backend
+The blog handlers request `/blog/posts`, `/blog/categories` and `/blog/posts/<slug>` from `ALL_API_URL`, which defaults to `https://api.free-time.me/v2`. Adding a file to `public/blogs` alone no longer publishes a post: posts must be available from the backend.
+:::
 
-```md
-# My First Post
+## Continue
 
-Post content goes here.
-```
-
-The example above is available under `/blog/my-first-post`.
-
-## Deployment
-
-The repository includes Vercel routing. The homepage is sourced from `public/md/index.md`, `/blog` lists posts and `/blog/<slug>` renders an individual post.
+- [Getting Started](/projects/md-blog/getting-started)
+- [Architecture](/projects/md-blog/architecture)
+- [Troubleshooting](/projects/md-blog/troubleshooting)

@@ -1,6 +1,6 @@
 # Design & Liquid Glass
 
-Freetime Core 3.0.0 uses **Material 3 Expressive + Material You** as the shared Android UI foundation. The Design module no longer acts as a separate Material-free component framework.
+Freetime Core 3.1.0 uses **Material 3 Expressive + Material You** as the shared Android UI foundation. The Design module no longer acts as a separate Material-free component framework.
 
 ## App theme
 
@@ -18,6 +18,12 @@ AppTheme(
 The shared theme provides Material 3 Expressive motion, Material You dynamic colors on Android 12+, regular color schemes on older versions, and `SYSTEM`, `LIGHT`, `DARK`, `OLED` and `AUTO_TIME` modes.
 
 The default automatic schedule uses light mode from 07:00 and dark mode from 19:00.
+
+## App-owned theme templates
+
+Version 3.1.0 includes copyable templates under `com.freetime.design.templates.material3` and `com.freetime.design.templates.expressive`. The former uses classic `MaterialTheme`, the latter `MaterialExpressiveTheme` and expressive motion. Both separate colors, typography, shapes and theme composition, with light/dark previews and optional Freetime adapters that disable navigation glass.
+
+The templates use Material defaults as starting values, make Material You opt-in and leave scheduling/OLED behavior to the app. They do not change the root `AppTheme` defaults. Their source guide is in `Design/src/main/java/com/freetime/design/templates/README.md`. Maintainers can compile-check them with `sh gradlew :Design:checkTemplates`.
 
 ## Liquid Glass
 

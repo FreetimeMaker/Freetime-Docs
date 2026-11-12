@@ -1,47 +1,52 @@
-# All API
+---
+title: All API
+---
 
-All API is the central Node.js backend for Freetime Maker services. The current backend package version is **2.8.0** and uses Express 5.
+<ProjectHeader project="all-api" />
 
-## API versions
+## Find your starting point
 
-The API is mounted under `/api/v1` and mirrored under `/api/v2`. Sol Arcade is available on v2.
+<ProjectPaths project="all-api" />
 
-## Current services
+All API consists of an Express backend and a separate Next.js account/dashboard frontend. This documentation describes the locally inspected implementation, not a verified production deployment.
 
-| Service | Current role |
-| --- | --- |
-| Auth | Supabase OAuth, sessions and linked accounts |
-| GeoWeather | Subscription plans, subscriptions and code redemption |
-| Wallora | Wallpaper catalog and purchases |
-| F-Port | Open-source app directory and cloud-synced likes |
-| Sol Arcade | Wallet login, on-chain pass payments, compressed NFT passes, plays and scores |
+## At a glance
 
-## Runtime and data
+<ProjectDiagram project="all-api" />
 
-The backend is built for Vercel serverless deployment and can also run directly with Node.js. Supabase/PostgreSQL stores the service data with Row Level Security where applicable. The backend also includes Appwrite support where individual services require it.
+## Source code
 
-The v2 Sol Arcade flow uses wallet challenge/signature authentication, JWT sessions, Solana payment confirmation and compressed NFT pass minting. A pass has a configurable play limit and each game start consumes one play.
+- [All-API-Node](https://github.com/FreetimeMaker/All-API-Node) — backend, package **2.8.1**.
+- [All-API-FrontEnd](https://github.com/FreetimeMaker/All-API-FrontEnd) — web frontend, package **2.2.0**.
 
-## Selected endpoints
+These repository URLs were checked against the local Git remotes.
 
-```text
-GET  /api/v1/health
-GET  /api/v1/auth/me
-GET  /api/v1/geoweather/subscriptions/plans
-GET  /api/v1/wallora/wallpapers
-GET  /api/v1/fport/apps
-GET  /api/v2/arcade
-POST /api/v2/arcade/login
-POST /api/v2/arcade/pass/confirm
-POST /api/v2/arcade/play/start
-```
+## API versions and services
 
-## Security
+The Express entry point mounts `/v1` and `/v2`, without an `/api` prefix. Both versions expose health, Supabase authentication and Wallora wallpaper routes. v1 is marked deprecated in its version-info response.
 
-Service-role keys, Solana mint keys, Arcade JWT/admin secrets and other privileged credentials are server-only. Clients should authenticate through the exposed API flows rather than receiving privileged backend keys.
+v2 additionally mounts:
+
+| Service    | Current role                                                                                                      |
+| ---------- | ----------------------------------------------------------------------------------------------------------------- |
+| Luma Store | Android catalog, developer profiles, download counts, ratings/reviews, saved apps and tracked APK release sources |
+| MD-Blog    | Markdown post list, post details and categories                                                                   |
+
+::: warning Current endpoint scope
+GeoWeather, F-Port and Sol Arcade are not mounted by the current backend. Older documentation for those endpoints is not a contract for this revision.
+:::
+
+## Frontend
+
+The frontend provides Supabase sign-in, account/developer dashboard pages, health monitoring, support handling, a backend proxy and a separate manually reviewed Luma submission API. Its `/api/luma/apps` endpoint is distinct from the Express `/v2/lumastore/apps` catalog.
+
+## Runtime and security
+
+The backend exports the Express app for hosting and starts a local listener when executed directly. Supabase provides database/auth access; Luma Store uses a dedicated Supabase client. Keep service-role keys, provider secrets, email credentials and webhook secrets server-side.
 
 ## Continue
 
+- [Getting Started](/projects/all-api/getting-started)
 - [Using the API](/projects/all-api/using-the-api)
 - [API Reference](/projects/all-api/api-reference)
 - [Authentication](/projects/all-api/authentication)

@@ -1,27 +1,34 @@
 # Features
 
-GeoWeather is a native Android weather application.
+GeoWeather is a native Android weather app. The local build version is 4.7.3.
 
-## Forecasts
+## Forecasts and locations
 
-The app presents current and forecast weather data through Compose screens. Network data is retrieved through Ktor and serialized into application models before being rendered.
+- Save multiple cities and search by name or coordinates.
+- View current conditions, hourly data and a 16-day Open-Meteo forecast.
+- Switch Celsius/Fahrenheit, km/h/mph and hPa/mmHg units.
+- Read saved forecasts offline with their update timestamp; offline data is not a new forecast.
 
-## Locations
+## Startup and display
 
-Users can work with configured locations/cities. Persistent data belongs in the Room-backed data layer rather than being tied to individual Compose screens.
+In **Settings → Startup and display**, choose the favorite location, last viewed location, overview or current location. Favorite/first saved location is the default; Back opens the overview. Current location falls back to saved data when device location is unavailable.
 
-## Appearance
+Compact mode emphasizes essentials; Detailed mode adds analyses. The UI uses Material 3, Material You and Freetime Core 3.0.0 theme/navigation integration, rather than a standalone Liquid component library.
 
-The UI uses Material 3, Material You dynamic colors and Liquid surfaces. Theme selection can adapt between light and dark presentation.
+## Local day planner
 
-## Widgets and background work
+The planner summarizes today and ranks consecutive two-hour windows for walking, running, cycling and gardening. It uses local forecast heuristics, not an AI service. Recommendations are hidden when data is older than two hours or required inputs are missing. They are not safety advice.
 
-Android Glance provides app-widget support. WorkManager is used where weather-related work must continue reliably outside an active screen.
+## Alerts
 
-## Images
+Weather notifications and smart rain alerts depend on location notification settings. Rain alerts use hourly forecast windows, respect quiet hours and apply a three-hour cooldown per location. Android background scheduling and forecast resolution do not guarantee an exact rain-start notification.
 
-Coil handles asynchronous image loading and integrates with the Ktor networking stack.
+## Widgets
 
-## Offline/local state
+Glance provides Responsive, Compact, Forecast and Detailed widget variants, with per-widget location settings. WorkManager coordinates refreshes; cached forecasts remain useful when fresh data cannot be fetched.
 
-Room with bundled SQLite stores persistent local data, while lightweight preferences use the settings layer.
+## Sharing and backup
+
+Share a weather card as an image with its data timestamp and source. The share dialog supports a custom title and hiding the location before opening Android's share sheet.
+
+JSON backup/restore preserves saved locations, their notification/change-alert settings and the default-location flag. It excludes rebuildable weather caches and is not a full application-preferences backup. Room and bundled SQLite hold structured local data; Multiplatform Settings handles lightweight preferences.

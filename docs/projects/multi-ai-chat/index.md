@@ -1,8 +1,16 @@
-# Multi AI Chat
+---
+title: Multi AI Chat
+---
 
-Multi AI Chat is a JetBrains IDE plugin that brings multiple AI providers into one coding workflow. The current plugin version is **1.2.0**.
+<ProjectHeader project="multi-ai-chat" />
 
-**Repository:** [FreetimeMaker/Multi-AI-Chat](https://github.com/FreetimeMaker/Multi-AI-Chat)
+## Find your starting point
+
+<ProjectPaths project="multi-ai-chat" />
+
+Multi AI Chat is a JetBrains IDE plugin that brings multiple AI providers into one coding workflow. The current version declared by the local Gradle build is **1.1.1**.
+
+**Source code:** [FreetimeMaker/Multi-AI-Chat](https://github.com/FreetimeMaker/Multi-AI-Chat)
 
 ## Providers
 
@@ -22,4 +30,12 @@ The plugin targets JetBrains platform builds starting at build 261 and includes 
 
 ## Security
 
-Provider API keys are configuration secrets. They must be supplied by the user and must never be committed to the repository.
+::: warning API keys are stored in plain text
+Provider API keys are supplied by the user. The current implementation stores them as plain string fields in the IDE's `MultiAiChatSettings.xml` persistent state, not in Password Safe. Protect that file and exclude it from shared settings, backups or source control where appropriate.
+
+Prompts and selected code are sent to the selected external provider; provider billing, rate limits and data-handling policies apply. Do not submit secrets or code you are not authorized to share.
+:::
+
+::: tip Check model availability
+The bundled model defaults are historical identifiers, not a guarantee of current provider availability. Select a model supported by your account.
+:::

@@ -1,25 +1,27 @@
 # Architecture
 
-MD-Blog is a small Node/Vercel application that turns Markdown files into web pages.
-
-## Rendering
-
-The project uses Marked to convert Markdown to HTML. Content remains file-based instead of requiring a database or CMS.
+MD-Blog combines local templates with API-backed blog content. It uses ES modules, native `fetch` and Marked **18.2.0** (declared compatible range).
 
 ## Routes
 
-Vercel routes requests into serverless Node handlers:
+| Route          | Handler              | Content source               |
+| -------------- | -------------------- | ---------------------------- |
+| `/`            | `api/index.js`       | `public/md/index.md`         |
+| `/blog`        | `api/blog.js`        | All API posts and categories |
+| `/blog/<slug>` | `api/blog/[slug].js` | All API post detail          |
 
-| Route | Handler |
-| --- | --- |
-| `/` | `api/index.js` |
-| `/blog` | `api/blog.js` |
-| `/blog/<slug>` | `api/blog/[slug].js` |
+`vercel.json` configures deployed routes. `server.js` runs the same handlers locally and additionally accepts `/api/blog/<slug>`, the path currently emitted by the listing template. Check both paths when deploying behind custom rewrites.
 
-Static styles and favicons are served from `public`.
+## Blog data flow
 
-## Adding content
+The listing fetches posts and categories concurrently. The optional `category` query parameter contains comma-separated names; matching is case-insensitive and requires every selected category.
 
-Blog posts are Markdown files under `public/blogs`. A post filename becomes its URL slug, while the level-one Markdown heading is used as its title.
+Post detail expects `title`, `categories` and `markdown`. Before Marked renders the body, the handler removes level-one heading lines and `Categories:` lines and replaces Discord timestamp syntax with time elements.
 
-This makes publishing intentionally Git-friendly: adding a post only requires adding a Markdown file and deploying the repository.
+A missing backend post returns 404. Other backend failures produce a temporary-unavailability response with status 503 rather than falling back to local post files.
+
+## Local assets and trust
+
+Templates live in `public/views`, with CSS and favicons under `public/styles` and `public/favicons`. The local server serves only its configured routes and asset prefixes, not the entire public directory.
+
+Markdown and metadata should come from a trusted publishing source: the rendering path inserts generated HTML into templates and is not a general-purpose sanitizer for untrusted submissions.

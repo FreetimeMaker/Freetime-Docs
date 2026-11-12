@@ -1,0 +1,43 @@
+name: Documentation quality
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Install dependencies from lockfile
+        run: npm ci
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Unit tests
+        run: npm test
+      - name: Typecheck documentation
+        run: npm run typecheck
+      - name: Build documentation
+        run: npm run build
+      - name: Check built documentation and metadata
+        run: npm run check:docs
+      - name: Browser smoke tests
+        run: npm run test:browser
+      - name: Upload browser failure screenshots and diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-browser-failures
+          path: artifacts/browser-smoke/
+          if-no-files-found: ignore
+          retention-days: 7

@@ -1,61 +1,51 @@
 # Sources
 
-Luma Store can track application releases outside the central store catalog. This is useful for Linux software and other apps that publish directly from their own repositories.
+Luma Store has two distinct source mechanisms: tracked release URLs in the website and catalog repositories in the Android client.
 
-## Tracked sources
+## Tracked release sources
 
-The Luma Store Website has a **Tracked sources** page where a user can add a source URL and choose Linux, Android or Windows.
+The [website's sources page](https://github.com/FreetimeMaker/Luma-Store-Website/blob/HEAD/app/sources/page.tsx) accepts a source URL and currently fixes the platform to **Android**. Supported forge hosts are:
 
-Supported source types are:
+- `github.com`
+- `gitlab.com`
+- `codeberg.org`
 
-- GitHub repositories
-- GitLab repositories
-- Codeberg repositories
-- direct HTTPS download URLs
+Other HTTPS URLs are treated as direct downloads. Tracked sources do not require a developer submission. The list is saved in browser local storage, not synchronized as an account-owned source list. Refresh checks the latest release again.
 
-Tracked sources do not require a Luma Store developer submission. The website stores the tracked source list locally and can refresh all saved sources to check the latest release.
+The [backend resolver](https://github.com/FreetimeMaker/All-API-Node/blob/HEAD/src/v2/lumastore/store.js) recognizes `.apk` asset names as Android and filters out all other assets. A direct non-APK URL or a latest release without APK assets can return an empty list even when resolution succeeds. Linux/Windows assets are not supported by this implementation.
 
-For forge repositories, Luma Store resolves the latest release and lists matching downloadable assets. Direct URLs are treated as a single downloadable artifact.
+## Signed-in forge access
 
-## Signed-in VCS access
+Source requests can send a forge OAuth token as `Authorization: Bearer <provider-token>` with `X-VCS-Provider: github`, `gitlab` or `codeberg`. `custom:codeberg` is also accepted for Codeberg. The backend forwards the token only to the matching source provider; anonymous requests are otherwise possible and may hit provider rate limits.
 
-When the user is signed in with the same forge as the tracked repository, source checks forward that provider's OAuth token to All API. This means GitHub, GitLab and Codeberg release checks can use the signed-in account instead of relying on anonymous API quotas.
+This provider token is different from the Supabase user token required for ratings and saved apps.
 
-The token is only forwarded when the signed-in provider matches the source provider.
+## Resolver paths
 
-## Source resolver API
-
-All API exposes the resolver through the Luma Store v2 service:
+The Express backend mounts:
 
 ```text
-GET /v2/lumastore/sources/resolve?url=<repository-or-direct-url>&platform=<Linux|Android|Windows>
+GET /v2/lumastore/sources/resolve?url=<https-url>&platform=Android
 ```
 
-The deployed Luma Store API alias exposes the same resolver as:
+The inspected website calls `https://api.free-time.me/lumastore/sources/resolve`. That unversioned alias requires deployment routing not present in the inspected Express entry point; its live availability was not tested.
+
+The response includes `source_url`, `provider`, latest release `version` / `title` / `published_at` and an `assets` array. Direct URLs do not supply forge release metadata.
+
+## Android catalog repositories
+
+The [Android repository layer](https://github.com/FreetimeMaker/Luma-Store-Android/blob/HEAD/app/src/main/java/com/freetime/lumastore/data/AppRepository.kt) enables the Luma Store catalog by default:
 
 ```text
-GET /lumastore/sources/resolve?url=<repository-or-direct-url>&platform=<Linux|Android|Windows>
+https://api.free-time.me/v2/lumastore/apps?platform=android
 ```
 
-The response identifies the provider, latest release version/title/date and matching assets.
+Built-in Freetime F-Droid, F-Droid and IzzyOnDroid repositories are disabled by default and can be enabled separately. Custom F-Droid-compatible sources are also supported. These catalogs are separate from the website's locally tracked release URLs.
 
-Recognized asset types include APK for Android; AppImage, DEB, RPM, Flatpak and Flatpakref for Linux; and EXE, MSI and MSIX for Windows.
+## Public catalog filters
 
-## F-Droid-compatible sources
-
-The Android client separately supports Luma Store data together with F-Droid-compatible/community repositories. Each catalog should be fetched independently so one unavailable source does not hide healthy sources.
-
-## Luma Store catalog
-
-For store integrations, All API v2 exposes the normalized catalog:
-
-```text
-GET /v2/lumastore/apps
-GET /v2/lumastore/apps/:id
-```
-
-Useful list filters include `category`, `platform` and `search`. Linux clients can additionally filter by `package_format`.
+`GET /v2/lumastore/apps` accepts `category` (category ID), `platform` and `search` (name matching). The current normalized platform list contains Android rows only. There is no `package_format` filter.
 
 ## Debugging
 
-For tracked VCS sources, check the repository URL, provider login/token, release existence and requested platform. For catalog sources, check retrieval, response status, parsing, normalization, client filters, platform selection and media URLs separately.
+For tracked sources, check HTTPS URL syntax, latest release existence, APK asset names, provider login/permissions and rate limits. For catalogs, inspect HTTP status, response parsing, app visibility, source settings and client filters independently. A successful empty result is not equivalent to a transport error.
