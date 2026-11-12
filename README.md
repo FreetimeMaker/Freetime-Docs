@@ -34,6 +34,11 @@ The VitePress theme lives in `docs/.vitepress/theme/`:
 - `ProjectDiagram` renders accessible HTML architecture flows without an extra diagram dependency.
 - `ProjectScreenshot` displays local screenshots with alt text, captions and full-size links.
 - `style.css` defines light/dark tokens, responsive layouts, focus states and reduced-motion support. Native VitePress callouts retain their semantic colors.
+- `layout.css` separates the header, section navigation, left sidebar, content and right-hand outline while preserving the existing Freetime design. The homepage uses the same documentation layout and sidebar.
+- `VersionSelector` sits before every sidebar entry. It lists only the current and archived versions, preserving the page where available and falling back safely otherwise. The manifest and archive sidebars are derived at config time by `version-navigation.ts`, with no filesystem code shipped to the client.
+- `DocsOptions`, `LanguageSelector` and `ThemeOptions` implement the options menu directly in Vue. Appearance follows the system by default and supports persistent Light/Dark overrides using VitePress's existing storage key. Code copying uses VitePress's built-in button; whole-page copy widgets and AI are not enabled.
+
+The layout structure follows the public docmd Summer reference, not its CSS or plugin system. Its unrelated Rafisa client/GitLab destinations are not copied; this site links to its own documentation repository. English/German selection covers the real introductory pages under `/` and `/de/`. Technical guides remain English, explicitly noted before switching; no missing translations or external AI services are silently substituted.
 
 Project overview pages keep a `title` in frontmatter and use `<ProjectHeader project="slug" />` for their visible heading. Keep screenshot originals under `static/img/projects/`; `sync:static` copies them into the build's public directory. Existing screenshots come from the source projects' Fastlane metadata and are explicitly labeled when they do not represent the current UI. Do not use them as proof of current behavior.
 
@@ -67,12 +72,12 @@ npm run test:browser
 
 After installing Chromium, `npm run check` runs all five validation steps in order. On Linux CI, install browser system libraries with `npx playwright install --with-deps chromium`.
 
-- **Unit tests:** isolated positive and negative fixtures for metadata, review dates/commits, clean URLs, anchors, missing images and alt attributes.
+- **Unit tests:** isolated positive and negative fixtures for metadata, review dates/commits, clean URLs, anchors, missing images, alt attributes, external-link behavior, snapshot link rewriting, version fallback and archive sidebar discovery.
 - **Typecheck:** Vue components, theme TypeScript and JSON imports. TypeScript is pinned exactly to `6.0.3`: the current Vue checker requires the `typescript/lib/tsc` entry point that TypeScript 7 no longer exports, and its Volar dependency requires TypeScript `<7`. Keep this pin when updating dependencies until the Vue checker and its dependencies support TypeScript 7; update and validate `package-lock.json` together with `package.json`.
 - **Built-doc checks:** HTML parsing with `parse5`; checks local links, anchors, image references, project entry points, related guides and source-review schema. External links and live APIs are deliberately not fetched. Valid commit syntax is not proof that a remote commit or file exists; source reviews remain a manual responsibility.
-- **Browser smoke tests:** the production build runs on an ephemeral local server, always shut down after the run. The matrix covers the homepage, project directory, every project overview and a setup subpage on mobile/desktop in light/dark mode. It checks local assets, overflow, theme, feedback, reviews, SPA navigation, keyboard focus and search. External requests are blocked. These are smoke checks, not a complete accessibility audit or pixel-diff visual regression suite.
+- **Browser smoke tests:** the production build runs on an ephemeral local server, always shut down after the run. The matrix covers the homepage, project directory, every project overview and a setup subpage on mobile/desktop in light/dark mode. It checks local assets, overflow, theme, feedback, reviews, SPA navigation, keyboard focus and search. External requests are blocked. A second navigation suite checks sidebar order, version switching and missing-page fallback, archive-only navigation, language switching, system theme changes and persistence, clipboard copying and mobile overflow. These are smoke checks, not a complete accessibility audit or pixel-diff visual regression suite.
 
-`.github/workflows/docs.yml` runs these checks on pushes and pull requests with read-only repository permissions and no deployment secrets. It does not deploy the site; deployment is handled by Vercel. Browser failures upload screenshots and diagnostics for seven days. Local artifacts are ignored under `artifacts/browser-smoke/`.
+`.github/workflows/docs.yml` validates pull requests and pushes to `main`. Its build job has read-only repository permissions; the separate deployment job receives only the additional Pages/OIDC permissions it needs. After all checks succeed, pushes to `main` and manual runs on `main` publish to GitHub Pages. Pull requests never deploy. Browser failure artifacts are retained for seven days. Local artifacts are ignored under `artifacts/`.
 
 ## Versioning
 
@@ -84,32 +89,52 @@ Create a snapshot with:
 npm run docs:version -- 1.0
 ```
 
-Archived versions are stored under `docs/versions/<version>/` and are automatically exposed through the VitePress version selector.
+Archived versions are stored under `docs/versions/<version>/` and are automatically exposed through the selector at the top of the sidebar. There is no separate “Documentation versions” sidebar group or “All versions” selector item. The archive list comes from `docs/versions.json`; `current` is the current guide label, not an application version.
 
-## Vercel
+Snapshots preserve relative links, qualify root-relative documentation links to copied pages, and keep images under the shared global assets. Generated `docs/public` assets are not copied into each archive. Existing archives are never overwritten. Each historical sidebar is discovered from that archive's actual Markdown files, not borrowed from today's project list.
 
-Vercel deploys the static VitePress output through its Git integration. The tracked `vercel.json` configures:
+## GitHub Pages
 
-- Framework Preset: **Other** (`framework: null`)
-- Install Command: `npm ci --include=dev` (the build tools are dev dependencies)
-- Build Command: `npm run build:vercel`
-- Output Directory: `docs/.vitepress/dist`
-- Clean URLs: enabled, matching VitePress
-- Node.js: **24.x**, pinned in `package.json` and matching CI
+GitHub Actions builds, validates and deploys the static site. The expected default project URL is:
 
-Use the repository root as the Vercel project's Root Directory. Remove conflicting build/install/output overrides in the Vercel dashboard. No Vercel token is needed in GitHub Actions for a Git-integrated deployment.
-
-`build:vercel` runs unit tests, Vue typechecking, the static build (including asset synchronization), then built-link/image/metadata checks. A failed check fails the Vercel build. It deliberately does not run Playwright or install Chromium; browser smoke tests remain in GitHub Actions and can also be run locally.
-
-GitHub checks and Vercel builds run independently. A failing browser check does not by itself block Vercel's automatic deployment; enforce a required check before merging to your production branch if that gate is needed. Configure the production branch and preview deployments in Vercel.
-
-The deployed site needs neither a Node server nor a catch-all SPA rewrite: VitePress generates individual HTML pages and assets. Only `docs/.vitepress/dist` is published, not source repositories or test artifacts. No application API keys are needed to build these docs. Feedback links use the page's deployed origin, so they also work on Vercel preview URLs.
-
-To validate the same build locally:
-
-```bash
-npm ci --include=dev
-npm run build:vercel
+```text
+https://freetimemaker.github.io/Freetime-Docs/
 ```
 
-A local success verifies the build command and generated files, not the live Vercel project settings or deployment.
+### One-time repository setup
+
+1. In **Settings → Pages → Build and deployment**, select **GitHub Actions** as the source.
+2. Allow the `github-pages` environment to deploy from `main` if deployment branch restrictions are configured.
+3. Push to `main`, or manually run **Documentation quality and GitHub Pages** on `main`.
+
+No personal access token or `gh-pages` branch is required. The workflow uses GitHub's Pages artifact and short-lived OIDC credentials. The deployment job runs only after unit tests, typechecking, the build, static checks and both browser suites have passed. The build and deployment use Node.js from `package.json` (`24.x`). Full Git history is checked out for page last-updated timestamps.
+
+### Base path and assets
+
+The default VitePress base is `/Freetime-Docs/`, matching this repository's project site. The workflow derives the same base from the repository name; set the repository Actions variable **`DOCS_BASE`** to override it. A base must begin and end with `/`.
+
+For a custom domain or an owner site hosted at the domain root, set `DOCS_BASE` to `/` and configure that domain in GitHub Pages. For local builds use the same environment variable. No custom domain is assumed or provisioned by this change.
+
+Favicons, images, search, sidebar links, language/version switches and test servers honor this prefix. The build writes `.deployment.json` with the resolved base; static and browser checks read that artifact rather than assuming the origin root. Checks reject same-origin links that escape the deployment base. Clean URLs remain enabled because GitHub Pages supports extensionless HTML URLs; no catch-all rewrite is used.
+
+Only `docs/.vitepress/dist` is uploaded, including the `.nojekyll` marker copied from `static/`. Source repositories and test artifacts are not deployed. No application API keys are needed.
+
+### Local validation
+
+```bash
+npm ci
+npx playwright install chromium
+npm run check
+```
+
+`npm run build:pages` runs unit tests, typechecking, the static build and static checks without Chromium. The workflow additionally runs the browser suites before uploading the site.
+
+To test a root-domain build on a POSIX shell:
+
+```bash
+DOCS_BASE=/ npm run check
+```
+
+The development server also uses the configured base; its default entry point is `http://localhost:5173/Freetime-Docs/` unless the port changes. For local root-path development use `DOCS_BASE=/ npm run dev`.
+
+Vercel configuration and its build script have been removed. If the old Vercel Git integration is still enabled, disconnect it in Vercel to stop duplicate deployments; repository changes alone cannot disable that external integration. A successful local run does not prove that GitHub Pages has been enabled or that a live deployment has completed.

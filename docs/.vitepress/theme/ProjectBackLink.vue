@@ -7,16 +7,26 @@ import ProjectPaths from './ProjectPaths.vue'
 import ProjectRelations from './ProjectRelations.vue'
 import ProjectReview from './ProjectReview.vue'
 import PageFeedback from './PageFeedback.vue'
+import VersionSelector from './VersionSelector.vue'
+import DocsOptions from './DocsOptions.vue'
+import SectionNavigation from './SectionNavigation.vue'
 
 const { Layout } = DefaultTheme
 const { page } = useData()
 const path = computed(() => page.value.relativePath.replace(/\\/g, '/'))
 const project = computed(() => path.value.startsWith('projects/') ? projectBySlug(path.value.split('/')[1]) : undefined)
 const current = computed(() => path.value.split('/').at(-1)?.replace(/\.md$/, ''))
+const root = computed(() => {
+  const archive = /^versions\/([^/]+)\//.exec(path.value)?.[1]
+  return archive ? `/versions/${archive}/` : path.value.startsWith('de/') ? '/de/' : '/'
+})
 </script>
 
 <template>
   <Layout>
+    <template #layout-top><SectionNavigation /></template>
+    <template #nav-bar-content-after><DocsOptions /></template>
+    <template #sidebar-nav-before><VersionSelector /></template>
     <template #doc-before>
       <nav v-if="project" class="wiki-breadcrumb" aria-label="Breadcrumb">
         <a :href="withBase('/projects/')">Projects</a>
@@ -27,6 +37,11 @@ const current = computed(() => path.value.split('/').at(-1)?.replace(/\.md$/, ''
           <span aria-hidden="true">/</span>
           <span aria-current="page">{{ page.title }}</span>
         </template>
+      </nav>
+      <nav v-else class="wiki-breadcrumb" aria-label="Breadcrumb">
+        <a :href="withBase(root)">{{ path.startsWith('de/') ? 'Dokumentation' : 'Documentation' }}</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{{ page.title }}</span>
       </nav>
     </template>
     <template #doc-footer-before>

@@ -22,13 +22,13 @@ The static site is generated in `docs/.vitepress/dist`.
 Create an immutable snapshot of the current documentation:
 
 ```bash
-npm run docs:version -- 1.0
+npm run docs:version -- 2.x
 ```
 
 This copies the current documentation into:
 
 ```text
-docs/versions/1.0/
+docs/versions/2.x/
 ```
 
 The snapshot is independent from Git tags and software release versions.

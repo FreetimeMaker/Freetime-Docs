@@ -4,7 +4,7 @@ Freetime Docs is the central technical documentation for maintained Freetime Mak
 
 ## Choose a project
 
-Start from the [Projects overview](/projects/) and select the application or service you are working with.
+Start from the [Projects overview](../projects/) and select the application or service you are working with.
 
 ## Documentation structure
 

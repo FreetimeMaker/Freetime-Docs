@@ -14,7 +14,7 @@ import { projects, projectUrl, sourceUrl } from './projects'
       </ul>
       <div class="project-card-links">
         <a :href="withBase(projectUrl(project))" :aria-label="`${project.name} documentation`">Documentation <span aria-hidden="true">→</span></a>
-        <a :href="sourceUrl(project)" :aria-label="`${project.name} source code on GitHub`">Source code <span aria-hidden="true">↗</span></a>
+        <a :href="sourceUrl(project)" target="_blank" rel="noopener noreferrer" :aria-label="`${project.name} source code on GitHub`">Source code <span aria-hidden="true">↗</span></a>
       </div>
     </article>
   </div>

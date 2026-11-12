@@ -179,6 +179,13 @@ export function inspectHtml(html) {
     );
     if (attrs.id) ids.add(attrs.id);
     if (node.tagName === "a" && attrs.name) ids.add(attrs.name);
+    if (node.tagName === "a" && /^(?:https?:)?\/\//i.test(attrs.href ?? "")) {
+      const rel = new Set((attrs.rel ?? "").toLowerCase().split(/\s+/));
+      if (attrs.target !== "_blank")
+        errors.push(`external link must open in a new tab: ${attrs.href}`);
+      if (!rel.has("noopener"))
+        errors.push(`external link requires noopener: ${attrs.href}`);
+    }
     if (node.tagName === "img" && !Object.hasOwn(attrs, "alt"))
       errors.push("image missing alt attribute");
     for (const key of ["href", "src", "poster"])
@@ -203,20 +210,61 @@ export function inspectHtml(html) {
   return { ids, references, errors };
 }
 
-export async function resolveTarget(directory, from, reference) {
+export function normalizeBase(base = "/") {
+  requireValue(
+    typeof base === "string" &&
+      /^\/(?:[A-Za-z0-9_-]+(?:\.[A-Za-z0-9_-]+)*\/)*$/.test(base),
+    `invalid deployment base: ${JSON.stringify(base)} (expected / or /path/)`,
+  );
+  return base;
+}
+
+export async function loadBuildBase(directory = dist) {
+  const file = path.join(directory, ".deployment.json");
+  let metadata;
+  try {
+    metadata = JSON.parse(await readFile(file, "utf8"));
+  } catch (error) {
+    fail(
+      `Cannot load deployment metadata ${file}: ${error.message}; run npm run build first`,
+    );
+  }
+  requireValue(
+    object(metadata) && typeof metadata.base === "string",
+    `${file}: expected {base: string}`,
+  );
+  return normalizeBase(metadata.base);
+}
+
+export async function resolveTarget(directory, from, reference, base = "/") {
+  base = normalizeBase(base);
   const url = new URL(reference, new URL(from, origin));
   if (url.origin !== origin) return null;
   const pathname = decodeURIComponent(url.pathname);
-  const base = path.resolve(directory, `.${pathname}`);
   requireValue(
-    base === path.resolve(directory) ||
-      base.startsWith(path.resolve(directory) + path.sep),
+    !pathname.includes("\\") &&
+      !pathname
+        .split("/")
+        .some((segment) => segment === "." || segment === ".."),
+    `target escapes build directory or deployment base: ${reference}`,
+  );
+  requireValue(
+    pathname.startsWith(base),
+    `target outside deployment base ${base}: ${reference} (from ${from})`,
+  );
+  const targetPath = path.resolve(
+    directory,
+    pathname.slice(base.length) || ".",
+  );
+  requireValue(
+    targetPath === path.resolve(directory) ||
+      targetPath.startsWith(path.resolve(directory) + path.sep),
     `target escapes build directory: ${reference}`,
   );
   for (const candidate of [
-    base,
-    `${base}.html`,
-    path.join(base, "index.html"),
+    targetPath,
+    `${targetPath}.html`,
+    path.join(targetPath, "index.html"),
   ]) {
     if (
       await stat(candidate).then(
@@ -229,7 +277,9 @@ export async function resolveTarget(directory, from, reference) {
   fail(`missing internal target ${reference} (from ${from})`);
 }
 
-export async function checkBuiltHtml(directory, projects = []) {
+export async function checkBuiltHtml(directory, projects = [], base = "/") {
+  base = normalizeBase(base);
+  directory = path.resolve(directory);
   const errors = [],
     documents = new Map();
   async function scan(folder) {
@@ -247,7 +297,7 @@ export async function checkBuiltHtml(directory, projects = []) {
   );
   async function check(from, value, anchor = true) {
     try {
-      const target = await resolveTarget(directory, from, value);
+      const target = await resolveTarget(directory, from, value, base);
       if (
         target &&
         anchor &&
@@ -263,7 +313,8 @@ export async function checkBuiltHtml(directory, projects = []) {
     }
   }
   for (const [file, doc] of documents) {
-    const from = "/" + path.relative(directory, file).split(path.sep).join("/");
+    const from =
+      base + path.relative(directory, file).split(path.sep).join("/");
     errors.push(...doc.errors.map((e) => `${from}: ${e}`));
     for (const ref of doc.references) await check(from, ref.value, ref.anchor);
   }
@@ -274,14 +325,15 @@ export async function checkBuiltHtml(directory, projects = []) {
       ...p.paths.map((e) => projectTarget(p.slug, e.path)),
       ...p.related.map((e) => projectTarget(e.slug, e.page)),
     ])
-      await check(`/metadata/${p.slug}`, target);
+      await check(`${base}metadata/${p.slug}`, base + target.slice(1));
   }
   return errors;
 }
 
 export async function main() {
   const { projects } = await loadMetadata();
-  const errors = await checkBuiltHtml(dist, projects);
+  const base = await loadBuildBase();
+  const errors = await checkBuiltHtml(dist, projects, base);
   if (errors.length)
     fail(
       `Documentation checks failed (${errors.length}):\n- ${errors.join("\n- ")}`,

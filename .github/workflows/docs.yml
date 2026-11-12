@@ -1,12 +1,20 @@
-name: Documentation quality
+name: Documentation quality and GitHub Pages
 
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  DOCS_BASE: ${{ vars.DOCS_BASE || format('/{0}/', github.event.repository.name) }}
 
 jobs:
   docs:
@@ -16,9 +24,12 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
-          node-version: "26"
+          node-version-file: package.json
+          cache: npm
       - name: Install dependencies from lockfile
         run: npm ci
       - name: Install Chromium
@@ -27,17 +38,41 @@ jobs:
         run: npm test
       - name: Typecheck documentation
         run: npm run typecheck
-      - name: Build documentation
+      - name: Build documentation for Pages
         run: npm run build
       - name: Check built documentation and metadata
         run: npm run check:docs
-      - name: Browser smoke tests
+      - name: Browser smoke tests under the deployment base
         run: npm run test:browser
       - name: Upload browser failure screenshots and diagnostics
         if: failure()
         uses: actions/upload-artifact@v7
         with:
           name: docs-browser-failures
-          path: artifacts/browser-smoke/
+          path: artifacts/
           if-no-files-found: ignore
           retention-days: 7
+      - name: Upload GitHub Pages site
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/.vitepress/dist
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: docs
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

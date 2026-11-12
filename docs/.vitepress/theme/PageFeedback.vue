@@ -32,8 +32,8 @@ const reportUrl = computed(() => {
   <section v-if="!page.isNotFound" class="page-feedback" aria-label="Documentation feedback">
     <div><strong>Help improve this page</strong><p>Found a missing step or an outdated detail?</p></div>
     <div class="feedback-actions">
-      <a :href="editUrl">Edit this page <span aria-hidden="true">↗</span></a>
-      <a :href="reportUrl">Report a documentation issue <span aria-hidden="true">↗</span></a>
+      <a :href="editUrl" target="_blank" rel="noopener noreferrer">Edit this page <span aria-hidden="true">↗</span></a>
+      <a :href="reportUrl" target="_blank" rel="noopener noreferrer">Report a documentation issue <span aria-hidden="true">↗</span></a>
     </div>
     <p class="feedback-privacy">Links open GitHub; nothing is submitted automatically. Reporting or proposing an edit requires a GitHub account. Do not include credentials or private logs.</p>
   </section>

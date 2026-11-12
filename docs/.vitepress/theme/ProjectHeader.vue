@@ -17,7 +17,7 @@ const info = computed(() => projectBySlug(props.project))
     </ul>
     <div class="project-actions">
       <a class="project-button primary" :href="withBase(projectUrl(info, 'getting-started'))">Get started <span aria-hidden="true">→</span></a>
-      <a class="project-button" :href="sourceUrl(info)">Source code <span aria-hidden="true">↗</span></a>
+      <a class="project-button" :href="sourceUrl(info)" target="_blank" rel="noopener noreferrer">Source code <span aria-hidden="true">↗</span></a>
     </div>
     <p class="project-source-note">Version numbers below describe inspected source, not necessarily the latest published release.</p>
   </header>

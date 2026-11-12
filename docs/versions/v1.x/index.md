@@ -6,15 +6,15 @@ Use the **documentation tree on the left** or the search field in the navigation
 
 ## Start here
 
-- [Getting started](/getting-started/) — understand how Freetime Docs is organized.
-- [Projects](/projects/) — browse all documented projects.
-- [All API](/projects/all-api/) — backend services, authentication and API reference.
-- [GeoWeather](/projects/geoweather/) — Android weather application documentation.
-- [Luma Store](/projects/luma-store/) — Android, dashboard, sources, submissions and Linux.
-- [SuperSMP Companion](/projects/supersmp-companion/) — Android companion application.
-- [Freetime News](/projects/freetime-news/) — native Android news reader.
-- [MD-Blog](/projects/md-blog/) — Markdown publishing platform.
-- [Multi AI Chat](/projects/multi-ai-chat/) — JetBrains IDE plugin.
+- [Getting started](getting-started/) — understand how Freetime Docs is organized.
+- [Projects](projects/) — browse all documented projects.
+- [All API](projects/all-api/) — backend services, authentication and API reference.
+- [GeoWeather](projects/geoweather/) — Android weather application documentation.
+- [Luma Store](projects/luma-store/) — Android, dashboard, sources, submissions and Linux.
+- [SuperSMP Companion](projects/supersmp-companion/) — Android companion application.
+- [Freetime News](projects/freetime-news/) — native Android news reader.
+- [MD-Blog](projects/md-blog/) — Markdown publishing platform.
+- [Multi AI Chat](projects/multi-ai-chat/) — JetBrains IDE plugin.
 
 ## Finding documentation
 

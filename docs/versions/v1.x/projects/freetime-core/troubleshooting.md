@@ -38,7 +38,7 @@ ls Sample/build/outputs/apk/debug/
 adb shell am start -n com.freetime.sample/.MainActivity
 ```
 
-**Expected:** one authorized target marked `device`, a debug APK, and the sample activity opening on API 24+. See the [first-success checkpoints](./getting-started#first-success-in-five-minutes).
+**Expected:** one authorized target marked `device`, a debug APK, and the sample activity opening on API 24+. See the [archived Getting Started guide](./getting-started).
 
 **Fix:** start or authorize the device, select a target with adb's `-s` option if several are attached, and install the actual APK filename. If installation reports an incompatible signing certificate, use a separate emulator or back up data before uninstalling the older app; do not clear data as a first diagnostic step.
 

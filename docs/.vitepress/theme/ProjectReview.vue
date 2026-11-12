@@ -17,9 +17,9 @@ const fileUrl = (repository: string, commit: string, path: string) => `https://g
     <details>
       <summary>Inspected revisions and files</summary>
       <div v-for="source in review.sources" :key="source.repository" class="review-source">
-        <a :href="repositoryUrl(source.repository, source.commit)">{{ source.repository }} · <code>{{ source.commit.slice(0, 12) }}</code></a>
+        <a :href="repositoryUrl(source.repository, source.commit)" target="_blank" rel="noopener noreferrer">{{ source.repository }} · <code>{{ source.commit.slice(0, 12) }}</code></a>
         <ul>
-          <li v-for="path in source.paths" :key="path"><a :href="fileUrl(source.repository, source.commit, path)">{{ path }}</a></li>
+          <li v-for="path in source.paths" :key="path"><a :href="fileUrl(source.repository, source.commit, path)" target="_blank" rel="noopener noreferrer">{{ path }}</a></li>
         </ul>
       </div>
     </details>

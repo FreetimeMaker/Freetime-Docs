@@ -8,6 +8,7 @@ import ProjectDiagram from "./ProjectDiagram.vue";
 import ProjectScreenshot from "./ProjectScreenshot.vue";
 import PageFeedback from "./PageFeedback.vue";
 import "./style.css";
+import "./layout.css";
 
 export default {
   extends: DefaultTheme,

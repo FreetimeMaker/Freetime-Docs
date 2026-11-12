@@ -6,6 +6,8 @@ import {
   dist,
   root,
   loadMetadata,
+  loadBuildBase,
+  normalizeBase,
   projectTarget,
   resolveTarget,
 } from "./check-docs.mjs";
@@ -25,10 +27,21 @@ const mime = {
   ".woff2": "font/woff2",
 };
 
-export function createBuiltServer() {
+function withBase(base, route) {
+  if (
+    !route.startsWith("/") ||
+    route.startsWith("//") ||
+    (base !== "/" && route.startsWith(base))
+  )
+    throw new Error(`Expected an unprefixed logical route: ${route}`);
+  return base + route.slice(1);
+}
+
+export function createBuiltServer(base = "/") {
+  base = normalizeBase(base);
   return createServer(async (request, response) => {
     try {
-      const target = await resolveTarget(dist, "/", request.url);
+      const target = await resolveTarget(dist, base, request.url ?? "/", base);
       if (!target) throw new Error("External target");
       const data = await readFile(target.file);
       response.writeHead(200, {
@@ -67,7 +80,7 @@ async function checkFeedback(page, pagePath) {
   return url.href;
 }
 
-async function checkKeyboardAndSearch(page, project) {
+async function checkKeyboardAndSearch(page, project, base) {
   await page.keyboard.press("Tab");
   const focused = page.locator(":focus");
   await expect(focused, "Tab must focus a visible control").toBeVisible();
@@ -100,7 +113,7 @@ async function checkKeyboardAndSearch(page, project) {
   await expect(dialog).toBeVisible();
   await dialog.locator("input").first().fill(project.name);
   const result = dialog
-    .locator(`a[href^="${projectTarget(project.slug)}"]`)
+    .locator(`a[href^="${withBase(base, projectTarget(project.slug))}"]`)
     .first();
   await expect(
     result,
@@ -113,7 +126,8 @@ async function checkKeyboardAndSearch(page, project) {
 async function main() {
   const { projects, reviews } = await loadMetadata();
 
-  const server = createBuiltServer();
+  const base = await loadBuildBase();
+  const server = createBuiltServer(base);
   let browser;
   try {
     await new Promise((resolve, reject) => {
@@ -182,7 +196,7 @@ async function main() {
             });
             const id = `${viewport.name}-${colorScheme}-${target.url.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "") || "home"}`;
             try {
-              const response = await page.goto(origin + target.url, {
+              const response = await page.goto(origin + withBase(base, target.url), {
                 waitUntil: "networkidle",
               });
               expect(response?.status(), `${target.url}: HTTP status`).toBe(
@@ -204,7 +218,7 @@ async function main() {
                       name: `${project.name} documentation`,
                       exact: true,
                     }),
-                  ).toHaveAttribute("href", projectTarget(project.slug));
+                  ).toHaveAttribute("href", withBase(base, projectTarget(project.slug)));
               }
               if (target.project) {
                 const { project } = target;
@@ -215,7 +229,7 @@ async function main() {
                     await expect(
                       main
                         .locator(
-                          `a[href="${projectTarget(project.slug, entry.path)}"]`,
+                          `a[href="${withBase(base, projectTarget(project.slug, entry.path))}"]`,
                         )
                         .first(),
                     ).toBeVisible();
@@ -230,7 +244,7 @@ async function main() {
                       page
                         .locator(".project-relations")
                         .locator(
-                          `a[href="${projectTarget(related.slug, related.page)}"]`,
+                          `a[href="${withBase(base, projectTarget(related.slug, related.page))}"]`,
                         )
                         .first(),
                     ).toBeVisible();
@@ -245,7 +259,7 @@ async function main() {
                 await expect(
                   page.getByRole("link", { name: /edit.*page/i }).first(),
                 ).toHaveAttribute("href", /github\.com\/.*\/edit\//);
-                await checkFeedback(page, target.url);
+                await checkFeedback(page, withBase(base, target.url));
                 await expect(
                   page
                     .getByText(reviews[project.slug].reviewedAt, {
@@ -295,7 +309,7 @@ async function main() {
                 `${target.url}: overflowing headings`,
               ).toEqual([]);
               if (target.kind === "home")
-                await checkKeyboardAndSearch(page, projects[0]);
+                await checkKeyboardAndSearch(page, projects[0], base);
               if (
                 target.kind === "overview" &&
                 target.project === projects[0]
@@ -304,7 +318,7 @@ async function main() {
                   target.project.slug,
                   "getting-started",
                 );
-                const beforeFeedback = await checkFeedback(page, target.url);
+                const beforeFeedback = await checkFeedback(page, withBase(base, target.url));
                 const edit = page
                   .getByRole("link", { name: /edit.*page/i })
                   .first();
@@ -314,10 +328,10 @@ async function main() {
                   window.__docsSmokeSpa = true;
                 });
                 await page
-                  .locator(`main a[href="${nextPath}"]`)
+                  .locator(`main a[href="${withBase(base, nextPath)}"]`)
                   .first()
                   .click();
-                await expect(page).toHaveURL(origin + nextPath);
+                await expect(page).toHaveURL(origin + withBase(base, nextPath));
                 await expect(edit).not.toHaveAttribute("href", beforeEdit);
                 expect(
                   decodeURIComponent(await edit.getAttribute("href")),
@@ -333,7 +347,7 @@ async function main() {
                     { message: "SPA feedback link must update" },
                   )
                   .not.toBe(beforeFeedback);
-                expect(await checkFeedback(page, nextPath)).not.toBe(
+                expect(await checkFeedback(page, withBase(base, nextPath))).not.toBe(
                   beforeFeedback,
                 );
                 expect(
