@@ -42,6 +42,14 @@ curl --fail --show-error --location --max-time 30 'https://geocoding-api.open-me
 
 **Fix:** enable the relevant permission/settings and correct widget location selection. Adjust OS background restrictions only if appropriate for the device; do not bypass cooldowns or interpret forecast timing as a delivery guarantee.
 
+## Persistent weather notification is missing or stale
+
+**Check:** enable the persistent notification setting, grant Android notification permission and ensure the persistent-weather channel is not disabled. Save at least one location and inspect its weather timestamp.
+
+**Expected:** the service uses the selected location or the first saved location, observes cached weather/unit changes and attempts refresh every 30 minutes. A refresh failure retains cached content; an ongoing notification does not prove a successful fetch.
+
+**Fix:** correct permission/channel settings and inspect `PersistentWeatherNotification` / `WeatherForegroundService` errors for a failed service start or refresh. Freetime Updates/Changelogs/Developer messages are separate category settings and do not enable the weather notification.
+
 ## Local data behaves unexpectedly
 
 **Check:** inspect Room/bundled SQLite migration and persistence errors before clearing app data. Compare a JSON export's locations and their notification/change-alert/default settings with the saved list.
@@ -61,8 +69,8 @@ cat gradle/libs.versions.toml
 cat settings.gradle.kts
 ```
 
-**Expected:** daemon criteria request JDK 21, the app compiles with SDK 37 and targets JVM 11, and Freetime Core 3.0.0 resolves through JitPack. `java -version` shows the launcher, not necessarily Gradle's selected daemon. SDK 26+ is required on the device.
+**Expected:** daemon criteria request JDK 21, the app compiles with SDK 37 and targets JVM 11, and Freetime Core 3.2.0 uses `com.freetime` coordinates and resolves through `https://repo.free-time.me/maven/`, not JitPack. `java -version` shows the launcher, not necessarily Gradle's selected daemon. SDK 26+ is required on the device.
 
-**Fix:** use the repository wrapper with SDK 37 configured and JDK 21 available. Distinguish repository/dependency-resolution failures from compiler errors. Do not silently replace the pinned Core dependency with 3.1.0 or change the JVM target to match the daemon version.
+**Fix:** use the repository wrapper with SDK 37 configured and JDK 21 available. Distinguish repository/dependency-resolution failures from compiler errors. Do not silently replace the pinned Core dependency or change the JVM target to match the daemon version.
 
 Return to [Getting Started](./getting-started.md) or see [Installation & Build](./installation.md).

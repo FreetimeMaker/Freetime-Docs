@@ -1,32 +1,17 @@
 # Getting Started
 
+MD-Blog is now a static site. Node.js is needed for builds and local preview, not for production request handling.
+
 ## Prerequisites
 
-| Scope | Prerequisite |
-| --- | --- |
-| Required | Git, Node.js with native `fetch` and `--use-system-ca` support, npm, a browser and a free local port. |
-| Optional | curl for HTTP checks; a reachable All API backend for blog listing and post details. The homepage needs neither a backend nor an account. |
-| Publishing only | Access to the backend content workflow for posts; deployment access (for example Vercel) for hosting. Homepage content is edited locally. |
+- Git, npm and a recent Node.js runtime compatible with the dependencies. The Pages workflow uses **Node.js 26**; the README still mentions 24. The npm scripts no longer use `--use-system-ca`.
+- Network access for dependency installation. API route discovery is attempted during builds, but local Markdown is a fallback.
+- A browser with JavaScript enabled for the blog listing and posts. The pre-rendered homepage does not require JavaScript.
+- For deployment, repository/Pages permissions and custom-domain DNS access; no API secrets belong in the static bundle.
 
 ## First success in five minutes
 
-**Goal: render the local Markdown homepage.** Allow five minutes only with the runtime already installed and repository/dependency downloads completed or fast. Account creation, deployment and backend provisioning are outside this estimate.
-
-1. Run the setup commands below from your terminal and leave the server running.
-2. Open `http://localhost:3000/` in a browser. Expect the homepage rendered from `public/md/index.md`, not a backend-powered post listing.
-3. Edit a line of prose in `public/md/index.md`, save it and reload the page. Expect your edited text to appear. Optionally check the HTTP response in another terminal:
-
-   ```bash
-   curl -i --max-time 5 http://localhost:3000/
-   ```
-
-   Expect HTTP **200** and HTML. No backend call is required by this homepage handler. Use your chosen `PORT` if different.
-
-Need help? See [Troubleshooting](./troubleshooting.md).
-
-## Local setup
-
-Use a recent Node.js runtime supporting native `fetch` and the `--use-system-ca` flag used by the npm scripts.
+The estimate assumes the runtime and checkout are ready and dependency downloads are complete or fast. API discovery can wait up to 20 seconds before falling back; build duration is not guaranteed.
 
 ```bash
 git clone https://github.com/FreetimeMaker/MD-Blog.git
@@ -35,22 +20,33 @@ npm ci
 npm run dev
 ```
 
-The local HTTP server listens on `http://localhost:3000`. Set `PORT` to choose another port. `npm start` launches the same server; there is no separate build script.
+`npm run dev` builds `dist` and starts the static preview at `http://localhost:3000`. `npm start` does the same. Set `PORT` to change the preview port.
 
-## Connect a backend
+1. Open `/` and expect the homepage generated from `public/md/index.md`.
+2. Edit homepage prose, stop and rerun `npm run dev`, then reload. There is no watcher; changing source alone does not change `dist`.
+3. Open `/blog/`. JavaScript requests posts and categories from All API, using bundled local Markdown when a request fails.
 
-By default, blog requests use `https://api.free-time.me/v2`. To use a local All API instance:
+These are expected checkpoints from source, not a preview session executed during this review.
+
+## Content and backend configuration
+
+Edit `public/md/index.md` for the homepage. Local fallback posts live in `public/blogs`, including subdirectories. Use a unique filename slug, an H1 title, comma-separated `Categories:` metadata and, for dated ordering, `Released on <t:UNIX_SECONDS>`. Rebuild to include changes in the local JSON and generated paths. Adding a local file does not publish it to All API or merge it into a successful API listing.
+
+The build and browser use `https://api.free-time.me/v2`. To use another backend, change `API` in `scripts/post-pages.js` and `public/scripts/blog.js`, then rebuild. The former `ALL_API_URL` environment variable has no effect. The preview does not proxy requests; the backend must permit browser CORS access.
+
+## Build and tests
 
 ```bash
-ALL_API_URL=http://localhost:3001/v2 npm run dev
+npm run build
+npm test
 ```
 
-Use the actual port of your backend and do not append `/blog` to the base URL. Homepage rendering does not require the backend, but blog listing and post detail do.
-
-## Publish content
-
-Edit `public/md/index.md` for the homepage. Publish blog posts through the backend's content workflow, not by adding local files to `public/blogs`. Verify that the post appears in `/blog/posts` and resolves through `/blog/posts/<slug>` on the configured API.
+Run tests after a completed build: they use generated artifacts and mocked API responses. These commands are instructions, not a claim that this documentation review ran them.
 
 ## Deploy
 
-Deploy the repository to Vercel using its existing `vercel.json`. Set `ALL_API_URL` in the deployment environment if you use a different backend. Keep templates and public assets in the deployment.
+Use `.github/workflows/pages.yml`: pushes to `main` and manual dispatch build, test and deploy `dist` to GitHub Pages. Select **GitHub Actions** in repository Pages settings and configure the custom domain `blog.free-time.me` and its DNS/HTTPS separately. The code assumes that domain's root, not a GitHub repository subpath.
+
+Rebuild/deploy after adding API posts to create HTTP-200 title paths. Otherwise new paths may render through the JavaScript 404 shell while retaining HTTP 404. Local Markdown changes always require a rebuild/deployment. The old Vercel configuration and serverless handlers are no longer present.
+
+See [Architecture](./architecture.md) and [Troubleshooting](./troubleshooting.md).

@@ -12,11 +12,11 @@ Source code: [Luma-Store-Android](https://github.com/FreetimeMaker/Luma-Store-An
 - Kotlin: 2.4.21
 - Android Gradle Plugin: 9.5.1
 - Compose BOM: 2026.09.00
-- Freetime Core: **3.0.0**
+- Freetime Core: **3.2.0**
 
 ## UI
 
-The current client uses Material 3 Expressive and Material You through Freetime Core 3.0.0. Liquid Glass is used for the new floating bottom navigation rather than generic content surfaces.
+The current client uses Material 3 Expressive and Material You through Freetime Core 3.2.0. Liquid Glass is used for the new floating bottom navigation rather than generic content surfaces.
 
 ## Discover and app details
 
@@ -42,6 +42,10 @@ Authentication and developer metadata use Supabase.
 The default enabled catalog is `https://api.free-time.me/v2/lumastore/apps?platform=android`. Built-in Freetime F-Droid, F-Droid and IzzyOnDroid sources are optional and disabled by default. The repository layer also supports custom sources, search, installed-app management and update workflows.
 
 APK installation is handled by the platform integration in `install/ApkInstaller.kt`. Developer notification synchronization uses Android `JobService` (`NotificationSyncJobService`), not WorkManager. A saved developer session is required to load dashboard notifications.
+
+## Build dependencies
+
+The wrapper now selects Gradle **9.9.1**, and daemon criteria request JDK **21**. Kotlin serialization is pinned to **1.13.0**. The repository changed from JitPack to `https://repo.free-time.me/maven`, but the catalog still declares Freetime artifacts under `com.github.FreetimeMaker.Freetime-Core` at **3.2.0**, unlike GeoWeather's `com.freetime` coordinates. Dependency resolution was not tested; do not infer successful publication from this configuration.
 
 ## Build
 

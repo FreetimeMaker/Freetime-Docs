@@ -4,7 +4,7 @@ GeoWeather is a native Android app with one Gradle module, `:app`, under package
 
 ## UI and state
 
-Jetpack Compose and Material 3 render weather, location, settings and radar screens. ViewModels expose screen state. The app pins Freetime Core 3.0.0 for shared Core, Design, Browser, Donations and FreetimeWarn functionality; this is separate from the library repository's newer 3.1.0 version.
+Jetpack Compose and Material 3 render weather, location, settings and radar screens. ViewModels expose screen state. The app pins Freetime Core 3.2.0 for Core, Design, Browser, Donations, FreetimeWarn and Notifications functionality, using the expressive `FreetimeTheme`.
 
 ## Networking
 
@@ -17,6 +17,8 @@ Room with bundled SQLite stores locations, weather history and forecast snapshot
 ## Background and widgets
 
 WorkManager workers handle notifications, weather-change work and widget refreshes. Glance renders four widget variants; widget preferences and a configuration activity select their locations. Android scheduling restrictions still apply.
+
+`WeatherForegroundService` drives the optional ongoing weather notification, observing saved locations and unit settings and attempting weather refresh every 30 minutes. It prefers the selected location, otherwise the first saved location, and retains cached content on refresh errors. `FreetimeNotificationConfiguration` configures GeoWeather GitHub releases and developer blog polling separately. The previous Quick Settings tile service and manifest registration have been removed.
 
 ## Local calculations and sharing
 

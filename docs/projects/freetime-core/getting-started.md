@@ -1,6 +1,8 @@
 # Getting Started
 
-The local Freetime Core source declares version **3.1.0**. Its Android libraries require API 24+ and compile against SDK 37.
+The reviewed Freetime Core source declares version **3.2.0**. Its Android libraries require API 24+ and compile against SDK 37.
+
+**Publication status:** the inspected README says 3.2.0 is prepared but not yet uploaded. Maven examples below are intended coordinates after publication, not verified downloads. Use the local checkout/sample route before publication. See the [source review and limits](./index.md#source-review).
 
 ## Prerequisites
 
@@ -46,19 +48,24 @@ dependencyResolutionManagement {
 }
 ```
 
-Include only the modules you need, keeping their versions aligned:
+After publication, include only the modules you need, keeping their versions aligned:
 
 ```kotlin
 dependencies {
-    implementation("com.freetime:Core:3.1.0")
-    implementation("com.freetime:Design:3.1.0")
-    implementation("com.freetime:Browser:3.1.0")
-    implementation("com.freetime:Donations:3.1.0")
-    implementation("com.freetime:FreetimeWarn:3.1.0")
+    implementation("com.freetime:Core:3.2.0")
+    implementation("com.freetime:Design:3.2.0")
+    implementation("com.freetime:Browser:3.2.0")
+    implementation("com.freetime:Donations:3.2.0")
+    implementation("com.freetime:FreetimeWarn:3.2.0")
+    implementation("com.freetime:Notifications:3.2.0")
 }
 ```
 
 Public Gemfury packages require no consumer credentials. Replace the old `com.github.FreetimeMaker.Freetime-Core` group with `com.freetime`; artifact names remain case-sensitive. Remove JitPack only if no other dependency needs it. These instructions describe the local source configuration, not an independent check of published artifact availability.
+
+For local Notifications integration before publication, use `implementation(project(":Notifications"))` instead of its Maven dependency. In another checkout, first include both local `Notifications` and `Core` projects in the consuming build; the dependency line alone does not import them. See [Notifications](./modules.md#notifications) for runtime setup and permission requirements.
+
+The JitPack-to-Gemfury migration was introduced for 3.1.0: it changes repository/group, not APIs or version. Updating to 3.2.0 is a separate version change, adding the optional Notifications module.
 
 ## Application theme
 
@@ -90,7 +97,7 @@ The host app owns observable UI state and maps stored settings into its theme. D
 
 Only floating bottom navigation uses Liquid Glass. See [Design & Liquid Glass](./design.md) for the backdrop root and bar APIs. Ordinary screens, cards, dialogs and controls use Material 3.
 
-Version 3.1.0 also includes copyable classic Material 3 and Expressive theme templates with app-owned tokens and no Liquid Glass.
+Introduced in 3.1.0 and retained in 3.2.0 are copyable classic Material 3 and Expressive theme templates with app-owned tokens and no Liquid Glass.
 
 ## Next
 

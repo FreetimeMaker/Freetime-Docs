@@ -1,68 +1,59 @@
 # Troubleshooting
 
+These checks are derived from source, not observed build, browser or live-service results from this review.
 
-Work from the symptom below. Commands are suggested local checks, not outputs observed during this documentation review. Use your configured ports/origins; never include credentials in shared logs.
+## Homepage changes do not appear
 
-## Blog returns 503
+**Check:** Compare `public/md/index.md` with the generated `dist/index.html`.
 
-**Check:** With the backend from the local setup running on port 3001, check both endpoints (substitute your actual base URL):
+**Expected:** The preview serves generated files, not source Markdown.
 
-```bash
-curl -i --max-time 15 http://localhost:3001/v2/blog/posts
-curl -i --max-time 15 http://localhost:3001/v2/blog/categories
-```
+**Fix:** Stop and rerun `npm run dev`, or rebuild before restarting `server.js`. There is no watcher. Keep `public/views/home.html`, styles and other build inputs in the checkout.
 
-Inspect the MD-Blog server log as well.
+## Blog is unavailable or only shows Loading
 
-**Expected:** Both endpoints return successful JSON responses. A health response alone does not test either dependency.
+**Check:** Enable JavaScript and inspect browser console/network requests to `/scripts/blog.js`, `/vendor/`, the API's `/v2/blog/posts` and `/v2/blog/categories`, and `/data/local-posts.json`.
 
-**Fix:** Check `ALL_API_URL` and connectivity to both `/blog/posts` and `/blog/categories`. The listing requires successful responses from both endpoints. Consult server logs for `[blog] API error`. Local `public/blogs` files are not a fallback.
+**Expected:** The browser can load scripts and either API responses or bundled local fallback JSON. Homepage success does not test these paths. API fetches time out after 20 seconds.
 
-## Post returns 404 or is not listed
+**Fix:** Deploy the complete `dist` directory. Check API availability and CORS headers; requests are credential-free and go directly to the API, not through the preview. If the API fails, inspect `[blog] API request failed; trying local Markdown` and the local JSON request. `no-cors` is not a fix for unreadable JSON. If both sources fail, the page displays an error rather than a server-generated 503.
 
-**Check:** Open `/blog` without a category query and compare its returned slugs with the requested slug. Inspect `/blog/posts/<slug>` on the configured backend, replacing `<slug>` with the real value.
+## Local post is missing or old content appears
 
-**Expected:** The backend exposes that slug; an unfiltered listing is not restricted by the AND-combined category filters.
+**Check:** Inspect `dist/data/local-posts.json`, the browser's API response and any category filters.
 
-**Fix:** Check that the configured backend exposes the slug and that selected category filters match. Multiple filters use AND semantics; clear filters to inspect the complete listing.
+**Expected:** Local files are bundled at build time and used only when a request fails. They are not automatically merged into successful API listings. Category filters require all selected categories.
 
-## Homepage works but posts do not
+**Fix:** Rebuild/deploy after editing `public/blogs/**/*.md`, clear filters and verify the filename slug and H1 title. Publish through the API's content process for live API listings. A local working-tree file is not evidence that a published deployment contains it.
 
-**Check:** Compare `http://localhost:3000/` with `http://localhost:3000/blog` and inspect the two backend endpoints in the 503 check above.
+## Post renders but returns HTTP 404
 
-**Expected:** The homepage can render independently; the listing needs the backend. Homepage success is not an API test.
+**Check:** Compare the requested path with directories in `dist/blog`, and inspect the initial HTTP status separately from the browser-rendered content.
 
-**Fix:** The homepage reads a local file, while posts require All API. Successful homepage rendering does not verify backend connectivity.
+**Expected:** Known build-time title/API-slug directories have index files. New or legacy `/api/blog/<slug>` paths can render via `404.html` while retaining HTTP 404.
 
-## Post links differ between environments
+**Fix:** Rebuild/deploy to generate current title paths and use `/blog/<title-slug>/` links. A canonical tag or `history.replaceState` does not turn a 404 into HTTP 200. Renaming a title changes its canonical path; old title paths are not automatically retained. API-slug aliases remain the compatibility path.
 
-**Check:** Inspect the actual link target in the listing and compare `/api/blog/<slug>` with `/blog/<slug>` in your deployment, using a real slug.
+## Build reports invalid or conflicting paths
 
-**Expected:** The local server accepts both forms. Deployed routing must also handle the form emitted by the listing.
+**Check:** Read the build warning/error and compare filename/API slugs and H1/API titles.
 
-**Fix:** The listing currently emits `/api/blog/<slug>` links; `vercel.json` explicitly maps `/blog/<slug>`. The local server accepts both forms. Check deployment routing for the API-style path as well as the public route.
+**Expected:** Slugs must be portable path names; title-derived paths must be non-empty, at most 180 characters and collision-free. Local filename slugs must be unique across nested directories, ignoring case.
 
-## Node rejects the startup flag
+**Fix:** Correct conflicting metadata. Invalid API discovery falls back to local routes, but invalid local content prevents building and preserves the previous artifact. Do not remove route validation to force deployment.
 
-**Check:** Run in the MD-Blog checkout:
+## Changing ALL_API_URL has no effect
 
-```bash
-node --version
-node --use-system-ca -e "console.log(typeof fetch)"
-```
+**Check:** Inspect `API` in `scripts/post-pages.js` and `public/scripts/blog.js`.
 
-**Expected:** The second command accepts the flag and prints `function`. This checks capabilities, not whether all dependency runtime requirements are satisfied.
+**Expected:** Both use the hardcoded `https://api.free-time.me/v2`; the old environment variable is unused.
 
-**Fix:** Both npm startup scripts pass `--use-system-ca`. Upgrade to a Node.js release supporting that flag. Also ensure the runtime supports native `fetch` and installed dependency requirements.
+**Fix:** Change both constants and rebuild. Ensure browser CORS access to the selected backend. Do not embed tokens or secrets in static JavaScript.
 
-## Missing templates or styles
+## Preview or deployment assets fail
 
-**Check:** From the repository root, check the required files:
+**Check:** Confirm `npm ci` and `npm run build` completed, `dist` exists, and the site is hosted at the custom-domain root.
 
-```bash
-ls public/md/index.md public/views/home.html public/views/blog.html public/styles
-```
+**Expected:** The preview serves only `dist`; root-relative assets do not support a repository subpath without changes. Tests also require a completed build.
 
-**Expected:** Markdown, both templates and the styles directory exist in the working directory and deployment bundle.
-
-**Fix:** Run from the repository with its `public` directory intact. Templates are read from disk, and CSS is served under `/styles/`.
+**Fix:** Use a compatible recent Node runtime (the Pages workflow selects 26), run the declared scripts, and deploy only the complete artifact. The former `--use-system-ca` startup-flag instructions and Vercel route configuration no longer apply. Check Pages settings and DNS independently; repository configuration does not prove a working deployment.

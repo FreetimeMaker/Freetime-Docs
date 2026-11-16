@@ -42,7 +42,7 @@ The referenced screenshot is not included in this documentation checkout. See th
 
 ## Personalization and sharing
 
-Startup choices include favorite, last viewed, overview and current location, with a saved-location fallback when device location is unavailable. Compact and Detailed display modes control the amount of information shown.
+Startup choices are overview (the default), last viewed and current location, with a saved-location fallback when device location is unavailable. Legacy favorite startup values now fall back to overview. Compact and Detailed display modes control the amount of information shown.
 
 The local day planner ranks two-hour windows for walking, running, cycling and gardening without an AI service. Suggestions are hidden for stale or incomplete data and are not safety advice. Weather cards can be shared as images with a timestamp/source, custom title and optional hidden location.
 
@@ -64,7 +64,7 @@ The JSON location export is not a full backup of application preferences and exc
 
 - Kotlin 2.4.21 and Android Gradle Plugin 9.5.1
 - Jetpack Compose and Material 3
-- Freetime Core 3.0.0 (the version currently pinned by this app)
+- Freetime Core 3.2.0 (`com.freetime` artifacts from the Freetime Maven repository)
 - Room / SQLite
 - Ktor
 - Coil 3
@@ -79,7 +79,18 @@ GeoWeather backend functionality is part of [All API](../all-api/index.md), incl
 
 GeoWeather is distributed through GitHub Releases, F-Droid-compatible channels and Luma Store.
 
-## Source review
+## Source review — 2026-11-16
+
+Reviewed local clean checkouts, Git logs and the Android diff from the previous review revision. No fetch, build, test, device installation, live download or service check was performed. This review covers the changes described below, not a re-certification of every existing claim.
+
+- [GeoWeather `18c2774d`](https://github.com/FreetimeMaker/GeoWeather/tree/18c2774d): compared `74c21ab` to HEAD; inspected `settings.gradle.kts`, `gradle/libs.versions.toml`, `app/build.gradle.kts`, `App.kt`, `data/AppSettings.kt`, `FreetimeNotificationConfiguration.kt`, `PersistentWeatherNotification.kt`, `WeatherForegroundService.kt`, `ui/FreetimeNotificationSettings.kt`, `ui/SettingsScreen.kt` and the manifest under `app/src/main`.
+- [GeoWeather-Website `79f3653`](https://github.com/FreetimeMaker/GeoWeather-Website/tree/79f3653): inspected recent history and [`app/page.jsx`](https://github.com/FreetimeMaker/GeoWeather-Website/blob/79f3653/app/page.jsx) download links. No previous website review revision was recorded.
+
+Changes documented: Core 3.2.0/Maven migration, KSP 2.3.14, overview-default startup without the favorite option, persistent weather and separate Freetime notification settings, Quick Settings tile removal and current website download options. App version remains 4.7.3 (92).
+
+### Previous scoped review (2026-11-12)
+
+The following records are retained as historical evidence, not current revision pointers.
 
 Last checked against source: **2026-11-12**.
 

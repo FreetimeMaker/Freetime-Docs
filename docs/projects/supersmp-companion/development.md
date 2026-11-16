@@ -19,7 +19,9 @@ Use the build configuration rather than the README's older API-24 badge when det
 
 `MainActivity` hosts `SuperSMPTheme`, the FreetimeWarn notice and a Navigation Compose graph. Routes cover home, server commands, coordinates, links, shop, map and settings.
 
-Material 3 provides the main controls. The app includes its own `ui/glass` helpers; it does not declare a separate Liquid library dependency. The shared Core, Design, Browser, Donations and FreetimeWarn modules are pinned to Freetime Core 3.0.0 through JitPack.
+The app now delegates expressive theming to Freetime Design's `AppTheme`, `rememberDarkTheme(ThemeMode.AUTO_TIME)` and `FloatingBottomNavigationGlassRoot`. Local `ui/glass` helpers were removed. The wrapper selects light/dark/OLED modes and retains app-specific fallback colors and typography; dynamic color is passed through to `AppTheme`.
+
+Core, Design, Browser, Donations, FreetimeWarn and the new Notifications module use **3.2.0**, under `com.freetime`, from `https://repo.free-time.me/maven/` instead of JitPack. The catalog also updates KSP to **2.3.14**.
 
 ## Data and remote content
 
@@ -27,9 +29,13 @@ Material 3 provides the main controls. The app includes its own `ui/glass` helpe
 
 Shop and map screens embed remote websites in Android WebViews. Do not assume a WebView loading failure is a Ktor API failure.
 
-## Background dependencies
+## Release notifications
 
-WorkManager is included in the build. Do not infer an active periodic task or guaranteed background refresh from the dependency declaration alone.
+`SuperSMPApplication` initializes Freetime Notifications in an application coroutine scope with GitHub releases for `FreetimeMaker/SuperSMP-Companion-App` and the F-Droid feed for the app package. It configures a 360-minute check interval, no notification on the first check, and at most five notifications per check. Update and changelog categories are configured; developer messages are disabled. Initialization errors are logged under `SuperSMPNotifications` without deliberately crashing startup.
+
+Settings includes `NotificationPermissionHelper`. Entering the screen does not itself launch a permission prompt. The enable action requests `POST_NOTIFICATIONS` on Android 13+ on the first recorded attempt; later denied attempts route to Android notification settings. If permission is already available, it requests a check. A separate settings action remains available for disabled permissions/channels.
+
+These are configured library calls, not verified delivery or a guaranteed six-hour schedule. WorkManager remains a dependency; do not infer server-status background refresh from it. No device notification test was performed in this review.
 
 ## Release optimization
 

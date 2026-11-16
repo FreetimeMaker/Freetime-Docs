@@ -1,11 +1,13 @@
 [
   {
-    "title": "Getting Started",
-    "path": "/getting-started/"
+    "title": "Freetime Docs",
+    "path": "/",
+    "icon": "iconify:lucide:book-open"
   },
   {
-    "title": "Freetime Docs",
-    "path": "/"
+    "title": "Getting Started",
+    "path": "/getting-started/",
+    "icon": "iconify:lucide:rocket"
   },
   {
     "title": "Projects",
@@ -13,236 +15,292 @@
     "children": [
       {
         "title": "Projects",
-        "path": "/projects/"
+        "path": "/projects/",
+        "icon": "iconify:lucide:folder-open"
       },
       {
         "title": "All API",
         "children": [
           {
             "title": "All API",
-            "path": "/projects/all-api/"
-          },
-          {
-            "title": "Getting Started",
-            "path": "/projects/all-api/getting-started/"
-          },
-          {
-            "title": "Using All API",
-            "path": "/projects/all-api/using-the-api/"
+            "path": "/projects/all-api/",
+            "icon": "iconify:lucide:server"
           },
           {
             "title": "API Reference",
-            "path": "/projects/all-api/api-reference/"
+            "path": "/projects/all-api/api-reference/",
+            "icon": "iconify:lucide:list"
           },
           {
             "title": "Authentication",
-            "path": "/projects/all-api/authentication/"
+            "path": "/projects/all-api/authentication/",
+            "icon": "iconify:lucide:key-round"
           },
           {
             "title": "Development",
-            "path": "/projects/all-api/development/"
+            "path": "/projects/all-api/development/",
+            "icon": "iconify:lucide:code"
+          },
+          {
+            "title": "Getting Started",
+            "path": "/projects/all-api/getting-started/",
+            "icon": "iconify:lucide:rocket"
           },
           {
             "title": "Troubleshooting",
-            "path": "/projects/all-api/troubleshooting/"
+            "path": "/projects/all-api/troubleshooting/",
+            "icon": "iconify:lucide:wrench"
+          },
+          {
+            "title": "Using All API",
+            "path": "/projects/all-api/using-the-api/",
+            "icon": "iconify:lucide:plug"
           }
         ],
-        "collapsible": true
+        "collapsible": true,
+        "icon": "iconify:lucide:server"
       },
       {
         "title": "Freetime Core",
         "children": [
           {
-            "title": "Freetime Core",
-            "path": "/projects/freetime-core/"
-          },
-          {
-            "title": "Getting Started",
-            "path": "/projects/freetime-core/getting-started/"
-          },
-          {
-            "title": "Modules",
-            "path": "/projects/freetime-core/modules/"
-          },
-          {
             "title": "Design & Liquid Glass",
-            "path": "/projects/freetime-core/design/"
+            "path": "/projects/freetime-core/design/",
+            "icon": "iconify:lucide:palette"
+          },
+          {
+            "title": "Freetime Core",
+            "path": "/projects/freetime-core/",
+            "icon": "iconify:lucide:layers"
           },
           {
             "title": "FreetimeWarn",
-            "path": "/projects/freetime-core/freetime-warn/"
-          },
-          {
-            "title": "Troubleshooting",
-            "path": "/projects/freetime-core/troubleshooting/"
-          }
-        ],
-        "collapsible": true
-      },
-      {
-        "title": "GeoWeather",
-        "children": [
-          {
-            "title": "GeoWeather",
-            "path": "/projects/geoweather/"
+            "path": "/projects/freetime-core/freetime-warn/",
+            "icon": "iconify:lucide:triangle-alert"
           },
           {
             "title": "Getting Started",
-            "path": "/projects/geoweather/getting-started/"
+            "path": "/projects/freetime-core/getting-started/",
+            "icon": "iconify:lucide:rocket"
           },
           {
-            "title": "Installation & Build",
-            "path": "/projects/geoweather/installation/"
-          },
-          {
-            "title": "Features",
-            "path": "/projects/geoweather/features/"
-          },
-          {
-            "title": "Configuration",
-            "path": "/projects/geoweather/configuration/"
-          },
-          {
-            "title": "Architecture",
-            "path": "/projects/geoweather/architecture/"
+            "title": "Modules",
+            "path": "/projects/freetime-core/modules/",
+            "icon": "iconify:lucide:blocks"
           },
           {
             "title": "Troubleshooting",
-            "path": "/projects/geoweather/troubleshooting/"
+            "path": "/projects/freetime-core/troubleshooting/",
+            "icon": "iconify:lucide:wrench"
           }
         ],
-        "collapsible": true
-      },
-      {
-        "title": "Luma Store",
-        "children": [
-          {
-            "title": "Luma Store",
-            "path": "/projects/luma-store/"
-          },
-          {
-            "title": "Getting Started",
-            "path": "/projects/luma-store/getting-started/"
-          },
-          {
-            "title": "Android client",
-            "path": "/projects/luma-store/android/"
-          },
-          {
-            "title": "Developer Dashboard",
-            "path": "/projects/luma-store/developer-dashboard/"
-          },
-          {
-            "title": "Linux client",
-            "path": "/projects/luma-store/linux/"
-          },
-          {
-            "title": "Sources",
-            "path": "/projects/luma-store/sources/"
-          },
-          {
-            "title": "App submissions",
-            "path": "/projects/luma-store/submissions/"
-          },
-          {
-            "title": "Building custom Luma Store clients",
-            "path": "/projects/luma-store/custom-clients/"
-          },
-          {
-            "title": "Troubleshooting",
-            "path": "/projects/luma-store/troubleshooting/"
-          }
-        ],
-        "collapsible": true
-      },
-      {
-        "title": "SuperSMP Companion",
-        "children": [
-          {
-            "title": "SuperSMP Companion",
-            "path": "/projects/supersmp-companion/"
-          },
-          {
-            "title": "Getting Started",
-            "path": "/projects/supersmp-companion/getting-started/"
-          },
-          {
-            "title": "Development",
-            "path": "/projects/supersmp-companion/development/"
-          },
-          {
-            "title": "Troubleshooting",
-            "path": "/projects/supersmp-companion/troubleshooting/"
-          }
-        ],
-        "collapsible": true
+        "collapsible": true,
+        "icon": "iconify:lucide:layers"
       },
       {
         "title": "Freetime News",
         "children": [
           {
+            "title": "Development",
+            "path": "/projects/freetime-news/development/",
+            "icon": "iconify:lucide:code"
+          },
+          {
             "title": "Freetime News",
-            "path": "/projects/freetime-news/"
+            "path": "/projects/freetime-news/",
+            "icon": "iconify:lucide:newspaper"
           },
           {
             "title": "Getting Started",
-            "path": "/projects/freetime-news/getting-started/"
-          },
-          {
-            "title": "Development",
-            "path": "/projects/freetime-news/development/"
+            "path": "/projects/freetime-news/getting-started/",
+            "icon": "iconify:lucide:rocket"
           },
           {
             "title": "Troubleshooting",
-            "path": "/projects/freetime-news/troubleshooting/"
+            "path": "/projects/freetime-news/troubleshooting/",
+            "icon": "iconify:lucide:wrench"
           }
         ],
-        "collapsible": true
+        "collapsible": true,
+        "icon": "iconify:lucide:newspaper"
+      },
+      {
+        "title": "GeoWeather",
+        "children": [
+          {
+            "title": "Architecture",
+            "path": "/projects/geoweather/architecture/",
+            "icon": "iconify:lucide:network"
+          },
+          {
+            "title": "Configuration",
+            "path": "/projects/geoweather/configuration/",
+            "icon": "iconify:lucide:settings"
+          },
+          {
+            "title": "Features",
+            "path": "/projects/geoweather/features/",
+            "icon": "iconify:lucide:sparkles"
+          },
+          {
+            "title": "GeoWeather",
+            "path": "/projects/geoweather/",
+            "icon": "iconify:lucide:cloud-sun"
+          },
+          {
+            "title": "Getting Started",
+            "path": "/projects/geoweather/getting-started/",
+            "icon": "iconify:lucide:rocket"
+          },
+          {
+            "title": "Installation & Build",
+            "path": "/projects/geoweather/installation/",
+            "icon": "iconify:lucide:hammer"
+          },
+          {
+            "title": "Troubleshooting",
+            "path": "/projects/geoweather/troubleshooting/",
+            "icon": "iconify:lucide:wrench"
+          }
+        ],
+        "collapsible": true,
+        "icon": "iconify:lucide:cloud-sun"
+      },
+      {
+        "title": "Luma Store",
+        "children": [
+          {
+            "title": "Android client",
+            "path": "/projects/luma-store/android/",
+            "icon": "iconify:lucide:smartphone"
+          },
+          {
+            "title": "App submissions",
+            "path": "/projects/luma-store/submissions/",
+            "icon": "iconify:lucide:upload"
+          },
+          {
+            "title": "Building custom Luma Store clients",
+            "path": "/projects/luma-store/custom-clients/",
+            "icon": "iconify:lucide:code"
+          },
+          {
+            "title": "Developer Dashboard",
+            "path": "/projects/luma-store/developer-dashboard/",
+            "icon": "iconify:lucide:layout-dashboard"
+          },
+          {
+            "title": "Getting Started",
+            "path": "/projects/luma-store/getting-started/",
+            "icon": "iconify:lucide:rocket"
+          },
+          {
+            "title": "Linux client",
+            "path": "/projects/luma-store/linux/",
+            "icon": "iconify:lucide:monitor"
+          },
+          {
+            "title": "Luma Store",
+            "path": "/projects/luma-store/",
+            "icon": "iconify:lucide:store"
+          },
+          {
+            "title": "Sources",
+            "path": "/projects/luma-store/sources/",
+            "icon": "iconify:lucide:database"
+          },
+          {
+            "title": "Troubleshooting",
+            "path": "/projects/luma-store/troubleshooting/",
+            "icon": "iconify:lucide:wrench"
+          }
+        ],
+        "collapsible": true,
+        "icon": "iconify:lucide:store"
       },
       {
         "title": "MD-Blog",
         "children": [
           {
-            "title": "MD-Blog",
-            "path": "/projects/md-blog/"
+            "title": "Architecture",
+            "path": "/projects/md-blog/architecture/",
+            "icon": "iconify:lucide:network"
           },
           {
             "title": "Getting Started",
-            "path": "/projects/md-blog/getting-started/"
+            "path": "/projects/md-blog/getting-started/",
+            "icon": "iconify:lucide:rocket"
           },
           {
-            "title": "Architecture",
-            "path": "/projects/md-blog/architecture/"
+            "title": "MD-Blog",
+            "path": "/projects/md-blog/",
+            "icon": "iconify:lucide:file-text"
           },
           {
             "title": "Troubleshooting",
-            "path": "/projects/md-blog/troubleshooting/"
+            "path": "/projects/md-blog/troubleshooting/",
+            "icon": "iconify:lucide:wrench"
           }
         ],
-        "collapsible": true
+        "collapsible": true,
+        "icon": "iconify:lucide:file-text"
       },
       {
         "title": "Multi AI Chat",
         "children": [
           {
-            "title": "Multi AI Chat",
-            "path": "/projects/multi-ai-chat/"
+            "title": "Development",
+            "path": "/projects/multi-ai-chat/development/",
+            "icon": "iconify:lucide:code"
           },
           {
             "title": "Getting Started",
-            "path": "/projects/multi-ai-chat/getting-started/"
+            "path": "/projects/multi-ai-chat/getting-started/",
+            "icon": "iconify:lucide:rocket"
           },
           {
-            "title": "Development",
-            "path": "/projects/multi-ai-chat/development/"
+            "title": "Multi AI Chat",
+            "path": "/projects/multi-ai-chat/",
+            "icon": "iconify:lucide:messages-square"
           },
           {
             "title": "Troubleshooting",
-            "path": "/projects/multi-ai-chat/troubleshooting/"
+            "path": "/projects/multi-ai-chat/troubleshooting/",
+            "icon": "iconify:lucide:wrench"
           }
         ],
-        "collapsible": true
+        "collapsible": true,
+        "icon": "iconify:lucide:messages-square"
+      },
+
+      {
+        "title": "SuperSMP Companion",
+        "children": [
+          {
+            "title": "Development",
+            "path": "/projects/supersmp-companion/development/",
+            "icon": "iconify:lucide:code"
+          },
+          {
+            "title": "Getting Started",
+            "path": "/projects/supersmp-companion/getting-started/",
+            "icon": "iconify:lucide:rocket"
+          },
+          {
+            "title": "SuperSMP Companion",
+            "path": "/projects/supersmp-companion/",
+            "icon": "iconify:lucide:gamepad-2"
+          },
+          {
+            "title": "Troubleshooting",
+            "path": "/projects/supersmp-companion/troubleshooting/",
+            "icon": "iconify:lucide:wrench"
+          }
+        ],
+        "collapsible": true,
+        "icon": "iconify:lucide:gamepad-2"
       }
-    ]
+    ],
+    "icon": "iconify:lucide:folder-open"
   }
 ]

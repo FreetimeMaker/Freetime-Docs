@@ -47,6 +47,18 @@ App details query the store app ID directly. Rating, review and per-app favorite
 
 Ratings return `app_id`, `average` and `count`. Reviews return up to 100 non-empty reviews with `rating`, `review_text` and `updated_at`; supported sort branches include `newest` (default), `oldest` and `highest`. Download counts use the public `luma_app_download_count` RPC, not raw download-event access.
 
+Catalog list/detail responses now include read-time enrichment from developer profiles and GitHub Fastlane metadata where available. Titles, descriptions, changelog, screenshots, localized metadata and optional icon can therefore differ from stored values. This does not persist database changes; missing/unsupported metadata falls back to stored listing content. See [Development](./development.md).
+
+### Metadata database webhook
+
+```text
+POST /metadata/webhook
+```
+
+This server-to-server endpoint requires `Authorization: Bearer <LUMASTORE_METADATA_WEBHOOK_SECRET>`, not a user or forge token. It accepts a database event with `schema: "public"`, `table` equal to `store_apps`, `luma_submissions` or `store_app_platforms`, `type` equal to `INSERT` or `UPDATE`, and a UUID `record.id`. It rereads database rows using that identity; payload metadata/ownership is not trusted.
+
+Missing webhook-secret configuration returns 503, invalid authorization 401 and invalid event shape 400. Successful synchronization returns JSON with `ok: true` and synchronization details; inactive records or records without Android artifacts can be reported as skipped. Failed/incomplete synchronization returns 503 and asks the caller to retry. Responses use `Cache-Control: no-store`. The server also needs `LUMASTORE_SUPABASE_SERVICE_ROLE_KEY` for writes. This is distinct from the frontend's status webhook.
+
 ### Authenticated user data
 
 ```text

@@ -44,7 +44,7 @@ If search, installation or refresh fails, follow [Troubleshooting](./troubleshoo
 
 Choose units and startup/display preferences in Settings. Saved forecasts remain readable offline, but check their update timestamps. Configure notifications and each widget's location separately when using those features.
 
-The dependency catalog currently pins Freetime Core **3.0.0** through JitPack, not the Core repository's newer 3.1.0. Do not substitute library versions as part of this walkthrough.
+The dependency catalog currently pins Freetime Core **3.2.0** under `com.freetime`, resolved through `https://repo.free-time.me/maven/` rather than JitPack. Do not substitute library versions as part of this walkthrough.
 
 ## Next steps
 

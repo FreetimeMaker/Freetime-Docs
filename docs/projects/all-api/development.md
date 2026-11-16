@@ -26,7 +26,28 @@ The entry point uses `asRouter()` to normalize wrapped CommonJS routers and a ru
 
 The Luma router normalizes Android platform metadata, reads public aggregate download counts, and implements ratings, reviews, favorites, developer profiles and APK source resolution. Authenticated writes use the user's token with the public client. MD-Blog reads repository Markdown with caching.
 
+### Luma Fastlane metadata
+
+Catalog list/detail GETs now enrich Android listings with developer display names and GitHub Fastlane metadata from `fastlane/metadata/android` on a pinned default-branch commit. Metadata includes title, descriptions, changelog, phone screenshots and localized entries, with an optional icon. Changelogs prefer `<versionCode>.txt`, then `default.txt`. The loader needs at least one complete locale and fills missing translations from that primary locale. Unsupported repositories or unavailable metadata leave stored listing content in place. GET enrichment does not write to the database.
+
+The loader supports HTTPS `github.com/owner/repository` sources only, unlike the broader release resolver. `GITHUB_TOKEN` is optional for GitHub API requests. Successful metadata is cached for five minutes, failures for one minute, with bounded in-memory entries.
+
+For explicit synchronization:
+
+```bash
+node src/lib/sync-luma-metadata.js
+node src/lib/sync-luma-metadata.js --apply
+```
+
+The default is a dry run over non-archived `store_apps`. `--apply` requires the dedicated `LUMASTORE_SUPABASE_SERVICE_ROLE_KEY`, not the generic project key. Synchronization validates complete metadata and checks snapshots/scalar guards before writes. App and platform writes are not a transaction: a partial failure must be retried. Do not infer atomicity from a successful first write.
+
+`POST /v2/lumastore/metadata/webhook` provides event-driven synchronization. Configure `LUMASTORE_METADATA_WEBHOOK_SECRET` and the dedicated service-role key on the server; see [API Reference](./api-reference.md). It awaits synchronization before replying rather than scheduling work after the response.
+
+Focused Node tests exist in `src/lib/luma-metadata.test.js`, `src/lib/sync-luma-metadata.test.js` and `src/lib/luma-metadata-webhook.test.js`, despite the absence of an npm test script. This documentation review did not run them or execute synchronization against a database.
+
 ## Frontend development
+
+The frontend details in this section are retained from the earlier review, not revalidated by the current backend-only update.
 
 Copy the frontend's `.env.example` to a local environment file and configure `API_BASE` plus the public Supabase URL/key. Privileged routes additionally need the server-side service-role key. Support/developer email delivery uses `RESEND_API_KEY` and `EMAIL_FROM`; support notifications also use `EMAIL_NOTIFICATION_TO`. The status webhook checks `LUMA_STATUS_WEBHOOK_SECRET`.
 

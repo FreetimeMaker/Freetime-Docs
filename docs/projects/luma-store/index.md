@@ -42,12 +42,12 @@ These URLs were checked against local Git remotes.
 ::: callout info Platform scope
 The inspected backend and website submission handler expose Android/APK distribution, not a general Linux/Windows package catalog.
 
-No local Linux client repository was available; its implementation and distribution instructions are not verified. See [Linux status](./linux.md).
+No local Linux client repository was available; its implementation and distribution instructions are not verified.
 :::
 
 ## Android
 
-The Android client uses **Freetime Core 3.0.0**, Material 3 Expressive and Material You, with floating Liquid Glass navigation. Discover includes collections, filtering and sorting. App details expose developer information, ratings, download metrics and funding.
+The Android client uses **Freetime Core 3.2.0**, Material 3 Expressive and Material You, with floating Liquid Glass navigation. Discover includes collections, filtering and sorting. App details expose developer information, ratings, download metrics and funding.
 
 The developer area includes profile/avatar and funding management, app analytics and notifications. The client combines the Luma catalog with optional F-Droid-compatible repositories and includes APK download/installation integration.
 
@@ -59,7 +59,7 @@ The referenced screenshot is not included in this documentation checkout. See th
 
 ## Website and dashboard
 
-The standalone website uses Next.js **16.4.5**, React **19.3.1**, TypeScript, Tailwind CSS 4 and Supabase. It provides public app/developer pages, saved apps, tracked sources, support funding and authenticated developer tools.
+The standalone website uses Next.js **16.4.2**, React **19.3.1**, TypeScript, Tailwind CSS 4 and Supabase. It provides public app/developer pages, saved apps, tracked sources, support funding and authenticated developer tools.
 
 Developers can save drafts, import Fastlane metadata, submit Android APKs, resubmit updates, edit published metadata, inspect review/status history and manage profile/funding data. Final submissions verify a public GitHub, GitLab or Codeberg repository.
 
@@ -80,7 +80,18 @@ This documentation describes local source state, not a tested production deploym
 - [Sources](./sources.md)
 - [Building Custom Clients](./custom-clients.md)
 
-## Source review
+## Source review — 2026-11-16
+
+The four requested app/website checkouts were clean. This update inspected local source and Git history only: no fetch, dependency resolution, build, test, device installation or live-service check was performed. Existing backend/frontend API claims below were not re-reviewed against All API repositories in this update.
+
+- [Luma-Store-Android `bd738df`](https://github.com/FreetimeMaker/Luma-Store-Android/tree/bd738df): compared the recorded `7a99f33` review revision to HEAD. Only `settings.gradle.kts`, `gradle/libs.versions.toml` and `gradle/wrapper/gradle-wrapper.properties` changed. Also checked app version/SDK declarations and daemon criteria. Core is now 3.2.0, serialization 1.13.0 and Gradle 9.9.1; app version remains 4.4.1 (31). The Maven URL changed, but legacy Core artifact coordinates remain; resolution is unverified.
+- [Luma-Store-Website `97b0bc8`](https://github.com/FreetimeMaker/Luma-Store-Website/tree/97b0bc8): inspected `package.json`, `app/components/AuthNav.tsx`, `app/privacy/page.tsx` and recent commit diffs. Next.js is declared as 16.4.2, not the previously documented 16.4.5. The current navigation includes Developers and Help FAQs, with Codeberg repository-access guidance.
+
+The previously recorded website revision `6af34c11fc609055318a358e48413f8816d8e94e` is not available in the local Git object database (the checkout reports that it is not shallow), so a diff from that revision could not be produced. Current-source observations are not presented as a complete change list since that review.
+
+### Previous scoped review (2026-11-12)
+
+The following records are retained as historical evidence, not current revision pointers.
 
 Last checked against source: **2026-11-12**.
 

@@ -33,7 +33,7 @@ Simplified backend request flow. The separate Next.js frontend also has its own 
 - [All-API-Node](https://github.com/FreetimeMaker/All-API-Node) — backend, package **2.8.1**.
 - [All-API-FrontEnd](https://github.com/FreetimeMaker/All-API-FrontEnd) — web frontend, package **2.2.0**.
 
-These repository URLs were checked against the local Git remotes.
+The backend URL was checked against its local Git remote. Frontend information below is retained from the earlier review and was not rechecked in this update.
 
 ## API versions and services
 
@@ -68,15 +68,23 @@ The backend exports the Express app for hosting and starts a local listener when
 
 ## Source review
 
-Last checked against source: **2026-11-12**.
+Last checked against backend source: **2026-11-16**.
 
-**Review scope:** Setup, prerequisites and troubleshooting.
-
-This manually maintained, scoped review is independent of page edits and documentation builds. It does not certify every page, build results, published artifacts or live services. The listed source checkouts were clean when inspected.
+**Review scope:** Git status/history and changes since the previously documented backend revision, with focused inspection of Luma metadata enrichment, synchronization and webhook authorization. The backend checkout was clean. No runtime, database, build or live-service validation was performed. Frontend and standalone Luma website claims were not refreshed; their earlier review is separate.
 
 ### All-API-Node
 
-Inspected revision: [`a51436ed31f7a8f6082ac387bff7ce50fb3e1051`](https://github.com/FreetimeMaker/All-API-Node/tree/a51436ed31f7a8f6082ac387bff7ce50fb3e1051).
+Current inspected revision: [`dba57d054e5f064590eb0adefaa6614a47a27938`](https://github.com/FreetimeMaker/All-API-Node/tree/dba57d054e5f064590eb0adefaa6614a47a27938). Compared with previous revision `a51436ed31f7a8f6082ac387bff7ce50fb3e1051`.
+
+Current sources:
+
+- [`package.json`](https://github.com/FreetimeMaker/All-API-Node/blob/dba57d054e5f064590eb0adefaa6614a47a27938/package.json) — Axios/dotenv dependency updates; package remains 2.8.1.
+- [`src/lib/luma-metadata.js`](https://github.com/FreetimeMaker/All-API-Node/blob/dba57d054e5f064590eb0adefaa6614a47a27938/src/lib/luma-metadata.js) — GitHub Fastlane enrichment and caching.
+- [`src/lib/sync-luma-metadata.js`](https://github.com/FreetimeMaker/All-API-Node/blob/dba57d054e5f064590eb0adefaa6614a47a27938/src/lib/sync-luma-metadata.js) — explicit database synchronization.
+- [`src/lib/luma-metadata-webhook.js`](https://github.com/FreetimeMaker/All-API-Node/blob/dba57d054e5f064590eb0adefaa6614a47a27938/src/lib/luma-metadata-webhook.js) — server-side webhook authentication and validation.
+- [`src/v2/lumastore/store.js`](https://github.com/FreetimeMaker/All-API-Node/blob/dba57d054e5f064590eb0adefaa6614a47a27938/src/v2/lumastore/store.js) — catalog enrichment and webhook mount.
+
+Earlier review sources (retained as historical references):
 
 - [`package.json`](https://github.com/FreetimeMaker/All-API-Node/blob/a51436ed31f7a8f6082ac387bff7ce50fb3e1051/package.json)
 - [`src/index.js`](https://github.com/FreetimeMaker/All-API-Node/blob/a51436ed31f7a8f6082ac387bff7ce50fb3e1051/src/index.js)
@@ -86,7 +94,7 @@ Inspected revision: [`a51436ed31f7a8f6082ac387bff7ce50fb3e1051`](https://github.
 - [`src/v2/lumastore/store.js`](https://github.com/FreetimeMaker/All-API-Node/blob/a51436ed31f7a8f6082ac387bff7ce50fb3e1051/src/v2/lumastore/store.js)
 - [`src/v2/blog/index.js`](https://github.com/FreetimeMaker/All-API-Node/blob/a51436ed31f7a8f6082ac387bff7ce50fb3e1051/src/v2/blog/index.js)
 
-### All-API-FrontEnd
+### All-API-FrontEnd — earlier review, 2026-11-12
 
 Inspected revision: [`5ecab236b32c955e7bd98d904dbc8f688c7a41a8`](https://github.com/FreetimeMaker/All-API-FrontEnd/tree/5ecab236b32c955e7bd98d904dbc8f688c7a41a8).
 

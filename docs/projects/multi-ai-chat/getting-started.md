@@ -2,11 +2,11 @@
 
 ## Prerequisites
 
-| Scope | Prerequisite |
-| --- | --- |
-| Required | A compatible JetBrains IDE, an installed plugin archive, network access and an API key/account with access to a model offered by the plugin. Provider billing or quota may be required. |
-| Optional | For source builds: Git, the Gradle wrapper and a Java 17-compatible compilation toolchain; the configured target IDE is IDEA 2026.1. Gradle/IDE downloads can take longer than five minutes and may need a newer runtime to run the build tooling. |
-| Publishing only | Plugin distribution access and any credentials required by your chosen release process; not needed to install from disk. |
+| Scope           | Prerequisite                                                                                                                                                                                                                                       |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Required        | A compatible JetBrains IDE, an installed plugin archive, network access and an API key/account with access to a model offered by the plugin. Provider billing or quota may be required.                                                            |
+| Optional        | For source builds: Git, the Gradle wrapper and a Java 17-compatible compilation toolchain; the configured target IDE is IDEA 2026.1. Gradle/IDE downloads can take longer than five minutes and may need a newer runtime to run the build tooling. |
+| Publishing only | Plugin distribution access and any credentials required by your chosen release process; not needed to install from disk.                                                                                                                           |
 
 ## First success in five minutes
 
@@ -16,7 +16,7 @@
 2. Open the right-side chat tool window and choose that provider and a model in its model selector. Model selection is in the tool window, not the API-key settings page.
 3. Enter `Reply with a short greeting.` and click **Send**. Expect your prompt and a provider response in the conversation; exact wording is not deterministic. This sends data to that provider and may incur charges. Do not use private code for this test.
 
-The bundled model choices are historical. If none is available to your account, this source revision needs a model-list update before this quick start can succeed; entering a valid key alone cannot fix that. See [Troubleshooting](./troubleshooting.md).
+Version 1.2.0 offers `gemini-3.6-flash` and `gemini-3.6-pro`, with Flash as the default. These are bundled source identifiers, not verified live model availability. OpenAI and Anthropic choices remain unchanged. If no offered model is available to your account, the source model list needs updating; entering a valid key alone cannot fix that. See [Troubleshooting](./troubleshooting.md).
 
 ## Build from source
 
@@ -27,6 +27,8 @@ git clone https://github.com/FreetimeMaker/Multi-AI-Chat.git
 cd Multi-AI-Chat
 ./gradlew buildPlugin
 ```
+
+Use the wrapper directly: the added `build_plugin.sh` incorrectly calls `./gradle` rather than `./gradlew`. On Windows, use `gradlew.bat buildPlugin`. No build was executed during this source review.
 
 ## Install and configure
 
@@ -39,4 +41,4 @@ For a development IDE, run `./gradlew runIde` instead of installing the archive 
 
 ## Credentials and privacy
 
-Keys are currently persisted in `MultiAiChatSettings.xml` as plain strings. Keep that file private. Chat prompts and code selections leave the IDE for the selected provider, and requests may incur charges. Replace historical default model IDs if your provider no longer supports them.
+Keys are currently persisted in `MultiAiChatSettings.xml` as plain strings. Keep that file private. Chat prompts and code selections leave the IDE for the selected provider, and requests may incur charges. Check bundled model IDs against provider availability. When older settings load, saved Gemini IDs starting with `gemini-1.5` or `gemini-2.5` migrate to `gemini-3.6-flash`, including former Pro selections. Select `gemini-3.6-pro` explicitly if desired and supported by your account.

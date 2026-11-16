@@ -11,9 +11,9 @@ GeoWeather is a native Android weather app. The local build version is 4.7.3.
 
 ## Startup and display
 
-In **Settings → Startup and display**, choose the favorite location, last viewed location, overview or current location. Favorite/first saved location is the default; Back opens the overview. Current location falls back to saved data when device location is unavailable.
+In **Settings → Startup and display**, choose overview (the default), last viewed location or current location. The former favorite startup option is no longer offered; existing `favorite` values fall back to overview. Back opens the overview. Current location falls back to saved data when device location is unavailable.
 
-Compact mode emphasizes essentials; Detailed mode adds analyses. The UI uses Material 3, Material You and Freetime Core 3.0.0 theme/navigation integration, rather than a standalone Liquid component library.
+Compact mode emphasizes essentials; Detailed mode adds analyses. The UI uses Material 3, Material You and Freetime Core 3.2.0 theme/navigation integration, rather than a standalone Liquid component library.
 
 ## Local day planner
 
@@ -22,6 +22,10 @@ The planner summarizes today and ranks consecutive two-hour windows for walking,
 ## Alerts
 
 Weather notifications and smart rain alerts depend on location notification settings. Rain alerts use hourly forecast windows, respect quiet hours and apply a three-hour cooldown per location. Android background scheduling and forecast resolution do not guarantee an exact rain-start notification.
+
+An optional persistent weather notification shows saved weather plus rain/gust summaries from up to six forecast hours and next-hour temperature/rain probability. It uses the selected location or the first saved location, follows temperature/wind unit preferences and attempts refresh every 30 minutes. Notification permission and an enabled channel are required; refresh failures can leave cached content visible.
+
+Separate Freetime settings control Updates, Changelogs and Developer messages from GitHub releases and the developer blog. Polling is configured for 15-minute checks, with no historical notifications on the first check; Android scheduling is not an exact delivery guarantee.
 
 ## Widgets
 

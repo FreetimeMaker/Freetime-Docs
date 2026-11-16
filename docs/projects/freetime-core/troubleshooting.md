@@ -1,6 +1,6 @@
 # Troubleshooting
 
-These checks follow the local 3.1.0 source. Expected results below are diagnostic targets, not claims that builds, installations or public artifact requests were executed during this review. Run shell commands from the Freetime Core checkout unless noted.
+These checks follow the reviewed 3.2.0 source. Expected results below are diagnostic targets, not claims that builds, installations or public artifact requests were executed during this review. Run shell commands from the Freetime Core checkout unless noted.
 
 ## Gradle fails before compilation
 
@@ -16,7 +16,9 @@ cat local.properties
 
 **Fix:** make JDK 25 available to the daemon/toolchain resolver and configure the SDK in Android Studio or a local, untracked `sdk.dir` entry. Java output target 17 does not mean the daemon should run on JDK 17. Use the checked-in wrapper, not a system Gradle installation.
 
-## A consumer cannot resolve Core or Design
+## A consumer cannot resolve a library
+
+**3.2.0 status:** the inspected README marks this version as prepared but not yet uploaded. Unavailable 3.2.0 artifacts are not evidence of an incorrect API or a need for credentials. Use local project dependencies before publication; Notifications did not exist in the five-module 3.1.0 release. The following command intentionally probes the historical 3.1.0 coordinate, not the prepared release.
 
 **Check:** compare the consumer's `settings.gradle.kts` and dependency declarations with [Getting Started](./getting-started.md). To inspect public POM availability independently of Gradle, if curl is installed:
 
@@ -27,6 +29,14 @@ curl --fail --show-error --location --max-time 30 'https://repo.free-time.me/mav
 **Expected:** HTTP success and Maven XML for `com.freetime:Design:3.1.0`. This checks one POM only, not its AAR or transitive dependencies; availability was not verified here.
 
 **Fix:** use the exact case-sensitive module name, align module versions, and declare the public repository in dependency resolution. Do not add publisher credentials to a public consumer. For HTTP/DNS/TLS errors, investigate connectivity or repository availability before changing source code. The local `:Sample` uses project dependencies and does not prove that a public release is downloadable.
+
+## Notifications are silent or delayed
+
+**Check:** await initialization, inspect `checkNow(context).failures` from a coroutine, and check app-wide permission, each category/channel and persistent category overrides. Verify that update sources describe the installed app and contain a newer comparable version.
+
+**Expected:** the first successful check is silent by default. GitHub changelogs require a newer release with a nonblank body; F-Droid has no changelog alerts. `requestCheck` only queues best-effort work. Periodic checks default to six hours and can be delayed by Android.
+
+**Fix:** let the host Activity request Android 13+ permission after user opt-in, supply a valid host icon and localized channels, and handle reported source failures/rate limits without aggressive retries. Use suspending `checkNow` for a foreground check, not a promise of a posted notification. Do not clear app data to bypass intentional deduplication; `stop` retains history and overrides. See [Notifications](./modules.md#notifications).
 
 ## The sample does not install or open
 

@@ -2,7 +2,7 @@
 
 ## Install the app
 
-The project README links to [GitHub Releases](https://github.com/FreetimeMaker/GeoWeather/releases/latest), [F-Droid](https://f-droid.org/packages/com.freetime.geoweather), OpenAPK, GitHub Store and Luma Store. The Android package is `com.freetime.geoweather`; the local source requires API 26+.
+The current project website links to [GitHub Releases](https://github.com/FreetimeMaker/GeoWeather/releases/latest), [F-Droid](https://f-droid.org/packages/com.freetime.geoweather/), [Luma Store's GeoWeather page](https://luma.free-time.me/discover/com.freetime.geoweather), [Freetime Repository](https://fdroid.free-time.me) and [OpenAPK](https://www.openapk.net/en/geoweather/com.freetime.geoweather/). Obtainium is no longer listed on that page. These are source-declared links, not verified live downloads. The Android package is `com.freetime.geoweather`; the local source requires API 26+.
 
 ## Build requirements
 
@@ -26,4 +26,4 @@ The local build declares version 4.7.3 (code 92). Release availability in indivi
 
 ## Project layout
 
-There is one Android `:app` module and no shared multiplatform module. Runtime dependencies include Freetime Core 3.0.0 via JitPack, Ktor, Room/bundled SQLite, Coil, WorkManager, Glance and osmdroid.
+There is one Android `:app` module and no shared multiplatform module. Runtime dependencies include Freetime Core 3.2.0 (`com.freetime` artifacts via `https://repo.free-time.me/maven/`), Ktor, Room/bundled SQLite, Coil, WorkManager, Glance and osmdroid.

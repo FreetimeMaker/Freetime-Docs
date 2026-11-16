@@ -4,7 +4,7 @@ The [Luma Store Website](https://github.com/FreetimeMaker/Luma-Store-Website) co
 
 ## Stack
 
-- Next.js 16.4.5
+- Next.js 16.4.2
 - React 19.3.1
 - TypeScript
 - Tailwind CSS 4
@@ -23,6 +23,8 @@ Repository submissions support public repositories on:
 The submission backend verifies that the signed-in forge account owns the repository or has sufficient write access. Codeberg OAuth requests `openid profile email read:user read:repository write:repository`; repository verification checks ownership or push/admin permission.
 
 Provider tokens are used for the matching forge only. A missing or expired provider authorization requires signing in with that provider again.
+
+The public navigation's **Developers** link opens `/login?next=/dashboard`. Its **Help** menu provides FAQs on browsing, source tracking, developer sign-in, submissions, updates, funding and privacy. Codeberg guidance explicitly asks developers to sign in with Codeberg and grant repository access for ownership/Write-access verification. This is source/UI guidance, not a verified OAuth or production-permissions test.
 
 ## Dashboard capabilities
 

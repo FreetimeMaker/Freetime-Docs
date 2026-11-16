@@ -1,0 +1,20 @@
+:is(.sidebar, .summer-sidebar) nav li.collapsible > .nav-label,
+:is(.sidebar, .summer-sidebar) nav li.collapsible > .nav-label *,
+:is(.sidebar, .summer-sidebar) nav li > a[href],
+:is(.sidebar, .summer-sidebar) nav li > a[href] * {
+    cursor: pointer;
+}
+
+.summer-sidebar nav li.nav-group.collapsible > :is(.nav-label, a):hover {
+    color: var(--summer-fg);
+    background: none;
+}
+
+.summer-sidebar nav li.nav-group.collapsible > .nav-label:hover svg,
+.summer-sidebar
+    nav
+    li.nav-group.collapsible
+    > a:hover
+    svg:not(.nav-external-icon):not(.collapse-icon) {
+    color: var(--summer-accent);
+}

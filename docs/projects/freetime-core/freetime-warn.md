@@ -2,13 +2,15 @@
 
 **Available since Freetime Core 1.11.0.**
 
-`FreetimeWarn` is a Kotlin and Jetpack Compose warning library in Freetime Core. It is inspired by the idea of FreeDroidWarn, but uses Freetime Design for its UI and deliberately keeps the warning mechanism separate from policy-specific text.
+`FreetimeWarn` is a Kotlin and Jetpack Compose warning library in Freetime Core. It is inspired by the idea of FreeDroidWarn, but uses Material 3 directly for its UI and deliberately keeps the warning mechanism separate from policy-specific text.
 
 ## Dependency
 
 ```kotlin
-implementation("com.freetime:FreetimeWarn:3.1.0")
+implementation("com.freetime:FreetimeWarn:3.2.0")
 ```
+
+The inspected source marks 3.2.0 as prepared but not yet uploaded; this coordinate is for use after publication, not a verified download.
 
 Add `https://repo.free-time.me/maven/` as described in [Getting Started](./getting-started.md). The current UI uses Material 3 directly, not the removed Freetime-prefixed Design components.
 
