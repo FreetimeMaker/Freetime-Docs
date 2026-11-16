@@ -1,0 +1,286 @@
+/* Material 3 Expressive styling; shared by current and archived documentation. */
+:root {
+    --md-primary: #00639b;
+    --md-on-primary: #ffffff;
+    --md-primary-container: #cee5ff;
+    --md-on-primary-container: #001d32;
+    --md-secondary-container: #dce3ed;
+    --md-on-secondary-container: #101c2b;
+    --md-tertiary-container: #eaddff;
+    --md-on-tertiary-container: #25005a;
+    --md-surface: #f8f9ff;
+    --md-surface-container-low: #f1f3fa;
+    --md-surface-container: #ebedf4;
+    --md-surface-container-high: #e5e7ef;
+    --md-on-surface: #191c20;
+    --md-on-surface-variant: #42474e;
+    --md-outline: #72777f;
+    --md-outline-variant: #c2c7cf;
+}
+
+html[data-theme="dark"] {
+    --md-primary: #96ccff;
+    --md-on-primary: #003353;
+    --md-primary-container: #004b76;
+    --md-on-primary-container: #cee5ff;
+    --md-secondary-container: #3b4858;
+    --md-on-secondary-container: #dce3ed;
+    --md-tertiary-container: #4f378b;
+    --md-on-tertiary-container: #eaddff;
+    --md-surface: #101418;
+    --md-surface-container-low: #191c20;
+    --md-surface-container: #1d2024;
+    --md-surface-container-high: #272a2f;
+    --md-on-surface: #e1e2e8;
+    --md-on-surface-variant: #c2c7cf;
+    --md-outline: #8c9199;
+    --md-outline-variant: #42474e;
+}
+
+/* Map the template and its plugin bridges onto the same paired roles. */
+:root,
+html[data-theme="dark"] {
+    --summer-bg: var(--md-surface);
+    --summer-bg-subtle: var(--md-surface-container-low);
+    --summer-surface: var(--md-surface-container-low);
+    --summer-surface-2: var(--md-surface-container);
+    --summer-surface-3: var(--md-surface-container-high);
+    --summer-surface-sunken: var(--md-surface-container);
+    --summer-fg: var(--md-on-surface);
+    --summer-fg-soft: var(--md-on-surface-variant);
+    --summer-fg-muted: var(--md-on-surface-variant);
+    --summer-fg-faint: var(--md-outline);
+    --summer-border: var(--md-outline-variant);
+    --summer-border-soft: var(--md-outline-variant);
+    --summer-border-strong: var(--md-outline);
+    --summer-accent: var(--md-primary);
+    --summer-accent-hover: var(--md-primary);
+    --summer-accent-soft: var(--md-primary-container);
+    --summer-accent-faint: var(--md-primary-container);
+    --summer-radius-xs: 8px;
+    --summer-radius-sm: 12px;
+    --summer-radius: 16px;
+    --summer-radius-lg: 28px;
+    --summer-radius-xl: 32px;
+    --md-motion-expressive: cubic-bezier(0.34, 1.3, 0.64, 1);
+    --summer-ease: cubic-bezier(0.2, 0, 0, 1);
+    --summer-ring: 0 0 0 3px var(--md-primary-container);
+    --summer-ring-soft: 0 0 0 2px var(--md-primary-container);
+    --summer-font-sans:
+        "Segoe UI", Roboto, ui-sans-serif, system-ui, sans-serif;
+}
+
+.summer-topbar,
+.summer-subnav,
+.summer-sidebar,
+.summer-footer {
+    background: var(--md-surface-container-low);
+}
+
+.summer-search {
+    background: var(--md-surface-container-high);
+    border-color: transparent;
+    font-size: 0.875rem;
+}
+
+.summer-search:hover,
+.summer-search:focus-visible {
+    background: var(--md-surface-container);
+    border-color: var(--md-primary);
+}
+
+.summer-iconbtn,
+.summer-copy-btn,
+.summer-content :is(a.btn, .docmd-btn, .btn) {
+    border-radius: 999px;
+}
+
+.summer-content :is(a.btn, .docmd-btn, .btn) {
+    min-height: 40px;
+    padding-inline: 24px;
+    font-weight: 600;
+}
+
+.summer-content :is(a.btn--primary, .docmd-btn--primary, .btn--primary),
+.summer-content :is(a.btn--primary, .docmd-btn--primary, .btn--primary):hover,
+.summer-totop,
+.summer-totop:hover {
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+}
+
+.summer-sidebar nav li > :is(a, .nav-label) {
+    border-radius: 28px;
+}
+
+.summer-sidebar nav li > a[href] {
+    min-height: 40px;
+}
+
+.summer-sidebar nav li > a[href]:hover {
+    background: var(--md-surface-container-high);
+}
+
+.summer-sidebar nav li > a.active,
+.summer-sidebar nav li > a.active:hover {
+    background: var(--md-secondary-container);
+    color: var(--md-on-secondary-container);
+    border-left: none;
+    border-radius: 28px;
+    font-weight: 600;
+}
+
+.summer-sidebar
+    nav
+    li
+    > a.active
+    svg:not(.nav-external-icon):not(.collapse-icon) {
+    color: var(--md-on-secondary-container);
+}
+
+.summer-sidebar nav .submenu li > a.active::before {
+    display: none;
+}
+
+.summer-content :is(.docmd-card, .docmd-container.card),
+.summer-pagenav__link {
+    background: var(--md-surface-container-low);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: 24px;
+    box-shadow: none;
+}
+
+.summer-content :is(.docmd-card, .docmd-container.card):hover,
+.summer-pagenav__link:hover {
+    background: var(--md-surface-container);
+    border-color: var(--md-primary);
+}
+
+.summer-content .docmd-code-block-wrapper,
+.summer-content .docmd-container.collapsible {
+    border-radius: 16px;
+}
+
+html[data-theme="dark"] .docmd-code-block-wrapper > .docmd-code-block-header {
+    color: var(--md-on-surface-variant);
+    background: var(--md-surface-container-high);
+    border-bottom-color: var(--md-outline-variant);
+}
+
+.summer-template
+    :is(a, button, input, select, summary, [tabindex]):focus-visible {
+    outline: 3px solid var(--md-primary);
+    outline-offset: 3px;
+}
+
+/* Expressive hierarchy and shape changes without rearranging the docs layout. */
+.summer-content h1,
+.summer-content__title {
+    font-size: clamp(2.25rem, 1.6rem + 2.5vw, 3.75rem);
+    font-weight: 750;
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+}
+
+.summer-content h2 {
+    font-size: clamp(1.65rem, 1.4rem + 0.8vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+}
+
+.summer-content h3 {
+    font-size: 1.375rem;
+    font-weight: 650;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+}
+
+.summer-content h1::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 8px;
+    margin-top: 20px;
+    border-radius: 4px 12px 12px 4px;
+    background: var(--md-primary);
+}
+
+.summer-content :is(.docmd-card, .docmd-container.card) {
+    border-radius: 32px 16px 32px 16px;
+}
+
+.summer-pagenav__link {
+    border-radius: 28px 12px 28px 12px;
+    transition:
+        border-radius 240ms var(--md-motion-expressive),
+        background 180ms var(--summer-ease),
+        border-color 180ms var(--summer-ease);
+}
+
+.summer-pagenav__link:is(:hover, :focus-visible) {
+    border-radius: 16px 28px 16px 28px;
+    background: var(--md-tertiary-container);
+    color: var(--md-on-tertiary-container);
+}
+
+.summer-pagenav__link:is(:hover, :focus-visible)
+    :is(.summer-pagenav__small, .summer-pagenav__title, .summer-pagenav__icon) {
+    color: var(--md-on-tertiary-container);
+}
+
+.summer-content :is(a.btn, .docmd-btn, .btn) {
+    min-height: 48px;
+    padding-inline: 28px;
+    font-size: 0.9375rem;
+    transition:
+        border-radius 240ms var(--md-motion-expressive),
+        transform 180ms var(--md-motion-expressive),
+        background 180ms var(--summer-ease);
+}
+
+.summer-content :is(a.btn, .docmd-btn, .btn):is(:hover, :focus-visible) {
+    border-radius: 16px;
+}
+
+.summer-content :is(a.btn, .docmd-btn, .btn):active {
+    transform: scale(0.97);
+    border-radius: 12px;
+}
+
+.summer-iconbtn {
+    transition:
+        border-radius 240ms var(--md-motion-expressive),
+        background 180ms var(--summer-ease);
+}
+
+.summer-iconbtn:is(:hover, :focus-visible) {
+    border-radius: 12px;
+    background: var(--md-tertiary-container);
+    color: var(--md-on-tertiary-container);
+}
+
+.summer-search {
+    transition:
+        border-radius 240ms var(--md-motion-expressive),
+        background 180ms var(--summer-ease),
+        border-color 180ms var(--summer-ease);
+}
+
+.summer-search:is(:hover, :focus-visible) {
+    border-radius: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .summer-template *,
+    .summer-template *::before,
+    .summer-template *::after {
+        animation-duration: 0.01ms;
+        animation-iteration-count: 1;
+        transition-duration: 0.01ms;
+        scroll-behavior: auto;
+    }
+}
