@@ -70,7 +70,8 @@ Material color roles are declared as `--md-*` variables and mapped to Summer's `
 Navigation is maintained explicitly in each version's `navigation.json`:
 
 - Keep the **Projects** overview link first inside the **Projects** group.
-- Sort the remaining project groups and their subpages alphabetically by title.
+- Sort the remaining project groups alphabetically by title.
+- Inside each project group, keep its project overview first and sort the remaining subpages alphabetically by title.
 - Preserve version-specific pages rather than copying the current navigation into the archive.
 - Give every navigation entry an appropriate icon.
 

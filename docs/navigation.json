@@ -64,14 +64,14 @@
         "title": "Freetime Core",
         "children": [
           {
-            "title": "Design & Liquid Glass",
-            "path": "/projects/freetime-core/design/",
-            "icon": "iconify:lucide:palette"
-          },
-          {
             "title": "Freetime Core",
             "path": "/projects/freetime-core/",
             "icon": "iconify:lucide:layers"
+          },
+          {
+            "title": "Design & Liquid Glass",
+            "path": "/projects/freetime-core/design/",
+            "icon": "iconify:lucide:palette"
           },
           {
             "title": "FreetimeWarn",
@@ -101,6 +101,11 @@
         "title": "GeoWeather",
         "children": [
           {
+            "title": "GeoWeather",
+            "path": "/projects/geoweather/",
+            "icon": "iconify:lucide:cloud-sun"
+          },
+          {
             "title": "Architecture",
             "path": "/projects/geoweather/architecture/",
             "icon": "iconify:lucide:network"
@@ -114,11 +119,6 @@
             "title": "Features",
             "path": "/projects/geoweather/features/",
             "icon": "iconify:lucide:sparkles"
-          },
-          {
-            "title": "GeoWeather",
-            "path": "/projects/geoweather/",
-            "icon": "iconify:lucide:cloud-sun"
           },
           {
             "title": "Getting Started",
@@ -142,6 +142,11 @@
       {
         "title": "Luma Store",
         "children": [
+          {
+            "title": "Luma Store",
+            "path": "/projects/luma-store/",
+            "icon": "iconify:lucide:store"
+          },
           {
             "title": "Android client",
             "path": "/projects/luma-store/android/",
@@ -173,11 +178,6 @@
             "icon": "iconify:lucide:monitor"
           },
           {
-            "title": "Luma Store",
-            "path": "/projects/luma-store/",
-            "icon": "iconify:lucide:store"
-          },
-          {
             "title": "Sources",
             "path": "/projects/luma-store/sources/",
             "icon": "iconify:lucide:database"
@@ -195,6 +195,11 @@
         "title": "MD-Blog",
         "children": [
           {
+            "title": "MD-Blog",
+            "path": "/projects/md-blog/",
+            "icon": "iconify:lucide:file-text"
+          },
+          {
             "title": "Architecture",
             "path": "/projects/md-blog/architecture/",
             "icon": "iconify:lucide:network"
@@ -203,11 +208,6 @@
             "title": "Getting Started",
             "path": "/projects/md-blog/getting-started/",
             "icon": "iconify:lucide:rocket"
-          },
-          {
-            "title": "MD-Blog",
-            "path": "/projects/md-blog/",
-            "icon": "iconify:lucide:file-text"
           },
           {
             "title": "Troubleshooting",
@@ -222,6 +222,11 @@
         "title": "Multi AI Chat",
         "children": [
           {
+            "title": "Multi AI Chat",
+            "path": "/projects/multi-ai-chat/",
+            "icon": "iconify:lucide:messages-square"
+          },
+          {
             "title": "Development",
             "path": "/projects/multi-ai-chat/development/",
             "icon": "iconify:lucide:code"
@@ -232,11 +237,6 @@
             "icon": "iconify:lucide:rocket"
           },
           {
-            "title": "Multi AI Chat",
-            "path": "/projects/multi-ai-chat/",
-            "icon": "iconify:lucide:messages-square"
-          },
-          {
             "title": "Troubleshooting",
             "path": "/projects/multi-ai-chat/troubleshooting/",
             "icon": "iconify:lucide:wrench"
@@ -245,10 +245,14 @@
         "collapsible": true,
         "icon": "iconify:lucide:messages-square"
       },
-
       {
         "title": "SuperSMP Companion",
         "children": [
+          {
+            "title": "SuperSMP Companion",
+            "path": "/projects/supersmp-companion/",
+            "icon": "iconify:lucide:gamepad-2"
+          },
           {
             "title": "Development",
             "path": "/projects/supersmp-companion/development/",
@@ -258,11 +262,6 @@
             "title": "Getting Started",
             "path": "/projects/supersmp-companion/getting-started/",
             "icon": "iconify:lucide:rocket"
-          },
-          {
-            "title": "SuperSMP Companion",
-            "path": "/projects/supersmp-companion/",
-            "icon": "iconify:lucide:gamepad-2"
           },
           {
             "title": "Troubleshooting",
