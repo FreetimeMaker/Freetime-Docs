@@ -30,7 +30,7 @@ jobs:
         run: npm install
 
       - name: Install docmd
-        run: npm install -g @docmd/core@0.10.0
+        run: npm install -g @docmd/core@0.10.1
 
       - name: Build site
         run: docmd build

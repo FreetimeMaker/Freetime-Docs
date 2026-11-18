@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@docmd/core": "^0.10.0",
-    "@docmd/plugin-iconify": "^0.10.0"
+    "@docmd/core": "^0.10.1",
+    "@docmd/plugin-iconify": "^0.10.1"
   }
 }
