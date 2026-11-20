@@ -252,10 +252,10 @@
         "children": [
           { "title": "Repositories", "path": "/projects/repositories/" },
           { "title": "APT", "path": "/projects/repositories/apt/" },
-          { "title": "DNF / YUM", "path": "/projects/repositories/dnf-yum/" },
+          { "title": "DNF/YUM", "path": "/projects/repositories/dnf-yum/" },
           { "title": "F-Droid", "path": "/projects/repositories/f-droid/" },
           {
-            "title": "Maven / Gradle",
+            "title": "Maven/Gradle",
             "path": "/projects/repositories/maven-gradle/"
           }
         ]
