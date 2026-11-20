@@ -12,7 +12,7 @@
 
 **Goal: browse the Android catalog without a developer account.** This estimate assumes the client is already installed, any APK downloads are complete and the public service is available. Installing SDKs, building from source, creating accounts and publishing an app are not five-minute steps.
 
-1. Obtain the Android client using the options in [Android](./android.md), if it is not installed yet.
+1. If the client is not installed, consult the [Android source repository](https://github.com/FreetimeMaker/Luma-Store-Android) for distribution information, or follow the source-build steps below. This review did not verify a published APK or installer.
 2. Open the client and browse the Luma catalog. It is enabled by default; built-in F-Droid/community sources are not.
 3. Open an available catalog entry. Expect an app detail screen for that entry; the actual entries depend on the live catalog. Public browsing does not require developer sign-in. An empty catalog is not proof of a working end-to-end integration.
 
@@ -28,7 +28,7 @@ cd Luma-Store-Android
 ./gradlew assembleDebug
 ```
 
-The inspected app is **4.4.1**, targets/compiles SDK 37 and supports Android API 24 or later. The wrapper selects Gradle 9.9.1 and daemon criteria request JDK 21. Install the required Android SDK before building. See [Android build dependencies](./android.md#build-dependencies) for the changed Maven repository and unverified legacy Core coordinates.
+The inspected app is **4.4.2**, targets/compiles SDK 37 and supports Android API 24 or later. The wrapper selects Gradle 9.9.1 and daemon criteria request JDK 21. Install the required Android SDK before building. See [Android build dependencies](./android.md#android-client-build-dependencies) for the Maven repository and declared `com.freetime` Core coordinates.
 
 ## Website and Developer Dashboard
 
@@ -42,7 +42,7 @@ npm install
 npm run dev
 ```
 
-The website uses Next.js **16.4.2**, React **19.3.1**, TypeScript and Tailwind CSS 4. Configure:
+The website uses Next.js **16.4.5**, React **19.3.1**, TypeScript and Tailwind CSS 4. Configure:
 
 | Variable                               | Purpose                               |
 | -------------------------------------- | ------------------------------------- |
@@ -67,7 +67,7 @@ GET /v2/lumastore/apps/:id
 GET /v2/lumastore/developers/:id
 ```
 
-App details use the catalog's store app ID. The current normalized catalog is Android-only and has no `/package-formats` route. The separate [All API frontend](https://github.com/FreetimeMaker/All-API-FrontEnd) implements `/api/luma/apps` as a manually reviewed submission feed; do not assume the two responses are interchangeable.
+App details use the catalog's store app ID. The current normalized catalog is Android-only and has no `/package-formats` route. The separate [All API frontend](https://github.com/FreetimeMaker/All-API-FrontEnd) was previously documented as implementing `/api/luma/apps` as a manually reviewed submission feed; do not assume the two responses are interchangeable.
 
 The standalone website also uses `https://api.free-time.me/lumastore` for API calls. That unversioned alias is not mounted in the inspected Express entry point and depends on deployment configuration; use the explicit versioned backend paths for direct integration.
 
@@ -77,4 +77,8 @@ The website dashboard's `AuthGate` requires a Supabase session and redirects una
 
 ## Next
 
-Read [Android](./android.md), [Developer Dashboard](./developer-dashboard.md), [Submissions](./submissions.md), [Sources](./sources.md) and [Custom Clients](./custom-clients.md).
+For publishing, continue with [Developer Dashboard](./developer-dashboard.md). To integrate the catalog rather than operate the official clients, use [Custom Clients](./custom-clients.md).
+
+:::callout info Separate frontend not revalidated
+`All-API-FrontEnd` was unavailable locally on 2026-11-20. References to its submission feed or proxy describe earlier documentation, not a current source-verified contract.
+:::

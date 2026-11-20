@@ -46,6 +46,16 @@ Built-in Freetime F-Droid, F-Droid and IzzyOnDroid repositories are disabled by 
 
 `GET /v2/lumastore/apps` accepts `category` (category ID), `platform` and `search` (name matching). The current normalized platform list contains Android rows only. There is no `package_format` filter.
 
+## Keep source types separate
+
+| Source type | Stored where | What refresh means |
+| --- | --- | --- |
+| Website tracked URL | Browser local storage | Resolve the latest forge release or direct HTTPS asset again |
+| Android catalog repository | Client repository preferences | Fetch and parse the selected Luma or F-Droid catalog |
+| Published store listing | Server-side store tables | Read catalog metadata; publication is a separate developer workflow |
+
+Removing a website tracked URL does not archive a published app. Enabling an Android repository does not submit any of its apps for review.
+
 ## Debugging
 
 For tracked sources, check HTTPS URL syntax, latest release existence, APK asset names, provider login/permissions and rate limits. For catalogs, inspect HTTP status, response parsing, app visibility, source settings and client filters independently. A successful empty result is not equivalent to a transport error.

@@ -8,24 +8,7 @@
 | Optional | Frontend checkout and browser; a configured Supabase project and user account for database/authentication features. Neither is needed for the local health check. |
 | Publishing only | Deployment access and the appropriate server-side credentials, database schema and policies for the features you deploy. |
 
-## First success in five minutes
-
-**Goal: a local process-health response.** The five-minute estimate assumes Node.js/npm and Git are installed and dependency downloads are already complete or fast. It excludes provisioning accounts, databases and deployment; no third-party request is needed for this check.
-
-1. Follow the [backend setup](#backend) below in one terminal. Leave `npm start` running.
-2. In a second terminal, run:
-
-   ```bash
-   curl -i --max-time 5 http://localhost:3000/v2/health
-   ```
-
-3. Expect HTTP **200** with the JSON body `{"status":"ok"}` from the directly mounted handler. If you set `PORT`, use that port instead. This proves only that the Express process responds, not that its database or release providers work.
-
-Need help? Start with [Troubleshooting](./troubleshooting.md).
-
-All API has separate backend and frontend repositories. The inspected backend package is **2.8.1**.
-
-## Backend
+## Start the backend
 
 ```bash
 git clone https://github.com/FreetimeMaker/All-API-Node.git
@@ -34,13 +17,15 @@ npm install
 npm start
 ```
 
-Direct execution listens on port 3000 unless `PORT` is set. Start with:
+The package declares `start: node src/index.js`, but no Node engine constraint, test script or lint script. Use Node.js/npm compatible with its dependency declarations; this review did not resolve dependencies or test a runtime version.
+
+Leave the server running and use a second terminal:
 
 ```bash
-curl http://localhost:3000/v2/health
+curl -i --max-time 5 http://localhost:3000/v2/health
 ```
 
-The health handler returns `{"status":"ok"}`. This is a process-health check, not proof that Supabase or upstream release providers are configured correctly.
+The directly mounted handler is coded to return HTTP **200** and `{"status":"ok"}`. This is an expected response from source inspection, not captured curl output. It checks only the Express process, not database access or release providers. `PORT` changes the listener port; the default is 3000. No database credentials are needed for this handler.
 
 ## Configuration
 
@@ -48,24 +33,20 @@ Configure generic Supabase access with `SUPABASE_URL` and `SUPABASE_ANON_KEY`; t
 
 Luma Store uses separate `LUMASTORE_SUPABASE_URL` and `LUMASTORE_SUPABASE_PUBLISHABLE_KEY` settings with public defaults in the source. Luma user tokens must belong to that project. Configure the intended project and database policies rather than assuming the generic project is reused.
 
-## Frontend
+## Optional account/dashboard frontend
 
-```bash
-git clone https://github.com/FreetimeMaker/All-API-FrontEnd.git
-cd All-API-FrontEnd
-npm install
-```
+[All-API-FrontEnd](https://github.com/FreetimeMaker/All-API-FrontEnd) is a separate checkout, unavailable in this review. Its previous setup described an `API_BASE` backend origin and public Supabase configuration, but its current template, scripts and proxy behavior could not be checked. Follow that repository's current instructions rather than treating these docs as a verified frontend setup.
 
-Copy `.env.example` to a local environment file, set `API_BASE` to the backend origin, and configure Supabase. Then run `npm run dev`. When running both projects locally, assign different ports; the backend defaults to 3000 and Next.js also normally requests that port.
+When running multiple services locally, use distinct ports; the backend defaults to 3000.
 
 ## URL conventions
 
-Clients in the inspected sources use `https://api.free-time.me` as the backend origin. Append `/v1` or `/v2`, not `/api/v2`. Next.js routes such as `/api/proxy/v2/health` and `/api/luma/apps` belong to the frontend and are separate contracts. Production rewrites/aliases are deployment-specific and were not verified here.
+Clients in the inspected sources use `https://api.free-time.me` as the backend origin. Append `/v1` or `/v2`, not `/api/v2`. Previously documented Next.js paths such as `/api/proxy/v2/health` and `/api/luma/apps` refer to the separate, locally unavailable frontend, not Express. Production rewrites/aliases are deployment-specific and were not verified here.
 
-::: callout danger
+:::callout danger
 Never expose service-role credentials, OAuth client secrets, email keys or webhook secrets in browser or Android configuration.
 :::
 
 ## Next
 
-Read [Using the API](./using-the-api.md), [API Reference](./api-reference.md) and [Development](./development.md).
+Use [Using the API](./using-the-api.md) for requests, or [Development](./development.md) for metadata synchronization and backend internals.

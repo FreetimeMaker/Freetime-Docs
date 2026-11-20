@@ -1,5 +1,9 @@
 # Getting Started
 
+::: callout warning Prior source snapshot only
+The local plugin repository was missing on 2026-11-20. Technical details and commands on this page are inherited from the previous review, not current-source verification. See [review scope](./index.md#multi-ai-chat-source-review).
+:::
+
 ## Prerequisites
 
 | Scope           | Prerequisite                                                                                                                                                                                                                                       |
@@ -8,9 +12,9 @@
 | Optional        | For source builds: Git, the Gradle wrapper and a Java 17-compatible compilation toolchain; the configured target IDE is IDEA 2026.1. Gradle/IDE downloads can take longer than five minutes and may need a newer runtime to run the build tooling. |
 | Publishing only | Plugin distribution access and any credentials required by your chosen release process; not needed to install from disk.                                                                                                                           |
 
-## First success in five minutes
+## Test one provider response
 
-**Goal: receive one provider response in the tool window.** This assumes a compatible IDE and plugin are already installed, downloads/restarts are complete, and you already have a funded or otherwise usable provider account/key. Building, account setup and provider availability are outside the estimate.
+**Goal: receive one provider response in the tool window.** This assumes a compatible IDE and plugin are already installed, downloads/restarts are complete, and you already have a funded or otherwise usable provider account/key. Building, account setup and provider availability are not part of this test.
 
 1. Open IDE Settings, search for **Multi AI Chat**, enter the API key for one provider and apply the change. Keys are stored as plain strings; do not share settings exports.
 2. Open the right-side chat tool window and choose that provider and a model in its model selector. Model selection is in the tool window, not the API-key settings page.

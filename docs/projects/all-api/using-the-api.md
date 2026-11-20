@@ -30,6 +30,8 @@ async function api(path, options = {}) {
 }
 ```
 
+The helper is a documentation integration example derived from the [mounted handlers](https://github.com/FreetimeMaker/All-API-Node/blob/f743d19fd760a7a337e23e1af8ddff9fa1c3708b/src/v2/lumastore/store.js), not a copied SDK or a live-tested request. It returns `null` for empty/non-JSON bodies and includes the parsed error body when available. Add cancellation/timeouts and runtime response validation appropriate to your application.
+
 ## Authentication
 
 Protected routes accept the signed-in user's bearer token:
@@ -44,10 +46,13 @@ Never substitute server credentials for a user token in a distributed client.
 
 ```js
 const apps = await api("/v2/lumastore/apps?platform=Android");
-const ratings = await api("/v2/lumastore/apps/com.example.app/ratings");
-// App details require the catalog ID, not the package name:
-const details = apps.length
-  ? await api(`/v2/lumastore/apps/${encodeURIComponent(apps[0].id)}`)
+// Use a real catalog ID rather than a fictional package name.
+const first = apps[0];
+const details = first
+  ? await api(`/v2/lumastore/apps/${encodeURIComponent(first.id)}`)
+  : null;
+const ratings = first
+  ? await api(`/v2/lumastore/apps/${encodeURIComponent(first.id)}/ratings`)
   : null;
 ```
 
@@ -59,7 +64,9 @@ For JSON writes, set `Content-Type: application/json` and serialize the body. Th
 
 ```js
 const { posts } = await api("/v2/blog/posts");
-const post = await api("/v2/blog/posts/my-post");
+const post = posts.length
+  ? await api(`/v2/blog/posts/${encodeURIComponent(posts[0].slug)}`)
+  : null;
 const { categories } = await api("/v2/blog/categories");
 ```
 

@@ -1,5 +1,9 @@
 # Troubleshooting
 
+::: callout warning Prior source snapshot only
+The local plugin repository was missing on 2026-11-20. Technical details and commands on this page are inherited from the previous review, not current-source verification. See [review scope](./index.md#multi-ai-chat-source-review).
+:::
+
 Work from the symptom below. Commands are suggested local checks, not outputs observed during this documentation review. Use your configured ports/origins; never include credentials in shared logs.
 
 ## Provider request fails

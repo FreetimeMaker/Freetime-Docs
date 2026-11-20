@@ -24,7 +24,7 @@ adb shell dumpsys webviewupdate
 
 ## Saved coordinates are wrong or disappear
 
-**Check:** repeat the [local coordinate exercise](./getting-started.md#first-success-in-five-minutes), navigate away and back, and inspect Room/ViewModel errors. Enter numeric X/Y/Z values using a period for decimals.
+**Check:** repeat the [local coordinate exercise](./getting-started.md#getting-started-build-and-save-a-first-coordinate), navigate away and back, and inspect Room/ViewModel errors. Enter numeric X/Y/Z values using a period for decimals.
 
 **Expected:** the named record appears with its values and dimension and remains in the local list. The current dialog uses `toDoubleOrNull() ?: 0.0`: invalid or empty numeric input becomes zero rather than producing a validation message.
 
@@ -43,15 +43,15 @@ cat settings.gradle.kts
 
 **Expected:** daemon criteria request JDK 21, Java/Kotlin output targets 17, and the app compiles against SDK 37. The local minimum SDK is 26, despite older API-24 wording in the upstream README. The launcher reported by `java -version` is not necessarily the selected daemon.
 
-**Fix:** use the repository wrapper, configure SDK 37 and make JDK 21 available. Freetime dependencies use `com.freetime` version 3.2.0 from `https://repo.free-time.me/maven/`, no longer JitPack. Check that repository and the module coordinates in the catalog before treating a resolution failure as a source error. KSP is pinned to 2.3.14; do not silently substitute other versions.
+**Fix:** use the repository wrapper, configure SDK 37 and make JDK 21 available. Freetime dependencies use `com.freetime` version 3.1.0 from `https://repo.free-time.me/maven/`, no longer JitPack. Check that repository and the module coordinates in the catalog before treating a resolution failure as a source error. KSP is pinned to 2.3.13; do not silently substitute other versions.
 
-## Release notifications do not appear
+## Expected release notifications are absent
 
-**Check:** Open Settings and use the notification-enable action or the Android notification-settings link. Check permission and the update/changelog channels. Inspect logs for `SuperSMPNotifications` initialization errors and connectivity to the configured GitHub/F-Droid feeds.
+**Check:** inspect the catalog/app dependencies and `SuperSMPApplication.kt` in the same revision you built.
 
-**Expected:** The helper prompts only after an explicit action, requests permission on Android 13+ on the first recorded attempt, and routes later denied attempts to settings. The application configures a 360-minute check interval, but disables notifications on the first check. Developer messages are disabled.
+**Expected:** this checkout pins five Freetime 3.1.0 modules, has no Notifications dependency and does not initialize release feeds. WorkManager alone does not implement notification delivery.
 
-**Fix:** Enable the appropriate permission/channels and distinguish feed/check failures from notification delivery. An already-authorized enable action requests a check; it does not guarantee a new notification. Do not infer immediate delivery or exact scheduling from configuration alone. This review did not exercise the library on a device.
+**Fix:** do not search for a permission toggle to enable a feature absent from this revision. Treat release notifications as new integration work; compare the source/revision when following documentation for another build.
 
 ## APK installation fails
 

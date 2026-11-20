@@ -1,15 +1,15 @@
 # Modules
 
-Freetime Core 3.2.0 contains six independently selectable Android libraries and a sample app. Use the `com.freetime` Maven group and [repository configuration](./getting-started.md). The inspected source describes 3.2.0 as prepared but not yet uploaded; the coordinates below are for use after publication, not verified available artifacts.
+Freetime Core **4.0.1** provides six selectable Android/desktop JVM libraries. Use case-sensitive `com.freetime:<Module>:4.0.1` coordinates only after complete publication is verified; for now prefer the local sample. [Getting Started](./getting-started.md) covers repositories and KMP metadata.
 
-| Module        | Dependency                         |
-| ------------- | ---------------------------------- |
-| Core          | `com.freetime:Core:3.2.0`          |
-| Design        | `com.freetime:Design:3.2.0`        |
-| Browser       | `com.freetime:Browser:3.2.0`       |
-| Donations     | `com.freetime:Donations:3.2.0`     |
-| FreetimeWarn  | `com.freetime:FreetimeWarn:3.2.0`  |
-| Notifications | `com.freetime:Notifications:3.2.0` |
+| Module | Android | Desktop JVM |
+| --- | --- | --- |
+| `Core` | SharedPreferences and Android helpers | Java Preferences; no Context helper |
+| `Design` | Shared Compose UI; Material You on API 31+ | Shared UI with regular color schemes |
+| `Browser` | WebView and Context-bound intents | External browser action, not embedded HTML |
+| `Donations` | Clipboard and wallet intents | AWT clipboard/registered URI handlers |
+| `FreetimeWarn` | Shared UI; SharedPreferences | Shared UI; Java Preferences |
+| `Notifications` | WorkManager, DataStore, native channels | In-process polling, atomic JSON, AWT tray |
 
 ## Core
 
@@ -21,7 +21,7 @@ The UI foundation is **Material 3 Expressive + Material You**, not a separate Fr
 
 `AppTheme` supplies expressive motion, dynamic colors on Android 12+, regular schemes on older devices and five theme modes. `FloatingBottomNavigationGlassRoot` and `FloatingBottomNavigationBar` provide the dedicated navigation-only glass treatment, with a Material fallback when disabled.
 
-Version 3.1.0 includes classic Material 3 and Expressive templates in `com.freetime.design.templates.material3` and `com.freetime.design.templates.expressive`. They separate colors, typography, shapes and theme composition; optional Freetime adapters disable navigation glass. Material You is opt-in in the templates.
+Originally introduced in 3.1.0, the current Design module includes classic Material 3 and Expressive templates in `com.freetime.design.templates.material3` and `com.freetime.design.templates.expressive`. They separate colors, typography, shapes and theme composition; optional Freetime adapters disable navigation glass. Material You is opt-in in the templates.
 
 See [Design & Liquid Glass](./design.md).
 
@@ -30,10 +30,25 @@ See [Design & Liquid Glass](./design.md).
 URL routing and reusable browser UI. Open externally with:
 
 ```kotlin
-FreetimeBrowser.openExternal(context, "https://example.org")
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.*
+import com.freetime.browser.BrowserOptions
+import com.freetime.browser.rememberBrowserLauncher
+
+// Inside a composable, on either supported platform:
+val browser = rememberBrowserLauncher()
+var error by remember { mutableStateOf<String?>(null) }
+TextButton(onClick = {
+    browser.open(
+        "https://example.org",
+        BrowserOptions(allowedHosts = setOf("example.org")),
+    ).onFailure { error = it.message ?: "Could not open browser" }
+}) { Text("Open website") }
+error?.let { Text(it) }
 ```
 
-`BrowserMode.IN_APP` supports host-owned handling through routing options or the reusable browser screen.
+`BrowserMode.IN_APP` accepts a host callback returning whether it handled the URL; otherwise the permitted external fallback applies. Android also has `FreetimeBrowser.openExternal(context, url)`. The Context-free direct external call intentionally fails on Android: use the remembered launcher in shared UI. Android WebView JavaScript is opt-in; desktop screen content offers only an external-browser action.
 
 ## Donations
 
@@ -47,9 +62,9 @@ See [FreetimeWarn](./freetime-warn.md) for state and dialog examples.
 
 ## Notifications
 
-New in 3.2.0, `com.freetime.notifications` exposes an API dependency on `Core` and uses WorkManager, Preferences DataStore and coroutines. It polls public sources locally; it is not push delivery and requires no Firebase, UnifiedPush or Freetime account.
+Introduced in 3.2.0, `com.freetime.notifications` exposes an API dependency on `Core` and uses coroutines with platform-specific storage/scheduling. Android uses WorkManager and Preferences DataStore. It polls public sources locally; it is not push delivery and requires no Firebase, UnifiedPush or Freetime account.
 
-### Initialization
+### Android initialization
 
 Call the suspending `FreetimeNotifications.initialize` from an application-owned coroutine, with normal host error handling, not `runBlocking` on the main thread. This fragment assumes `context` is the host application context and the host defines the icon resource:
 
@@ -70,6 +85,12 @@ FreetimeNotifications.initialize(context) {
 
 Use repositories/packages for the **installed host app**, not an unrelated app to monitor. The library does not verify repository ownership. Supply a valid app-owned drawable/mipmap small icon. The host must meet WorkManager initialization requirements and request `POST_NOTIFICATIONS` from its Activity on Android 13+; the library declares permissions but never prompts. `hasPermission(context)` checks runtime/app-wide permission, not each channel.
 
+### Desktop lifecycle
+
+Create `DesktopFreetimeNotifications` in `desktopMain` with an app-private storage directory, installed version name/code and app name. Use exactly one instance per directory. Call suspending `initialize { ... }` or `resume()` from the host coroutine scope after startup. `resume()` returns false if no configuration exists.
+
+Desktop uses atomic JSON storage and AWT tray delivery, not WorkManager or native Android channels. It only polls while the process runs; it cannot deliver after exit. Check tray availability with `hasPermission()`. Use suspending `shutdown()` when closing a UI host; blocking `close()` is prohibited on the AWT event thread. Shutdown retains configuration for resume; `stop()` clears configuration but retains seen IDs/category choices.
+
 ### Sources and delivery rules
 
 - `github(owner, repository, includePrereleases = false)` reads public GitHub releases, excluding drafts and, by default, prereleases. Numeric/semver-style tags are compared with the installed `versionName`; equal, older or unorderable versions do not alert. A newer release can also produce a separate `CHANGELOGS` alert if its body is nonblank.
@@ -88,11 +109,11 @@ Use repositories/packages for the **installed host app**, not an unrelated app t
 
 Periodic polling defaults to six hours, with a 15-minute minimum, and Android can delay execution. DataStore persists configuration and up to 500 seen IDs per source/category. The first successful check is a silent baseline by default, even for an empty feed; failed fetches do not establish it. Permission/channel-blocked or posting-limit-deferred entries remain pending after that baseline. This bounded history is not a complete archive.
 
-Requests require HTTPS without embedded credentials. Public services receive ordinary network requests and the device's public IP; unauthenticated GitHub rate limits apply. No tracking token is needed. Inspect `failures` instead of interpreting an empty notification tray as proof of no new content. See the pinned [upstream integration guide](https://github.com/FreetimeMaker/Freetime-Core/blob/8f9e8ad79bf82fe90b61b83ba4194aed2b37ca94/Notifications/README.md) for full configuration and networking limits.
+Requests require HTTPS without embedded credentials. Public services receive ordinary network requests and the device's public IP; unauthenticated GitHub rate limits apply. No tracking token is needed. Inspect `failures` instead of interpreting an empty notification tray as proof of no new content. See the pinned [upstream integration guide](https://github.com/FreetimeMaker/Freetime-Core/blob/2bb88da626d82b77bd612f1f3eca857346c30e71/Notifications/README.md) for full configuration and networking limits.
 
 ## Sample
 
-`:Sample` demonstrates the library modules together. It is an Android application, not a published library dependency.
+`:Sample` contains shared Compose UI and the desktop entry point; `:Sample-android` is the Android application host. Neither is a published library dependency.
 
 ## Independence
 

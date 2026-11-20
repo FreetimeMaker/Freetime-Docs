@@ -117,7 +117,7 @@ Keep internal links and assets valid, and do not use historical screenshots as e
 `.github/workflows/deploy.yml` runs on pushes to `main`. It:
 
 1. Checks out the repository and sets up Node.js 26.
-2. Installs project dependencies with `npm install` and installs `@docmd/core@0.10.0` globally.
+2. Installs project dependencies with `npm install` and installs `@docmd/core@0.10.1` globally.
 3. Runs `docmd build` and uploads `site/` as a Pages artifact.
 4. Deploys the artifact in a separate job using the `github-pages` environment.
 

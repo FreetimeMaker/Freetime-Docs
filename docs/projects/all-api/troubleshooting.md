@@ -1,6 +1,5 @@
 # Troubleshooting
 
-
 Work from the symptom below. Commands are suggested local checks, not outputs observed during this documentation review. Use your configured ports/origins; never include credentials in shared logs.
 
 ## 404 or outdated endpoint examples
@@ -45,17 +44,17 @@ curl -i --max-time 20 "http://localhost:3000/v2/lumastore/apps?platform=Android"
 
 **Fix:** The current Luma catalog and tracked-source resolver expose Android entries/APK assets only. Linux/Windows filters and non-APK direct URLs can legitimately return empty results. For forge sources, also check the latest release and provider rate limits/token permissions.
 
+## OAuth returns to an unmounted callback
+
+**Check:** Inspect the login response's `redirectTo` or the browser redirect destination, without sharing token fragments.
+
+**Cause:** The generic auth helper still defaults to `/api/v1/auth/callback`, while Express mounts `/v1/auth/callback` and `/v2/auth/callback`.
+
+**Fix:** Pass an explicit `redirectTo` for the actual versioned callback and configure the Supabase redirect allowlist. See [Authentication](./authentication.md#authentication-start-a-generic-oauth-login). Do not assume a proxy alias exists.
+
 ## Frontend proxy returns 503
 
-**Check:** From the frontend host, request the backend health URL (use the actual origin from `API_BASE`):
-
-```bash
-curl -i --max-time 2 http://localhost:3000/v2/health
-```
-
-**Expected:** HTTP 200 within the proxy’s two-second health window. `API_BASE` is an origin, without an appended `/v2`.
-
-**Fix:** The proxy checks upstream `/v2/health` with a two-second timeout before most requests. Confirm `API_BASE` and backend reachability. Successful health does not test database access. Ordinary forwarded requests have a 15-second timeout.
+The frontend checkout was absent locally. Earlier docs described a two-second health precheck and a 15-second forwarding timeout; neither was reverified. Inspect the current frontend handler, configured backend origin and deployment logs before relying on those values. A successful backend `/v2/health` still does not test database access.
 
 ## Supabase operations fail
 
@@ -79,3 +78,7 @@ Compare them with the revision recorded by your deployment.
 **Expected:** A full commit SHA and either an empty status (clean) or a list of local changes. Matching docs does not establish matching deployment routing.
 
 **Fix:** These pages describe the inspected local sources. Docs versions, local revisions and deployed services may differ. Compare the [backend](https://github.com/FreetimeMaker/All-API-Node) and [frontend](https://github.com/FreetimeMaker/All-API-FrontEnd) revisions with the deployed artifacts; aliases and production availability were not tested.
+
+:::callout info Separate frontend not revalidated
+`All-API-FrontEnd` was unavailable locally on 2026-11-20. References to its submission feed or proxy describe earlier documentation, not a current source-verified contract.
+:::

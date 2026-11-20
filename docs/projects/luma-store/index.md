@@ -4,124 +4,49 @@ title: Luma Store
 
 # Luma Store
 
-Android app discovery, publishing and developer tools.
+Luma Store combines an Android app-store client, public web discovery and an authenticated developer dashboard. Published catalog records, developer submissions and personally tracked release URLs are separate workflows—not three names for the same feed.
 
-**Technologies:** Android, Web, App store
+## Choose a task
 
-[Get started](./getting-started.md) · [Source code](https://github.com/FreetimeMaker/Luma-Store-Android)
+| You want to…                              | Start here                                                                                 |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Browse apps or set up a checkout          | [Getting Started](./getting-started.md)                                                    |
+| Explore the native clients                | [Android](./android.md) or [Linux Developer Console](./linux.md)                           |
+| Publish an Android app                    | [Developer Dashboard](./developer-dashboard.md), then [App submissions](./submissions.md)  |
+| Follow releases without submitting an app | [Sources](./sources.md)                                                                    |
+| Build another client                      | [Custom clients](./custom-clients.md) and the [API Reference](../all-api/api-reference.md) |
+| Diagnose a failure                        | [Troubleshooting](./troubleshooting.md)                                                    |
 
-Version numbers below describe inspected source, not necessarily the latest published release.
+## Verified platforms and versions
 
-## Find your starting point
+| Component / source                                                        | Verified local scope                                                                                                      |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| [Luma-Store-Android](https://github.com/FreetimeMaker/Luma-Store-Android) | **4.4.2 (32)**; Android API **24+**, compile/target **37**; Kotlin **2.4.21**, AGP **9.5.1**, Freetime Core **3.2.0**     |
+| [Luma-Store-Website](https://github.com/FreetimeMaker/Luma-Store-Website) | Package **1.0.0**; Next.js **16.4.5**, React **19.3.1**; discovery, tracked sources and developer dashboard               |
+| [All-API-Node](https://github.com/FreetimeMaker/All-API-Node)             | Package **2.8.1**; `/v2/lumastore` catalog, profiles, ratings/reviews, favorites and APK resolver                         |
+| [All-API-FrontEnd](https://github.com/FreetimeMaker/All-API-FrontEnd)     | Separate frontend; absent locally, current implementation/version unverified                                              |
+| [Luma-Store-Dekstop](https://github.com/FreetimeMaker/Luma-Store-Dekstop) | [Developer Console](./linux.md), package **1.0.0**; Desktop JVM with Linux DEB/RPM and Windows EXE/MSI packaging declared |
 
-- [Discover the store](./getting-started.md) — Find your way around clients and publishing tools.
-- [Build the Android app](./android.md) — Set up and build the native store client.
-- [Integrate a client](./custom-clients.md) — Connect your own client to the store ecosystem.
+These are source declarations, not published release guarantees. The inspected catalog normalizes Android platform rows and the website accepts Android/APK submissions; neither establishes Linux/Windows package distribution.
 
-Luma Store is an open-source Android app-store ecosystem with a native Android client, public web discovery, a developer dashboard and shared Supabase-backed metadata. The inspected backend and website submission handler currently expose Android/APK distribution, not a general Linux/Windows package catalog.
+## How the pieces fit
 
-## At a glance
+The Android client enables the Luma catalog by default and can additionally read F-Droid-compatible repositories. It provides discovery collections, app details, ratings and download metrics, APK installation and developer profile/funding tools. Developer notification synchronization uses Android `JobService`.
 
-1. **Android app & web discovery** — Browse apps and access developer tools.
-2. **Luma Store services** — Versioned catalog API, submission handlers and APK release sources.
-3. **Shared Supabase data** — Profiles, submissions, metadata, analytics and storage.
+The website separates public app/developer pages from session-protected dashboard tools. Developers save drafts, verify a public forge repository, submit APK metadata for review, inspect status/history and manage profile/funding information. A `Pending` submission does not mean a published catalog record has changed.
 
-Catalog overview. The separate manually reviewed frontend feed is not the same catalog.
+Tracked sources instead follow a latest forge release or a direct HTTPS APK URL. The website keeps this list in browser local storage; it is not the Android client's repository list or a submitted store listing.
 
-## Source code
-
-| Repository                                                                | Current role                                                                                  |
-| ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| [Luma-Store-Android](https://github.com/FreetimeMaker/Luma-Store-Android) | Kotlin/Compose Android client, version **4.4.1** (code 31)                                    |
-| [Luma-Store-Website](https://github.com/FreetimeMaker/Luma-Store-Website) | Public discovery, tracked sources and standalone developer dashboard                          |
-| [All-API-Node](https://github.com/FreetimeMaker/All-API-Node)             | Shared `/v2/lumastore` catalog, profiles, ratings/reviews, favorites and APK release resolver |
-| [All-API-FrontEnd](https://github.com/FreetimeMaker/All-API-FrontEnd)     | Separate account/developer frontend and manually reviewed `/api/luma/apps` feed               |
-
-These URLs were checked against local Git remotes.
-
-::: callout info Platform scope
-The inspected backend and website submission handler expose Android/APK distribution, not a general Linux/Windows package catalog.
-
-No local Linux client repository was available; its implementation and distribution instructions are not verified.
+:::callout warning Security and deployment boundaries
+Use a Luma Supabase user token for user-scoped operations, a matching forge token for repository access, and server-only credentials for privileged work. The website's unversioned `/lumastore` API alias depends on deployment routing outside the inspected Express mounts. No live availability was checked.
 :::
 
-## Android
+## Source review
 
-The Android client uses **Freetime Core 3.2.0**, Material 3 Expressive and Material You, with floating Liquid Glass navigation. Discover includes collections, filtering and sorting. App details expose developer information, ratings, download metrics and funding.
+**Reviewed 2026-11-20** (terminal date), read-only. All four inspected checkouts were clean; repository URLs were checked against their Git remotes.
 
-The developer area includes profile/avatar and funding management, app analytics and notifications. The client combines the Luma catalog with optional F-Droid-compatible repositories and includes APK download/installation integration.
+- [Android `03c98fc52e19b2b0897391acdef24358d3d2ada5`](https://github.com/FreetimeMaker/Luma-Store-Android/tree/03c98fc52e19b2b0897391acdef24358d3d2ada5): app/SDK and dependency declarations, Gradle/JDK setup, repository defaults, API token use and notification job/session path.
+- [Website `6af34c11fc609055318a358e48413f8816d8e94e`](https://github.com/FreetimeMaker/Luma-Store-Website/tree/6af34c11fc609055318a358e48413f8816d8e94e): package/scripts, public environment template and Supabase clients, dashboard session gate, submission validation/forge permissions/archive logic, login scopes, navigation, tracked-source storage/routing and status-webhook authentication.
+- [Backend `f743d19fd760a7a337e23e1af8ddff9fa1c3708b`](https://github.com/FreetimeMaker/All-API-Node/tree/f743d19fd760a7a337e23e1af8ddff9fa1c3708b): mounts, catalog identifiers/filters, ratings/favorites, APK resolver and metadata/webhook implementation.
 
-## Inside the Android client
-
-The Discover screen brings app browsing and category filters together. This repository screenshot shows an earlier interface, not the current build.
-
-The referenced screenshot is not included in this documentation checkout. See the [project repository](https://github.com/FreetimeMaker/Luma-Store-Android) for source screenshots; these may differ from the current interface.
-
-## Website and dashboard
-
-The standalone website uses Next.js **16.4.2**, React **19.3.1**, TypeScript, Tailwind CSS 4 and Supabase. It provides public app/developer pages, saved apps, tracked sources, support funding and authenticated developer tools.
-
-Developers can save drafts, import Fastlane metadata, submit Android APKs, resubmit updates, edit published metadata, inspect review/status history and manage profile/funding data. Final submissions verify a public GitHub, GitLab or Codeberg repository.
-
-## Shared data and security
-
-Supabase supplies authentication, profiles, submissions, store metadata, analytics and storage. Public catalog access differs from authenticated developer operations. Keep service-role keys and email/webhook secrets on the server; use the appropriate user session and matching forge authorization for protected actions.
-
-::: callout warning Deployment routing is not verified
-This documentation describes local source state, not a tested production deployment. In particular, the website's unversioned API aliases require deployment routing outside the inspected Express mounts.
-:::
-
-## Continue
-
-- [Getting Started](./getting-started.md)
-- [Android](./android.md)
-- [Developer Dashboard](./developer-dashboard.md)
-- [App Submissions](./submissions.md)
-- [Sources](./sources.md)
-- [Building Custom Clients](./custom-clients.md)
-
-## Source review — 2026-11-16
-
-The four requested app/website checkouts were clean. This update inspected local source and Git history only: no fetch, dependency resolution, build, test, device installation or live-service check was performed. Existing backend/frontend API claims below were not re-reviewed against All API repositories in this update.
-
-- [Luma-Store-Android `bd738df`](https://github.com/FreetimeMaker/Luma-Store-Android/tree/bd738df): compared the recorded `7a99f33` review revision to HEAD. Only `settings.gradle.kts`, `gradle/libs.versions.toml` and `gradle/wrapper/gradle-wrapper.properties` changed. Also checked app version/SDK declarations and daemon criteria. Core is now 3.2.0, serialization 1.13.0 and Gradle 9.9.1; app version remains 4.4.1 (31). The Maven URL changed, but legacy Core artifact coordinates remain; resolution is unverified.
-- [Luma-Store-Website `97b0bc8`](https://github.com/FreetimeMaker/Luma-Store-Website/tree/97b0bc8): inspected `package.json`, `app/components/AuthNav.tsx`, `app/privacy/page.tsx` and recent commit diffs. Next.js is declared as 16.4.2, not the previously documented 16.4.5. The current navigation includes Developers and Help FAQs, with Codeberg repository-access guidance.
-
-The previously recorded website revision `6af34c11fc609055318a358e48413f8816d8e94e` is not available in the local Git object database (the checkout reports that it is not shallow), so a diff from that revision could not be produced. Current-source observations are not presented as a complete change list since that review.
-
-### Previous scoped review (2026-11-12)
-
-The following records are retained as historical evidence, not current revision pointers.
-
-Last checked against source: **2026-11-12**.
-
-**Review scope:** Setup, prerequisites and troubleshooting.
-
-This manually maintained, scoped review is independent of page edits and documentation builds. It does not certify every page, build results, published artifacts or live services. The listed source checkouts were clean when inspected.
-
-### Luma-Store-Android
-
-Inspected revision: [`7a99f332cf3628d71b71440d2395c924c9761e95`](https://github.com/FreetimeMaker/Luma-Store-Android/tree/7a99f332cf3628d71b71440d2395c924c9761e95).
-
-- [`app/build.gradle.kts`](https://github.com/FreetimeMaker/Luma-Store-Android/blob/7a99f332cf3628d71b71440d2395c924c9761e95/app/build.gradle.kts)
-- [`gradle/gradle-daemon-jvm.properties`](https://github.com/FreetimeMaker/Luma-Store-Android/blob/7a99f332cf3628d71b71440d2395c924c9761e95/gradle/gradle-daemon-jvm.properties)
-- [`gradle/libs.versions.toml`](https://github.com/FreetimeMaker/Luma-Store-Android/blob/7a99f332cf3628d71b71440d2395c924c9761e95/gradle/libs.versions.toml)
-- [`app/src/main/java/com/freetime/lumastore/MainActivity.kt`](https://github.com/FreetimeMaker/Luma-Store-Android/blob/7a99f332cf3628d71b71440d2395c924c9761e95/app/src/main/java/com/freetime/lumastore/MainActivity.kt)
-- [`app/src/main/java/com/freetime/lumastore/data/AppRepository.kt`](https://github.com/FreetimeMaker/Luma-Store-Android/blob/7a99f332cf3628d71b71440d2395c924c9761e95/app/src/main/java/com/freetime/lumastore/data/AppRepository.kt)
-- [`app/src/main/java/com/freetime/lumastore/data/LumaStoreApi.kt`](https://github.com/FreetimeMaker/Luma-Store-Android/blob/7a99f332cf3628d71b71440d2395c924c9761e95/app/src/main/java/com/freetime/lumastore/data/LumaStoreApi.kt)
-
-### Luma-Store-Website
-
-Inspected revision: [`6af34c11fc609055318a358e48413f8816d8e94e`](https://github.com/FreetimeMaker/Luma-Store-Website/tree/6af34c11fc609055318a358e48413f8816d8e94e).
-
-- [`package.json`](https://github.com/FreetimeMaker/Luma-Store-Website/blob/6af34c11fc609055318a358e48413f8816d8e94e/package.json)
-- [`.env.example`](https://github.com/FreetimeMaker/Luma-Store-Website/blob/6af34c11fc609055318a358e48413f8816d8e94e/.env.example)
-- [`app/dashboard/AuthGate.tsx`](https://github.com/FreetimeMaker/Luma-Store-Website/blob/6af34c11fc609055318a358e48413f8816d8e94e/app/dashboard/AuthGate.tsx)
-- [`app/page.tsx`](https://github.com/FreetimeMaker/Luma-Store-Website/blob/6af34c11fc609055318a358e48413f8816d8e94e/app/page.tsx)
-
-### All-API-Node
-
-Inspected revision: [`a51436ed31f7a8f6082ac387bff7ce50fb3e1051`](https://github.com/FreetimeMaker/All-API-Node/tree/a51436ed31f7a8f6082ac387bff7ce50fb3e1051).
-
-- [`src/index.js`](https://github.com/FreetimeMaker/All-API-Node/blob/a51436ed31f7a8f6082ac387bff7ce50fb3e1051/src/index.js)
-- [`src/v2/lumastore/store.js`](https://github.com/FreetimeMaker/All-API-Node/blob/a51436ed31f7a8f6082ac387bff7ce50fb3e1051/src/v2/lumastore/store.js)
+The [Desktop source review](./linux.md#linux-developer-console-source-review) covers the additional checkout and its packaging configuration. All API FrontEnd source remained unavailable locally. No source builds/tests, dependency resolution, device installation, database changes or live API calls were performed. Only the public `.env.example` template was read, not local secret environment files.

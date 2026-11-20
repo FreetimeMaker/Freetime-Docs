@@ -8,7 +8,7 @@ Open the [Projects overview](../projects/index.md) to choose an application, lib
 
 ## Find your way around
 
-The sidebar lists **Getting Started**, **Overview**, **Projects** and the seven project groups. Expand a group to browse its guides. Use the page outline to jump between headings on longer pages, and the documentation search to find a topic across the current documentation.
+Open **Projects** in the sidebar and expand a project group. Its first link opens the project overview, followed by **Getting Started** and the rest of the guides. Use the page outline to jump to a section or the search box to find a topic.
 
 The Summer theme provides native navigation, search and code-block copy controls. Appearance follows your system by default; use the theme switch to choose light or dark mode. The GitHub link opens the documentation repository. AI integration and whole-page copy widgets are disabled in this site's configuration.
 

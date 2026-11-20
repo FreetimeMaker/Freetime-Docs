@@ -36,3 +36,5 @@ Glance provides Responsive, Compact, Forecast and Detailed widget variants, with
 Share a weather card as an image with its data timestamp and source. The share dialog supports a custom title and hiding the location before opening Android's share sheet.
 
 JSON backup/restore preserves saved locations, their notification/change-alert settings and the default-location flag. It excludes rebuildable weather caches and is not a full application-preferences backup. Room and bundled SQLite hold structured local data; Multiplatform Settings handles lightweight preferences.
+
+Next: configure [user settings](./configuration.md#configuration-user-settings), then use [Troubleshooting](./troubleshooting.md) when freshness or delivery differs from expectations.

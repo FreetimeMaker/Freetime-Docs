@@ -27,3 +27,5 @@ WorkManager workers handle notifications, weather-change work and widget refresh
 ## Supporting libraries
 
 Coroutines coordinate asynchronous work, Coil 3 with Ktor integration loads images, and osmdroid supports map UI.
+
+For a concrete serialization boundary, see [Location backup API](./configuration.md#configuration-location-backup-api). For behavioral limitations rather than implementation detail, see [Features](./features.md).

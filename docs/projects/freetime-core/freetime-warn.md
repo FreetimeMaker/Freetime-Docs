@@ -2,27 +2,28 @@
 
 **Available since Freetime Core 1.11.0.**
 
-`FreetimeWarn` is a Kotlin and Jetpack Compose warning library in Freetime Core. It is inspired by the idea of FreeDroidWarn, but uses Material 3 directly for its UI and deliberately keeps the warning mechanism separate from policy-specific text.
+`FreetimeWarn` is a Kotlin and Compose Multiplatform warning library in Freetime Core. It is inspired by the idea of FreeDroidWarn, but uses Material 3 directly for its UI and deliberately keeps the warning mechanism separate from policy-specific text.
 
 ## Dependency
 
 ```kotlin
-implementation("com.freetime:FreetimeWarn:3.2.0")
+implementation("com.freetime:FreetimeWarn:4.0.1")
 ```
 
-The inspected source marks 3.2.0 as prepared but not yet uploaded; this coordinate is for use after publication, not a verified download.
+This is the intended 4.0.1 coordinate after complete publication, not a verified download.
 
 Add `https://repo.free-time.me/maven/` as described in [Getting Started](./getting-started.md). The current UI uses Material 3 directly, not the removed Freetime-prefixed Design components.
 
 ## Required app name
 
+Examples run inside a composable and use `com.freetime.warn` APIs. Replace `1L` with the installed host version code (Android may use `BuildConfig.VERSION_CODE.toLong()`); desktop hosts supply their own stable code. The shared overload resolves `rememberWarningPreferences()` by platform. Android also retains an explicit `context` overload.
+
 Every integration must explicitly provide the user-facing application name:
 
 ```kotlin
 val warning = rememberFreetimeWarnState(
-    context = context,
     appName = "GeoWeather",
-    versionCode = BuildConfig.VERSION_CODE.toLong(),
+    versionCode = 1L,
 )
 ```
 
@@ -34,9 +35,8 @@ This requirement keeps the shared warning reusable while making the final notice
 
 ```kotlin
 val warning = rememberFreetimeWarnState(
-    context = context,
     appName = "GeoWeather",
-    versionCode = BuildConfig.VERSION_CODE.toLong(),
+    versionCode = 1L,
 )
 
 FreetimeWarn(
@@ -63,9 +63,8 @@ Example:
 
 ```kotlin
 val warning = rememberFreetimeWarnState(
-    context = context,
     appName = "Luma Store",
-    versionCode = BuildConfig.VERSION_CODE.toLong(),
+    versionCode = 1L,
     frequency = FreetimeWarnFrequency.ONCE,
 )
 ```
@@ -76,9 +75,8 @@ The default warning ID is `android-distribution-notice`. Apps can provide a diff
 
 ```kotlin
 val warning = rememberFreetimeWarnState(
-    context = context,
     appName = "GeoWeather",
-    versionCode = BuildConfig.VERSION_CODE.toLong(),
+    versionCode = 1L,
     warningId = "my-second-notice",
 )
 ```
@@ -99,7 +97,7 @@ warning.reset()
 
 `acknowledge()` writes the appropriate persistent state for `ONCE` and `ONCE_PER_VERSION`, then hides the dialog. `reset()` removes the stored acknowledgement and makes the warning visible again.
 
-Persistence uses the app's private `SharedPreferences` file named `freetime_warn`.
+Android persistence uses private SharedPreferences named `freetime_warn`; desktop uses Java Preferences. For isolation or testing, pass an app-owned `WarningPreferences` implementation. Storage failures propagate rather than silently marking acknowledgement as saved. Dismissing only hides the current dialog; it does not acknowledge it.
 
 ## Custom content
 
@@ -150,3 +148,5 @@ The dialog uses Material 3 `AlertDialog`, `Text`, `TextButton` and `MaterialThem
 ## Keeping warning text current
 
 FreetimeWarn intentionally does not make persistence/UI depend on one permanent policy statement. Platform and distribution requirements can change over time. Apps should keep their user-facing warning text and Learn more destination current for the information they intend to communicate.
+
+[Shared warning API](https://github.com/FreetimeMaker/Freetime-Core/blob/2bb88da626d82b77bd612f1f3eca857346c30e71/FreetimeWarn/src/commonMain/kotlin/com/freetime/warn/FreetimeWarn.kt) · [Integration setup](./getting-started.md)

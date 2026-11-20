@@ -1,6 +1,5 @@
 # Troubleshooting
 
-
 Work from the symptom below. Commands are suggested local checks, not outputs observed during this documentation review. Use your configured ports/origins; never include credentials in shared logs.
 
 ## A source shows no apps or assets
@@ -60,6 +59,14 @@ The current public catalog contains Android platform rows only. Tracked release 
 **Expected:** The URL returns a decodable image rather than an HTML error/login page; the upload operation is permitted by Storage policies.
 
 **Fix:** The Android client uses Coil. Verify that stored media URLs return decodable images. For profile uploads, check Supabase Storage configuration and policies as well as client image handling.
+
+## Android dependency resolution fails
+
+**Check:** Compare the version catalog and configured Maven repositories with [Android build dependencies](./android.md#android-client-build-dependencies).
+
+**Expected configuration:** Gradle 9.9.1, daemon JDK 21, and `com.freetime` Core/Design/FreetimeWarn 3.2.0 from the configured repositories. The former `com.github.FreetimeMaker.Freetime-Core` coordinates are not the declarations in this reviewed revision.
+
+**Next step:** Inspect the specific unresolved artifact, SDK requirement or JDK error. This review did not resolve dependencies or establish that every declared artifact is published; do not treat configuration as a passing build.
 
 ## Dashboard build fails
 

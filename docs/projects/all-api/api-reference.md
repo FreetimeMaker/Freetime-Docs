@@ -2,6 +2,16 @@
 
 Backend package: **2.8.1**. Paths below are the mounts in [All-API-Node](https://github.com/FreetimeMaker/All-API-Node/tree/HEAD/src). They do not start with `/api`.
 
+## Entry point and version information
+
+```text
+GET /          backend welcome/endpoint summary
+GET /v1/v1     legacy version information (deprecated)
+GET /v2/v2     v2 version information
+```
+
+The doubled version segments follow from the router mounts: `src/index.js` mounts `/v1` and `/v2`, while each router declares its own `/v1` or `/v2` information path. Neither `GET /v1` nor `GET /v2` is declared as a version-root handler. The welcome JSON is descriptive, not a routing table: its blog examples omit the `/v2` mount. Resolve paths from the actual mounts below. Static files are served under `/assets`.
+
 ## Shared routes
 
 Both `/v1` and `/v2` expose these suffixes:
@@ -25,7 +35,24 @@ POST   /wallora/wallpapers/:id/purchase
 POST   /wallora/wallpapers
 ```
 
-For example, use `GET /v2/health`. Authentication and wallpaper mutations have route-specific authorization requirements; see the source handlers rather than treating every route as public.
+For example, use `GET /v2/health`; it returns `{"status":"ok"}`. Both auth and Wallora implementations were compared between versions and are identical in this checkout.
+
+### Shared handler behavior
+
+| Routes (after `/v1` or `/v2`) | Request / authorization |
+| --- | --- |
+| `GET /auth/config` | Public configuration booleans; `configured` tests client construction, while `hasUrl` / `hasAnonKey` inspect the primary environment names, not fallback names |
+| `GET /auth/login`, `GET /auth/login/:provider`, `POST /auth/login` | Start generic-project OAuth; GET redirects, JSON POST returns redirect information; see [callback setup](./authentication.md#authentication-start-a-generic-oauth-login) |
+| `GET /auth/me`, `GET /auth/linked-accounts` | Generic-project user bearer token |
+| `POST /auth/link-account` | User token; JSON `accountId` required, optional `provider`, `providerUserId`, `metadata`; this is not proof of forge repository permission |
+| `DELETE /auth/link-account/:accountId` | User token; removes the caller's linked-account entry |
+| `POST /auth/logout` | Accepts an optional bearer token; success may have `user: null`; clear the client session too |
+| `GET /auth/callback`, `POST /auth/callback` | Browser callback page / user token validation; not a Luma submission endpoint |
+| `GET /wallora/wallpapers`, `GET /wallora/wallpapers/:id` | Public reads; list supports exact `category` filtering |
+| `POST /wallora/wallpapers/:id/purchase` | Generic-project user token; records a purchase, returns 201; duplicate purchase returns 400 |
+| `POST /wallora/wallpapers` | Generic-project user token; upserts supplied JSON with `created_by` set to the authenticated user, returns 201 |
+
+Wallora price presentation uses Android detection plus `x-app-id` (or `x-requested-with`) equal to `com.freetime.wallora` to show zero cost and retain `original_cost`. These client-supplied headers are not authentication or payment verification. The purchase handler records a row; it does not implement a payment-provider checkout. Database permissions remain relevant to writes.
 
 ## Luma Store — v2
 
@@ -41,9 +68,9 @@ GET /apps/:id/ratings
 GET /apps/:id/reviews
 ```
 
-`/apps` returns an array and accepts `category` (category ID), `search` (case-insensitive name matching) and `platform`. The list excludes archived apps. Normalization keeps only Android platform rows; `platform=Linux` or `platform=Windows` therefore produces no matching list entries. There is no `/package-formats` route or `package_format` filter in this revision.
+`/apps` returns an array and accepts `category` (category ID), `search` (case-insensitive name matching) and `platform`. The list excludes archived apps. Without a `platform` filter, rows without Android platform metadata can still appear with an empty `platforms` array and null selected download fields. Normalization keeps only Android platform rows; `platform=Linux` or `platform=Windows` therefore produces no matching list entries. There is no `/package-formats` route or `package_format` filter in this revision.
 
-App details query the store app ID directly. Rating, review and per-app favorite handlers instead resolve either an app UUID or a package name. Do not assume package-name lookup is supported by the app detail handler.
+App details query the store app ID directly. Rating, review and per-app favorite handlers instead resolve either an app UUID or a package name. Do not assume package-name lookup is supported by the app detail handler. Unlike the list, the detail query does not itself filter `archived_at`; catalog exclusion is not an authorization guarantee.
 
 Ratings return `app_id`, `average` and `count`. Reviews return up to 100 non-empty reviews with `rating`, `review_text` and `updated_at`; supported sort branches include `newest` (default), `oldest` and `highest`. Download counts use the public `luma_app_download_count` RPC, not raw download-event access.
 
@@ -92,12 +119,18 @@ GET /v2/blog/posts/:slug
 GET /v2/blog/categories
 ```
 
-The router reads Markdown from the MD-Blog repository, parses metadata and caches normalized responses.
+The router reads Markdown from the MD-Blog repository. Lists return `{posts: [...]}` ordered by descending `releaseTimestamp`; `category` accepts comma-separated names and requires all requested categories (case-insensitive). Each summary contains `slug`, `title`, `releaseTimestamp` and `categories`; details add `markdown`. Categories return `{categories: [...]}`. Successful responses set `Cache-Control: public, max-age=60, s-maxage=300`; this is HTTP cache policy, not an in-process response cache. Invalid/missing post slugs return 404; upstream loading failures return 502.
 
 ## Separate frontend routes
 
-[All-API-FrontEnd](https://github.com/FreetimeMaker/All-API-FrontEnd/tree/HEAD/app/api) implements `/api/health`, `/api/proxy/[...path]`, `/api/luma/apps`, `/api/luma/submissions`, `/api/luma/status-webhook`, `/api/support` and `/api/payment/verify`. These are Next.js routes, not additional Express mounts. The public `/api/luma/apps` endpoint exposes submissions whose status is exactly `Approved` and identifies its publishing mode as manual review.
+Earlier documentation listed `/api/health`, `/api/proxy/[...path]`, `/api/luma/apps`, `/api/luma/submissions`, `/api/luma/status-webhook`, `/api/support` and `/api/payment/verify` in [All-API-FrontEnd](https://github.com/FreetimeMaker/All-API-FrontEnd). That checkout is unavailable locally, so this is not a verified current route inventory. These Next.js paths must not be added to the Express endpoint list.
+
+The separately inspected Luma website has its own submission handler; see [App submissions](../luma-store/submissions.md).
 
 ## Errors
 
 Check HTTP status and handle empty/204 responses before parsing JSON. Error mapping is handler-specific: some database failures are returned as 401 or 404 as well as genuine authentication/missing-resource errors. Read `error` and `message` where present; do not infer the underlying cause from status alone.
+
+:::callout info Separate frontend not revalidated
+`All-API-FrontEnd` was unavailable locally on 2026-11-20. References to its submission feed or proxy describe earlier documentation, not a current source-verified contract.
+:::

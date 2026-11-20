@@ -1,6 +1,6 @@
 # Design & Liquid Glass
 
-Freetime Core 3.2.0 uses **Material 3 Expressive + Material You** as the shared Android UI foundation. The Design module no longer acts as a separate Material-free component framework.
+Freetime Core 4.0.1 uses **Material 3 Expressive + Material You** as the shared Android UI foundation. The Design module no longer acts as a separate Material-free component framework.
 
 ## App theme
 
@@ -21,13 +21,15 @@ The default automatic schedule uses light mode from 07:00 and dark mode from 19:
 
 ## App-owned theme templates
 
-Introduced in 3.1.0 and retained in 3.2.0, the copyable templates are under `com.freetime.design.templates.material3` and `com.freetime.design.templates.expressive`. The former uses classic `MaterialTheme`, the latter `MaterialExpressiveTheme` and expressive motion. Both separate colors, typography, shapes and theme composition, with light/dark previews and optional Freetime adapters that disable navigation glass.
+Introduced in 3.1.0 and retained in 4.0.1, the copyable templates are under `com.freetime.design.templates.material3` and `com.freetime.design.templates.expressive`. The former uses classic `MaterialTheme`, the latter `MaterialExpressiveTheme` and expressive motion. Both separate colors, typography, shapes and theme composition, with light/dark previews and optional Freetime adapters that disable navigation glass.
 
-The templates use Material defaults as starting values, make Material You opt-in and leave scheduling/OLED behavior to the app. They do not change the root `AppTheme` defaults. Their source guide is in `Design/src/main/java/com/freetime/design/templates/README.md`. Maintainers can compile-check them with `sh gradlew :Design:checkTemplates`.
+The templates use Material defaults as starting values, make Material You opt-in and leave scheduling/OLED behavior to the app. They do not change the root `AppTheme` defaults. Their source guide is in `Design/src/commonMain/kotlin/com/freetime/design/templates/README.md`. Maintainers can compile-check them with `sh gradlew :Design:checkTemplates`.
+
+Material You is Android-only. Desktop uses regular light/dark schemes. Theme APIs live in shared `commonMain`; platform color/time implementations supply the differences.
 
 ## Liquid Glass
 
-In 3.x Liquid Glass is reserved for the floating bottom navigation. Cards, dialogs, buttons, text fields, top bars and normal content surfaces should use Material 3 Expressive.
+In the default `AppTheme` path, Liquid Glass is reserved for the floating bottom navigation. Cards, dialogs, buttons, text fields, top bars and normal content surfaces should use Material 3 Expressive.
 
 ```kotlin
 FloatingBottomNavigationGlassRoot(
@@ -64,3 +66,9 @@ When disabled, the navigation automatically falls back to Material styling.
 Remove generic glass APIs including `Modifier.liquidGlass()`, `Modifier.liquidGlassCapsule()`, `Modifier.liquidGlassCircle()`, `LiquidGlassContainer`, `LiquidGlassIconButton`, `LiquidGlassRoot`, `LocalLiquidGlassEnabled` and `ProvideLiquidGlass`.
 
 Replace them with Material 3 surfaces and use the dedicated floating navigation glass APIs only where appropriate.
+
+## Explicit full-glass templates
+
+The separate `templates.material3glass`, `templates.expressiveglass` and `templates.fullglass` packages opt into glass content surfaces. They do not change the default theme rule or automatically restyle existing Material components. Keep caller-owned navigation state, insets and scroll behavior when using template wrappers. See the [source guide](https://github.com/FreetimeMaker/Freetime-Core/blob/2bb88da626d82b77bd612f1f3eca857346c30e71/Design/README.md) for the larger template API.
+
+The navigation snippet above assumes host-owned `tabs`, `selectedIndex`, `searchItem`, background content and callbacks; it is a wiring fragment, not a complete screen. For a runnable implementation use the [local sample](./getting-started.md#getting-started-local-sample-targets).

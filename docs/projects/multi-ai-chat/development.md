@@ -1,5 +1,9 @@
 # Development
 
+::: callout warning Prior source snapshot only
+The local plugin repository was missing on 2026-11-20. Technical details and commands on this page are inherited from the previous review, not current-source verification. See [review scope](./index.md#multi-ai-chat-source-review).
+:::
+
 Multi AI Chat is a JetBrains IDE plugin rather than a standalone desktop application.
 
 ## Toolchain
@@ -46,4 +50,4 @@ The selector offers `gemini-3.6-flash` and `gemini-3.6-pro`; the fresh-settings 
 
 Gemini non-success responses now include the HTTP status, message and response body as `Gemini API Error`. Successful Gemini responses still use `source.readUtf8()` before parsing the full JSON response, so exposing a `Flow<String>` does not make Gemini output incremental over the network. Requests contain only the current prompt, not the displayed conversation history; Clear only empties the visible text area.
 
-See the [source review and pinned evidence](./index.md#source-review) for the inspected revision and validation limits.
+See the [source review and pinned evidence](./index.md#multi-ai-chat-source-review) for the inspected revision and validation limits.

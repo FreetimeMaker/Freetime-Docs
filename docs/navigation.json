@@ -27,6 +27,11 @@
             "icon": "iconify:lucide:server"
           },
           {
+            "title": "Getting Started",
+            "path": "/projects/all-api/getting-started/",
+            "icon": "iconify:lucide:rocket"
+          },
+          {
             "title": "API Reference",
             "path": "/projects/all-api/api-reference/",
             "icon": "iconify:lucide:list"
@@ -40,11 +45,6 @@
             "title": "Development",
             "path": "/projects/all-api/development/",
             "icon": "iconify:lucide:code"
-          },
-          {
-            "title": "Getting Started",
-            "path": "/projects/all-api/getting-started/",
-            "icon": "iconify:lucide:rocket"
           },
           {
             "title": "Troubleshooting",
@@ -69,6 +69,11 @@
             "icon": "iconify:lucide:layers"
           },
           {
+            "title": "Getting Started",
+            "path": "/projects/freetime-core/getting-started/",
+            "icon": "iconify:lucide:rocket"
+          },
+          {
             "title": "Design & Liquid Glass",
             "path": "/projects/freetime-core/design/",
             "icon": "iconify:lucide:palette"
@@ -77,11 +82,6 @@
             "title": "FreetimeWarn",
             "path": "/projects/freetime-core/freetime-warn/",
             "icon": "iconify:lucide:triangle-alert"
-          },
-          {
-            "title": "Getting Started",
-            "path": "/projects/freetime-core/getting-started/",
-            "icon": "iconify:lucide:rocket"
           },
           {
             "title": "Modules",
@@ -106,6 +106,11 @@
             "icon": "iconify:lucide:cloud-sun"
           },
           {
+            "title": "Getting Started",
+            "path": "/projects/geoweather/getting-started/",
+            "icon": "iconify:lucide:rocket"
+          },
+          {
             "title": "Architecture",
             "path": "/projects/geoweather/architecture/",
             "icon": "iconify:lucide:network"
@@ -119,11 +124,6 @@
             "title": "Features",
             "path": "/projects/geoweather/features/",
             "icon": "iconify:lucide:sparkles"
-          },
-          {
-            "title": "Getting Started",
-            "path": "/projects/geoweather/getting-started/",
-            "icon": "iconify:lucide:rocket"
           },
           {
             "title": "Installation & Build",
@@ -148,6 +148,11 @@
             "icon": "iconify:lucide:store"
           },
           {
+            "title": "Getting Started",
+            "path": "/projects/luma-store/getting-started/",
+            "icon": "iconify:lucide:rocket"
+          },
+          {
             "title": "Android client",
             "path": "/projects/luma-store/android/",
             "icon": "iconify:lucide:smartphone"
@@ -168,12 +173,7 @@
             "icon": "iconify:lucide:layout-dashboard"
           },
           {
-            "title": "Getting Started",
-            "path": "/projects/luma-store/getting-started/",
-            "icon": "iconify:lucide:rocket"
-          },
-          {
-            "title": "Linux client status",
+            "title": "Linux Developer Console",
             "path": "/projects/luma-store/linux/",
             "icon": "iconify:lucide:monitor"
           },
@@ -200,14 +200,14 @@
             "icon": "iconify:lucide:file-text"
           },
           {
-            "title": "Architecture",
-            "path": "/projects/md-blog/architecture/",
-            "icon": "iconify:lucide:network"
-          },
-          {
             "title": "Getting Started",
             "path": "/projects/md-blog/getting-started/",
             "icon": "iconify:lucide:rocket"
+          },
+          {
+            "title": "Architecture",
+            "path": "/projects/md-blog/architecture/",
+            "icon": "iconify:lucide:network"
           },
           {
             "title": "Troubleshooting",
@@ -227,14 +227,14 @@
             "icon": "iconify:lucide:messages-square"
           },
           {
-            "title": "Development",
-            "path": "/projects/multi-ai-chat/development/",
-            "icon": "iconify:lucide:code"
-          },
-          {
             "title": "Getting Started",
             "path": "/projects/multi-ai-chat/getting-started/",
             "icon": "iconify:lucide:rocket"
+          },
+          {
+            "title": "Development",
+            "path": "/projects/multi-ai-chat/development/",
+            "icon": "iconify:lucide:code"
           },
           {
             "title": "Troubleshooting",
@@ -254,14 +254,14 @@
             "icon": "iconify:lucide:gamepad-2"
           },
           {
-            "title": "Development",
-            "path": "/projects/supersmp-companion/development/",
-            "icon": "iconify:lucide:code"
-          },
-          {
             "title": "Getting Started",
             "path": "/projects/supersmp-companion/getting-started/",
             "icon": "iconify:lucide:rocket"
+          },
+          {
+            "title": "Development",
+            "path": "/projects/supersmp-companion/development/",
+            "icon": "iconify:lucide:code"
           },
           {
             "title": "Troubleshooting",

@@ -1,59 +1,51 @@
 # Troubleshooting
 
-These checks are derived from source, not observed build, browser or live-service results from this review.
+These are source-derived checks, not observed runtime results. Start with the failing stage.
 
-## Homepage changes do not appear
+## Build cannot discover posts
 
-**Check:** Compare `public/md/index.md` with the generated `dist/index.html`.
+**Check:** Read the error from `scripts/post-pages.js` and check access to `https://api.free-time.me/v2/blog/posts`.
 
-**Expected:** The preview serves generated files, not source Markdown.
+**Expected:** A valid `posts` array within 20 seconds. An explicitly empty array is valid; network/HTTP/JSON errors are not.
 
-**Fix:** Stop and rerun `npm run dev`, or rebuild before restarting `server.js`. There is no watcher. Keep `public/views/home.html`, styles and other build inputs in the checkout.
+**Action:** Restore API access or fix invalid metadata, then rebuild. There is no local fallback. Discovery/validation failure preserves the previous artifact, but later build failures may not. Do not deploy a partial `dist`.
 
-## Blog is unavailable or only shows Loading
+## Invalid or conflicting routes
 
-**Check:** Enable JavaScript and inspect browser console/network requests to `/scripts/blog.js`, `/vendor/`, the API's `/v2/blog/posts` and `/v2/blog/categories`, and `/data/local-posts.json`.
+**Check:** Compare API slugs and titles named in the error.
 
-**Expected:** The browser can load scripts and either API responses or bundled local fallback JSON. Homepage success does not test these paths. API fetches time out after 20 seconds.
+**Expected:** Portable slugs and non-empty ASCII title paths of at most 180 characters, without duplicate or alias collisions.
 
-**Fix:** Deploy the complete `dist` directory. Check API availability and CORS headers; requests are credential-free and go directly to the API, not through the preview. If the API fails, inspect `[blog] API request failed; trying local Markdown` and the local JSON request. `no-cors` is not a fix for unreadable JSON. If both sources fail, the page displays an error rather than a server-generated 503.
+**Action:** Correct API metadata rather than removing validation. Title-only non-ASCII text can normalize to an empty path. See [routing rules](./architecture.md#architecture-routes-and-canonical-urls).
 
-## Local post is missing or old content appears
+## Homepage edits do not appear
 
-**Check:** Inspect `dist/data/local-posts.json`, the browser's API response and any category filters.
+**Check:** Compare `public/md/index.md` with `dist/index.html`.
 
-**Expected:** Local files are bundled at build time and used only when a request fails. They are not automatically merged into successful API listings. Category filters require all selected categories.
+**Expected:** Preview serves the generated artifact, not source.
 
-**Fix:** Rebuild/deploy after editing `public/blogs/**/*.md`, clear filters and verify the filename slug and H1 title. Publish through the API's content process for live API listings. A local working-tree file is not evidence that a published deployment contains it.
+**Action:** Stop and rerun `npm run dev`. There is no watcher. A file added under `public/blogs/` is not published content.
 
-## Post renders but returns HTTP 404
+## Blog unavailable or stuck loading
 
-**Check:** Compare the requested path with directories in `dist/blog`, and inspect the initial HTTP status separately from the browser-rendered content.
+**Check:** Inspect browser script/vendor requests and API requests for posts, categories and individual post content.
 
-**Expected:** Known build-time title/API-slug directories have index files. New or legacy `/api/blog/<slug>` paths can render via `404.html` while retaining HTTP 404.
+**Expected:** JavaScript assets load and the API permits credential-free CORS requests. List rendering requires both posts and categories. There is no bundled fallback.
 
-**Fix:** Rebuild/deploy to generate current title paths and use `/blog/<title-slug>/` links. A canonical tag or `history.replaceState` does not turn a 404 into HTTP 200. Renaming a title changes its canonical path; old title paths are not automatically retained. API-slug aliases remain the compatibility path.
+**Action:** Deploy complete assets and fix API availability/CORS. `no-cors` makes JSON unreadable and is not a fix. A working homepage does not prove blog requests work. Check the console's `[blog]` and `[blog routes]` errors without sharing sensitive data.
 
-## Build reports invalid or conflicting paths
+## Post renders with HTTP 404
 
-**Check:** Read the build warning/error and compare filename/API slugs and H1/API titles.
+**Check:** Inspect the initial HTTP response and whether `dist/blog/<path>/index.html` exists.
 
-**Expected:** Slugs must be portable path names; title-derived paths must be non-empty, at most 180 characters and collision-free. Local filename slugs must be unique across nested directories, ignoring case.
+**Expected:** New or legacy API-style paths may render through `404.html` while retaining HTTP 404.
 
-**Fix:** Correct conflicting metadata. Invalid API discovery falls back to local routes, but invalid local content prevents building and preserves the previous artifact. Do not remove route validation to force deployment.
+**Action:** Rebuild/deploy for current title paths and use those links. Canonicals and address-bar replacement do not change HTTP status. Old title paths are not automatically retained after a rename.
 
-## Changing ALL_API_URL has no effect
+## Wrong backend or broken deployment assets
 
-**Check:** Inspect `API` in `scripts/post-pages.js` and `public/scripts/blog.js`.
+**Check:** Inspect `API` in both build discovery and browser code, the workflow logs, Pages settings and hosting base path.
 
-**Expected:** Both use the hardcoded `https://api.free-time.me/v2`; the old environment variable is unused.
+**Expected:** `ALL_API_URL` has no effect. Root-relative assets assume `blog.free-time.me`, not a repository subpath.
 
-**Fix:** Change both constants and rebuild. Ensure browser CORS access to the selected backend. Do not embed tokens or secrets in static JavaScript.
-
-## Preview or deployment assets fail
-
-**Check:** Confirm `npm ci` and `npm run build` completed, `dist` exists, and the site is hosted at the custom-domain root.
-
-**Expected:** The preview serves only `dist`; root-relative assets do not support a repository subpath without changes. Tests also require a completed build.
-
-**Fix:** Use a compatible recent Node runtime (the Pages workflow selects 26), run the declared scripts, and deploy only the complete artifact. The former `--use-system-ca` startup-flag instructions and Vercel route configuration no longer apply. Check Pages settings and DNS independently; repository configuration does not prove a working deployment.
+**Action:** Change both constants and rebuild, or restore root hosting. Verify DNS/HTTPS separately. Follow [setup and deployment](./getting-started.md); no successful deployment is certified by this review.

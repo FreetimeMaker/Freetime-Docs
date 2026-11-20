@@ -38,7 +38,7 @@ curl --fail --show-error --location --max-time 30 'https://geocoding-api.open-me
 
 **Check:** verify Android notification permission, location notification settings, smart rain alerts, quiet hours and each widget's own location. Check background restrictions, offline status and Data Saver too.
 
-**Expected:** rain alerts have a three-hour per-location cooldown; configured quiet hours suppress them from 22:00 to 07:00 in the device's local hour. Widget location selection is independent. Hourly forecast data cannot promise an exact rain-start time.
+**Expected:** rain alerts require a genuinely refreshed forecast (timestamp advancing from the prior update and no more than 15 minutes old), a valid location timezone and a qualifying future hourly slot. They have a three-hour per-location cooldown; configured quiet hours suppress them from 22:00 to 07:00 in the device's local hour. Widget location selection is independent. Hourly forecast data cannot promise an exact rain-start time.
 
 **Fix:** enable the relevant permission/settings and correct widget location selection. Adjust OS background restrictions only if appropriate for the device; do not bypass cooldowns or interpret forecast timing as a delivery guarantee.
 
@@ -56,7 +56,7 @@ curl --fail --show-error --location --max-time 30 'https://geocoding-api.open-me
 
 **Expected:** the export preserves those location settings, not every application preference or rebuildable weather cache.
 
-**Fix:** preserve an export before destructive changes. Diagnose failed migration/writes rather than assuming import restores all settings; configure application-level preferences separately after restoring locations.
+**Fix:** preserve an export before destructive changes. Backup parsing can skip invalid location entries; compare parsed and exported counts before persisting a restore. Diagnose failed migration/writes rather than assuming import restores all settings; configure application-level preferences separately after restoring locations.
 
 ## Build fails
 

@@ -9,16 +9,16 @@ SuperSMP Companion is an unofficial Android companion app requiring API 26+. The
 | Required        | Git checkout, Android SDK 37 and configured SDK path                    | Build the single `:app` module.                                                       |
 | Required        | Repository Gradle wrapper and JDK 21 available to the daemon            | Daemon criteria request 21; Java/Kotlin output targets 17.                            |
 | Required        | Running API 26+ emulator or USB-debugging device and SDK Platform Tools | Install and launch. `adb devices` should show one authorized target as `device`.      |
-| Required        | Network access for initial dependency resolution                        | Prepare Gradle, plugins and dependencies before the timed exercise.                   |
+| Required        | Network access for initial dependency resolution                        | Prepare Gradle, plugins and dependencies before building.                   |
 | Optional        | Android Studio                                                          | Import and run the app through the IDE.                                               |
 | Optional        | Device internet access and a working Android System WebView provider    | Server status, voting links, shop and map; not needed to save local coordinates.      |
 | Publishing only | Release-signing setup and distribution-account access                   | Not needed to build or install the debug APK; this guide does not perform publishing. |
 
-## First success in five minutes
+## Build and save a first coordinate
 
-The five-minute target assumes a **prepared environment** with source, SDK/JDK, device and dependency caches ready. Initial Gradle/dependency downloads, SDK installation and emulator startup are excluded; compilation time is machine-dependent, not guaranteed.
+Goal: install the debug app and save a coordinate locally without relying on server status or embedded websites. Prepare the source, SDK/JDK and device first; dependency downloads and compilation have no fixed time budget.
 
-1. Obtain the checkout if needed, outside the timed exercise:
+1. Obtain the checkout if needed, before building:
 
    ```bash
    git clone https://github.com/FreetimeMaker/SuperSMP-Companion-App.git
@@ -44,7 +44,7 @@ If a checkpoint differs, use [Troubleshooting](./troubleshooting.md). Do not use
 
 The navigation graph provides home/server status, command reference, saved coordinates, links, shop, map and settings. Coordinates are stored locally in Room. Voting links, shop and map need their remote websites; server status uses a separate Ktor API request.
 
-Freetime modules are now pinned to **3.2.0** under `com.freetime` from `https://repo.free-time.me/maven/`, including Notifications. Settings offers an explicit notification-enable action and a link to Android notification settings. Notification permission and feed delivery are separate from the local coordinate exercise; a first check is configured not to notify.
+The five Freetime modules are pinned to **3.1.0** under `com.freetime` from `https://repo.free-time.me/maven/`. Notifications is not included in this local revision. Do not substitute Core 3.2.0/4.0.1 merely because another project uses it.
 
 For installable releases, use the project's [GitHub Releases](https://github.com/FreetimeMaker/SuperSMP-Companion-App/releases/latest) or its [F-Droid package](https://f-droid.org/packages/com.freetime.ssmpc). Those distribution links do not establish that a downloaded release matches the local checkout version.
 

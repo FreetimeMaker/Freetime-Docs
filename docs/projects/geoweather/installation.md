@@ -2,7 +2,7 @@
 
 ## Install the app
 
-The current project website links to [GitHub Releases](https://github.com/FreetimeMaker/GeoWeather/releases/latest), [F-Droid](https://f-droid.org/packages/com.freetime.geoweather/), [Luma Store's GeoWeather page](https://luma.free-time.me/discover/com.freetime.geoweather), [Freetime Repository](https://fdroid.free-time.me) and [OpenAPK](https://www.openapk.net/en/geoweather/com.freetime.geoweather/). Obtainium is no longer listed on that page. These are source-declared links, not verified live downloads. The Android package is `com.freetime.geoweather`; the local source requires API 26+.
+The app README lists [GitHub Releases](https://github.com/FreetimeMaker/GeoWeather/releases/latest), [F-Droid](https://f-droid.org/packages/com.freetime.geoweather/), [OpenAPK](https://www.openapk.net/de/geoweather/com.freetime.geoweather/), [GitHub Store](https://github-store.org/app?repo=FreetimeMaker/GeoWeather) and [Luma Store](https://luma.free-time.me/com.freetime.geoweather). Previously documented website links also include [Freetime Repository](https://fdroid.free-time.me) and [Luma’s discover page](https://luma.free-time.me/discover/com.freetime.geoweather); the website was not re-reviewed here. These links do not verify downloads, channel versions or deployment success. The Android package is `com.freetime.geoweather`; the local source requires API 26+.
 
 ## Build requirements
 
@@ -27,3 +27,14 @@ The local build declares version 4.7.3 (code 92). Release availability in indivi
 ## Project layout
 
 There is one Android `:app` module and no shared multiplatform module. Runtime dependencies include Freetime Core 3.2.0 (`com.freetime` artifacts via `https://repo.free-time.me/maven/`), Ktor, Room/bundled SQLite, Coil, WorkManager, Glance and osmdroid.
+
+## Build and integration targets
+
+| Goal | Target / boundary |
+| --- | --- |
+| Debug APK | `./gradlew :app:assembleDebug`; install/launch checkpoints in [Getting Started](./getting-started.md) |
+| Local unit tests | `./gradlew :app:testDebugUnitTest`; source includes planner, rain-policy and notification-configuration tests |
+| Weather integration | Ktor/Open-Meteo data layer, not the optional subscription backend |
+| UI/background checks | Prepared API 26+ device; verify permissions, widget locations and freshness independently |
+
+Targets are documented from source, not executed in this review. Release signing/distribution is outside the debug setup goal.

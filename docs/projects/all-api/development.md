@@ -2,8 +2,8 @@
 
 ## Source code and stack
 
-- [All-API-Node](https://github.com/FreetimeMaker/All-API-Node): package **2.8.1**, CommonJS, Express 5, Supabase JavaScript, Axios, CORS, dotenv, Helmet and JSON Web Tokens; esbuild is a development dependency.
-- [All-API-FrontEnd](https://github.com/FreetimeMaker/All-API-FrontEnd): package **2.2.0**, Next.js **16.3.3**, React **19.2.8**, TypeScript, Tailwind CSS 4 and Supabase SSR, with Solana/payment dependencies for frontend functionality.
+- [All-API-Node](https://github.com/FreetimeMaker/All-API-Node): package **2.8.1**, CommonJS, Express ^5.3.0, Supabase JavaScript, Axios, CORS, dotenv, Helmet and JSON Web Tokens; esbuild is a development dependency.
+- [All-API-FrontEnd](https://github.com/FreetimeMaker/All-API-FrontEnd): separate frontend; unavailable locally, so its current stack and scripts are not verified.
 
 The backend package no longer declares Appwrite, TweetNaCl, Umi or Metaplex Bubblegum dependencies. The current routers do not mount GeoWeather, F-Port or Arcade.
 
@@ -24,7 +24,7 @@ The entry point uses `asRouter()` to normalize wrapped CommonJS routers and a ru
 
 `src/lib/supabase.js` separates generic Supabase access from Luma Store access. Generic clients use `SUPABASE_URL` / `SUPABASE_ANON_KEY` (with public-name fallbacks) and optionally `SUPABASE_SERVICE_ROLE_KEY`. Luma clients use `LUMASTORE_SUPABASE_URL` / `LUMASTORE_SUPABASE_PUBLISHABLE_KEY`, with project-specific public defaults in the implementation.
 
-The Luma router normalizes Android platform metadata, reads public aggregate download counts, and implements ratings, reviews, favorites, developer profiles and APK source resolution. Authenticated writes use the user's token with the public client. MD-Blog reads repository Markdown with caching.
+The Luma router normalizes Android platform metadata, reads public aggregate download counts, and implements ratings, reviews, favorites, developer profiles and APK source resolution. Authenticated writes use the user's token with the public client. MD-Blog reads repository Markdown and sets HTTP cache headers on successful responses.
 
 ### Luma Fastlane metadata
 
@@ -39,27 +39,15 @@ node src/lib/sync-luma-metadata.js
 node src/lib/sync-luma-metadata.js --apply
 ```
 
-The default is a dry run over non-archived `store_apps`. `--apply` requires the dedicated `LUMASTORE_SUPABASE_SERVICE_ROLE_KEY`, not the generic project key. Synchronization validates complete metadata and checks snapshots/scalar guards before writes. App and platform writes are not a transaction: a partial failure must be retried. Do not infer atomicity from a successful first write.
+These commands run from the backend repository root and require configuration in the process environment; this CLI does not itself load dotenv. Even the default dry run reads the database and fetches GitHub metadata—it is not an offline preview. The default is a dry run over non-archived `store_apps`. `--apply` requires the dedicated `LUMASTORE_SUPABASE_SERVICE_ROLE_KEY`, not the generic project key. Synchronization validates complete metadata and checks snapshots/scalar guards before writes. App and platform writes are not a transaction: a partial failure must be retried. Do not infer atomicity from a successful first write.
 
 `POST /v2/lumastore/metadata/webhook` provides event-driven synchronization. Configure `LUMASTORE_METADATA_WEBHOOK_SECRET` and the dedicated service-role key on the server; see [API Reference](./api-reference.md). It awaits synchronization before replying rather than scheduling work after the response.
 
 Focused Node tests exist in `src/lib/luma-metadata.test.js`, `src/lib/sync-luma-metadata.test.js` and `src/lib/luma-metadata-webhook.test.js`, despite the absence of an npm test script. This documentation review did not run them or execute synchronization against a database.
 
-## Frontend development
+## Separate frontend
 
-The frontend details in this section are retained from the earlier review, not revalidated by the current backend-only update.
-
-Copy the frontend's `.env.example` to a local environment file and configure `API_BASE` plus the public Supabase URL/key. Privileged routes additionally need the server-side service-role key. Support/developer email delivery uses `RESEND_API_KEY` and `EMAIL_FROM`; support notifications also use `EMAIL_NOTIFICATION_TO`. The status webhook checks `LUMA_STATUS_WEBHOOK_SECRET`.
-
-```bash
-npm install
-npm run dev
-npm run type-check
-npm run lint
-npm run build
-```
-
-`/api/proxy/[...path]` forwards to `API_BASE`, preserving query parameters and filtering headers. Ordinary requests have a 15-second timeout; most requests first perform a two-second upstream health check. GET login requests redirect to the backend. A proxy 503 can therefore originate from the health precheck before the target handler runs.
+The All API frontend checkout was unavailable. Earlier docs described `API_BASE`, a health-prechecking proxy, support/payment handlers and a manually reviewed submission feed. Those details are historical context, not verified current setup or API contracts. Use the frontend repository's own current template and scripts before deploying it. The independently inspected [Luma website setup](../luma-store/getting-started.md#getting-started-website-and-developer-dashboard) is not a replacement configuration for that frontend.
 
 ## Secrets
 

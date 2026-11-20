@@ -4,80 +4,17 @@ title: Freetime Docs
 
 # Freetime Docs
 
-Practical guides, architecture and source code for the Freetime Maker ecosystem. **Find your next starting point.**
+Setup, integration and troubleshooting guides for Freetime Maker projects. Start with [Getting Started](./getting-started/index.md) or open the [project directory](./projects/index.md) for quickstarts and source repositories.
 
-## One ecosystem. Seven project guides.
+## Find the right guide
 
-Build an Android app, connect a service or explore the code. Choose a project to find setup instructions, technical details and its source repository.
+- **Build an Android or desktop JVM app:** explore [Freetime Core](./projects/freetime-core/index.md) and its sample targets.
+- **Use an Android app:** start with [GeoWeather](./projects/geoweather/getting-started.md), [Luma Store](./projects/luma-store/getting-started.md) or [SuperSMP Companion](./projects/supersmp-companion/getting-started.md).
+- **Connect a service:** read [Using All API](./projects/all-api/using-the-api.md) or set up [MD-Blog](./projects/md-blog/getting-started.md).
+- **Install a JetBrains plugin:** see [Multi AI Chat](./projects/multi-ai-chat/index.md) for setup, compatibility and privacy notes.
 
-### [Freetime Core](./projects/freetime-core/index.md)
+## About this edition
 
-Shared building blocks for expressive Android applications.
+Use the version selector at the top of the sidebar to switch between the current **v2.x** documentation and the historical **v1.x** archive. Documentation versions are independent of application releases.
 
-**Technologies:** Android, Kotlin, Library
-
-[Get started](./projects/freetime-core/getting-started.md) · [Source code](https://github.com/FreetimeMaker/Freetime-Core)
-
-### [GeoWeather](./projects/geoweather/index.md)
-
-Forecasts, weather alerts and home-screen widgets for Android.
-
-**Technologies:** Android, Compose, Weather
-
-[Get started](./projects/geoweather/getting-started.md) · [Source code](https://github.com/FreetimeMaker/GeoWeather)
-
-### [Luma Store](./projects/luma-store/index.md)
-
-Android app discovery, publishing and developer tools.
-
-**Technologies:** Android, Web, App store
-
-[Get started](./projects/luma-store/getting-started.md) · [Source code](https://github.com/FreetimeMaker/Luma-Store-Android)
-
-### [SuperSMP Companion](./projects/supersmp-companion/index.md)
-
-An unofficial Android companion for the SuperSMP community.
-
-**Technologies:** Android, Community, Companion
-
-[Get started](./projects/supersmp-companion/getting-started.md) · [Source code](https://github.com/FreetimeMaker/SuperSMP-Companion-App)
-
-### [All API](./projects/all-api/index.md)
-
-Backend services, authentication and shared project APIs.
-
-**Technologies:** Node.js, Express, Backend
-
-[Get started](./projects/all-api/getting-started.md) · [Source code](https://github.com/FreetimeMaker/All-API-Node)
-
-### [MD-Blog](./projects/md-blog/index.md)
-
-A lightweight Markdown blog frontend powered by All API.
-
-**Technologies:** Node.js, Markdown, Web
-
-[Get started](./projects/md-blog/getting-started.md) · [Source code](https://github.com/FreetimeMaker/MD-Blog)
-
-### [Multi AI Chat](./projects/multi-ai-chat/index.md)
-
-Multiple AI providers in one JetBrains IDE workflow.
-
-**Technologies:** JetBrains, Kotlin, Plugin
-
-[Get started](./projects/multi-ai-chat/getting-started.md) · [Source code](https://github.com/FreetimeMaker/Multi-AI-Chat)
-
-## Find what you need
-
-::: callout tip Search without leaving the docs
-Use the search field or press **Ctrl+K** / **⌘K**. Search runs against the generated documentation without an external search service.
-:::
-
-- **Browse by project:** expand a project in the sidebar on documentation pages, or open the [Projects overview](./projects/index.md).
-- **Jump within a guide:** use the **On this page** outline on wider screens.
-- **Follow a task:** each project offers starting points for using, building or integrating it, plus next steps at the end of its pages.
-
-## A note on versions
-
-Documentation versions are independent from application releases. Version numbers in project guides describe inspected source and do not necessarily identify a published release. Choose the current or an archived version using the selector at the very top of the sidebar. When a page is not available in the selected version, the selector opens that version's overview.
-
-Each project includes a manually maintained **Source review** with its scope, date and commit links. A source review is separate from a page's last edit and does not certify live services or published releases.
+Check a project's **Source review** before applying version-specific instructions. It records what was inspected and distinguishes source declarations from published artifacts and live services.

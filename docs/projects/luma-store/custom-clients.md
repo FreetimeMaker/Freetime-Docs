@@ -20,7 +20,7 @@ GET /v2/lumastore/apps/:id/ratings
 GET /v2/lumastore/apps/:id/reviews
 ```
 
-The list endpoint returns an array and accepts `category` (category ID), `platform` and `search` (name matching). It excludes archived apps and normalizes platform rows to Android only. Linux/Windows filters do not return matching apps. `/package-formats` and `package_format` are not implemented.
+The [backend handlers](https://github.com/FreetimeMaker/All-API-Node/blob/f743d19fd760a7a337e23e1af8ddff9fa1c3708b/src/v2/lumastore/store.js) define the contract. The list endpoint returns an array and accepts `category` (category ID), `platform` and `search` (name matching). It excludes archived apps and normalizes platform rows to Android only. Linux/Windows filters do not return matching apps. `/package-formats` and `package_format` are not implemented.
 
 App detail requests require the catalog's store app ID. Ratings, reviews and per-app favorites resolve either a UUID or a package name. Do not apply that flexible identifier contract to app details.
 
@@ -34,19 +34,7 @@ The catalog includes public aggregate download counts. Do not request raw downlo
 
 Public rating summaries contain `app_id`, `average` and `count`. Reviews support `sort=newest`, `oldest` or `highest` and return at most 100 non-empty review entries.
 
-Authenticated routes include:
-
-```text
-GET    /v2/lumastore/ratings/me
-GET    /v2/lumastore/apps/:id/rating/me
-PUT    /v2/lumastore/apps/:id/rating/me
-DELETE /v2/lumastore/apps/:id/rating/me
-GET    /v2/lumastore/favorites/me
-GET    /v2/lumastore/apps/:id/favorite/me
-PUT    /v2/lumastore/apps/:id/favorite/me
-DELETE /v2/lumastore/apps/:id/favorite/me
-```
-
+Use the [authenticated endpoint reference](../all-api/api-reference.md#api-reference-luma-store-v2-authenticated-user-data) for personal rating and favorite list/get/put/delete routes. Keep these user-owned resources separate from public summaries; deleting one user's rating is not deleting an app's aggregate.
 Send a user bearer token from the Luma Store Supabase project. A rating write accepts `{"rating":5,"review_text":"Useful app"}` as JSON: integer rating 1–5, optional trimmed text up to 2,000 characters. Developers cannot rate their own app. Successful deletion returns 204 without JSON.
 
 ## Architecture and security
@@ -56,3 +44,7 @@ Keep catalog/source adapters, normalized models, application state, UI and platf
 Public catalog browsing does not need privileged credentials. Never embed service-role keys or email/webhook secrets in a client. Distinguish Supabase user tokens from forge provider tokens used by [tracked sources](./sources.md).
 
 Validate HTTP status, tolerate empty bodies and preserve stable IDs. Installing an APK is Android-specific; a desktop browser of this catalog must not advertise Linux package installation merely because it runs on Linux.
+
+:::callout info Separate frontend not revalidated
+`All-API-FrontEnd` was unavailable locally on 2026-11-20. References to its submission feed or proxy describe earlier documentation, not a current source-verified contract.
+:::

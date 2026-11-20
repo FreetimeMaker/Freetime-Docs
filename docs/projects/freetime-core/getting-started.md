@@ -1,38 +1,42 @@
 # Getting Started
 
-The reviewed Freetime Core source declares version **3.2.0**. Its Android libraries require API 24+ and compile against SDK 37.
+Freetime Core **4.0.1** targets Android API 24+ and desktop JVM. Android compilation uses SDK 37; iOS and web are not supported.
 
-**Publication status:** the inspected README says 3.2.0 is prepared but not yet uploaded. Maven examples below are intended coordinates after publication, not verified downloads. Use the local checkout/sample route before publication. See the [source review and limits](./index.md#source-review).
+::: callout warning "Use local targets before verified publication"
+The 4.0.1 coordinates below describe intended publications, not verified downloads. The source disables remote publishing and reports incomplete 4.0.0 artifacts. Keep Gradle Module Metadata enabled; an AAR/POM-only release is insufficient for KMP. See the [review scope](./index.md#freetime-core-source-review).
+:::
 
 ## Prerequisites
 
 | Scope           | Requirement                                                                           | Purpose                                                                                         |
 | --------------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| Required        | Git checkout, Android SDK 37, configured SDK path and the repository's Gradle wrapper | Build the existing `:Sample` app against local modules.                                         |
+| Required        | Git checkout, Android SDK 37, configured SDK path and the repository's Gradle wrapper | Build the existing `:Sample-android` host against local modules.                                         |
 | Required        | JDK 25 available to Gradle                                                            | `gradle/gradle-daemon-jvm.properties` requests 25; Java output targets 17.                      |
 | Required        | Running API 24+ emulator or USB-debugging device, Android SDK Platform Tools          | Install and open the sample. `adb devices` should show one target as `device`.                  |
-| Required        | Network access for initial dependency resolution                                      | Download Gradle, plugins and dependencies before the timed exercise.                            |
-| Optional        | Android Studio with Compose support                                                   | Open the project and run the `Sample` configuration instead of using the CLI.                   |
-| Publishing only | Python 3 and a Gemfury token (`FURY_TOKEN` or `furyToken` in user Gradle properties)  | Maintainer uploads, not sample builds or public dependency consumption. Never commit the token. |
+| Required        | Network access for initial dependency resolution                                      | Download Gradle, plugins and dependencies before building.                            |
+| Optional        | Android Studio with Compose support                                                   | Open the project and run the `Sample-android` configuration instead of using the CLI.                   |
+| Local staging only | Python 3 | Consolidate and verify KMP publications; no upload token is needed. Remote publishing is disabled. |
 
-## First success in five minutes
+## Local sample targets
 
-This is a target for a **prepared environment**: checkout, SDK/JDK setup, emulator startup and initial Gradle/dependency downloads are excluded. Compilation time depends on the machine; this is not a measured build-time guarantee.
+Goal: build the existing local sample, open it and trigger its snackbar without resolving a public Freetime release. Prepare the checkout, SDK/JDK and device first; initial dependency downloads and compilation have no fixed time budget.
 
 1. From the Freetime Core checkout root, build and install the existing sample (no publication or consumer API scaffold is needed):
 
    ```bash
-   ./gradlew :Sample:assembleDebug
-   adb install -r Sample/build/outputs/apk/debug/Sample-debug.apk
+   ./gradlew :Sample-android:assembleDebug
+   adb install -r Sample/androidApp/build/outputs/apk/debug/Sample-android-debug.apk
    adb shell am start -n com.freetime.sample/.MainActivity
    ```
 
-   On Windows, replace `./gradlew` with `.\gradlew.bat`. If the APK filename differs, inspect `Sample/build/outputs/apk/debug/` before installing.
+   On Windows, replace `./gradlew` with `.\gradlew.bat`. If the APK filename differs, inspect `Sample/androidApp/build/outputs/apk/debug/` before installing.
 
 2. Expected build/install result: Gradle ends with `BUILD SUCCESSFUL`, an APK is present in that directory, and adb installation reports `Success`. These are expected checkpoints, not results from an executed build in this documentation review.
 3. Expected UI: the sample displays **Freetime Core**, a **Material 3 Expressive** heading and **Design**, **Settings**, **Donate** and **Browser** navigation actions. On Design, press **Show message**: the snackbar should read **Hello from Material 3 Expressive**.
 
 If any checkpoint differs, use [Troubleshooting](./troubleshooting.md) before changing dependency versions.
+
+For desktop, use a graphical session and a JDK 17 toolchain in addition to the daemon JDK 25. Run `./gradlew :Sample:run`; expected UI is the same shared sample. `./gradlew :Sample:desktopJar` is the compilation/package target, not an installer or GUI smoke test. Android SDK requirements still apply when configuring this multi-target checkout.
 
 ## Repository and dependencies
 
@@ -52,20 +56,20 @@ After publication, include only the modules you need, keeping their versions ali
 
 ```kotlin
 dependencies {
-    implementation("com.freetime:Core:3.2.0")
-    implementation("com.freetime:Design:3.2.0")
-    implementation("com.freetime:Browser:3.2.0")
-    implementation("com.freetime:Donations:3.2.0")
-    implementation("com.freetime:FreetimeWarn:3.2.0")
-    implementation("com.freetime:Notifications:3.2.0")
+    implementation("com.freetime:Core:4.0.1")
+    implementation("com.freetime:Design:4.0.1")
+    implementation("com.freetime:Browser:4.0.1")
+    implementation("com.freetime:Donations:4.0.1")
+    implementation("com.freetime:FreetimeWarn:4.0.1")
+    implementation("com.freetime:Notifications:4.0.1")
 }
 ```
 
 Public Gemfury packages require no consumer credentials. Replace the old `com.github.FreetimeMaker.Freetime-Core` group with `com.freetime`; artifact names remain case-sensitive. Remove JitPack only if no other dependency needs it. These instructions describe the local source configuration, not an independent check of published artifact availability.
 
-For local Notifications integration before publication, use `implementation(project(":Notifications"))` instead of its Maven dependency. In another checkout, first include both local `Notifications` and `Core` projects in the consuming build; the dependency line alone does not import them. See [Notifications](./modules.md#notifications) for runtime setup and permission requirements.
+For local Notifications integration, use `implementation(project(":Notifications"))` instead of its Maven dependency. In another checkout, first include both local `Notifications` and `Core` projects in the consuming build; the dependency line alone does not import them. See [Notifications](./modules.md#modules-notifications) for runtime setup and permission requirements.
 
-The JitPack-to-Gemfury migration was introduced for 3.1.0: it changes repository/group, not APIs or version. Updating to 3.2.0 is a separate version change, adding the optional Notifications module.
+The repository/group migration began in 3.1.0; Notifications arrived in 3.2.0. The 4.0.1 KMP migration is a separate breaking change. Depend on root artifacts, not `Core-android`/`Core-desktop`; their artifacts are classifiers selected through `.module` metadata. In KMP builds, add shared libraries to `commonMain.dependencies`; Notifications belongs in the Android/desktop JVM source sets because it uses Java APIs. Local project dependencies require including the corresponding library projects first.
 
 ## Application theme
 
@@ -89,15 +93,17 @@ Expected UI: themed text reading **Hello from Freetime Core**, not an automatica
 
 ## Preferences
 
-`FreetimePreferences.from(context)` provides `read()`, `update { ... }` and `reset()` over private SharedPreferences. `FreetimePreferencesState` stores theme/browser modes, automatic theme hours, reduced motion, reduced transparency, high contrast and `floatingBottomNavigationGlassEnabled`.
+On Android, `FreetimePreferences.from(context)` provides `read()`, `update { ... }` and `reset()` over private SharedPreferences. `FreetimePreferencesState` stores theme/browser modes, automatic theme hours, reduced motion, reduced transparency, high contrast and `floatingBottomNavigationGlassEnabled`.
+
+On desktop, create the store with `FreetimePreferences.from(name = "my_app")` at the platform entry point; it uses Java Preferences rather than SharedPreferences. Pass the store into shared UI.
 
 The host app owns observable UI state and maps stored settings into its theme. Do not use the removed `FreetimeApp`, preferences-controller or Freetime-prefixed component APIs from older documentation. Stored accessibility flags are not evidence that every Material component automatically consumes them.
 
 ## Navigation glass and templates
 
-Only floating bottom navigation uses Liquid Glass. See [Design & Liquid Glass](./design.md) for the backdrop root and bar APIs. Ordinary screens, cards, dialogs and controls use Material 3.
+In the default theme, only floating bottom navigation uses Liquid Glass. See [Design & Liquid Glass](./design.md) for the backdrop root and bar APIs. Ordinary screens, cards, dialogs and controls use Material 3.
 
-Introduced in 3.1.0 and retained in 3.2.0 are copyable classic Material 3 and Expressive theme templates with app-owned tokens and no Liquid Glass.
+Introduced in 3.1.0 and retained in 4.0.1 are copyable classic Material 3 and Expressive theme templates with app-owned tokens and no Liquid Glass.
 
 ## Next
 

@@ -19,9 +19,9 @@ Use the build configuration rather than the README's older API-24 badge when det
 
 `MainActivity` hosts `SuperSMPTheme`, the FreetimeWarn notice and a Navigation Compose graph. Routes cover home, server commands, coordinates, links, shop, map and settings.
 
-The app now delegates expressive theming to Freetime Design's `AppTheme`, `rememberDarkTheme(ThemeMode.AUTO_TIME)` and `FloatingBottomNavigationGlassRoot`. Local `ui/glass` helpers were removed. The wrapper selects light/dark/OLED modes and retains app-specific fallback colors and typography; dynamic color is passed through to `AppTheme`.
+The local `SuperSMPTheme` uses Material 3 `MaterialTheme`, app typography/fallback palettes and `SuperSMPLiquidGlassRoot`; the `ui/glass` helpers are still present. Automatic mode checks the local hour every minute and uses dark before 07:00 or from 19:00. On Android 12+ the implementation chooses dynamic palettes directly; the `dynamicColor` and `oledBlack` parameters do not currently alter that selection, so do not promise those switches affect rendering.
 
-Core, Design, Browser, Donations, FreetimeWarn and the new Notifications module use **3.2.0**, under `com.freetime`, from `https://repo.free-time.me/maven/` instead of JitPack. The catalog also updates KSP to **2.3.14**.
+Core, Design, Browser, Donations and FreetimeWarn use **3.1.0**, under `com.freetime`, from `https://repo.free-time.me/maven/`. KSP is pinned to **2.3.13**. This app has not adopted Core 4.0.1 or Notifications.
 
 ## Data and remote content
 
@@ -29,13 +29,34 @@ Core, Design, Browser, Donations, FreetimeWarn and the new Notifications module 
 
 Shop and map screens embed remote websites in Android WebViews. Do not assume a WebView loading failure is a Ktor API failure.
 
-## Release notifications
+## Background integration boundary
 
-`SuperSMPApplication` initializes Freetime Notifications in an application coroutine scope with GitHub releases for `FreetimeMaker/SuperSMP-Companion-App` and the F-Droid feed for the app package. It configures a 360-minute check interval, no notification on the first check, and at most five notifications per check. Update and changelog categories are configured; developer messages are disabled. Initialization errors are logged under `SuperSMPNotifications` without deliberately crashing startup.
+`SuperSMPApplication.onCreate()` only calls its superclass. There is no Notifications module dependency or release-feed setup in the inspected checkout. WorkManager remains a dependency, not evidence of background status refresh. A future notification integration needs explicit dependency, lifecycle, permission/channel and delivery testing.
 
-Settings includes `NotificationPermissionHelper`. Entering the screen does not itself launch a permission prompt. The enable action requests `POST_NOTIFICATIONS` on Android 13+ on the first recorded attempt; later denied attempts route to Android notification settings. If permission is already available, it requests a check. A separate settings action remains available for disabled permissions/channels.
+## Status API example
 
-These are configured library calls, not verified delivery or a guaranteed six-hour schedule. WorkManager remains a dependency; do not infer server-status background refresh from it. No device notification test was performed in this review.
+This is a suspend helper for app code, using the real repository API. The host supplies the server address and owns coroutine/UI state; it must distinguish a decoded offline response from a transport or parsing exception.
+
+```kotlin
+import com.freetime.ssmpc.data.status.McSrvStatResponse
+import com.freetime.ssmpc.data.status.ServerStatusRepository
+import kotlinx.coroutines.CancellationException
+
+suspend fun readStatus(
+    repository: ServerStatusRepository,
+    serverAddress: String,
+): Result<McSrvStatResponse> = try {
+    Result.success(repository.getServerStatus(serverAddress))
+} catch (cancelled: CancellationException) {
+    throw cancelled
+} catch (error: Exception) {
+    Result.failure(error)
+}
+```
+
+Unlike this helper, the current `ServerStatusViewModel.refreshStatus` catches exceptions without exposing detailed error state. Inspect the failure at the repository boundary when debugging. Do not infer that an absent status means the Minecraft server is offline.
+
+[Repository source](https://github.com/FreetimeMaker/SuperSMP-Companion-App/blob/bef24070b407296991498e79ac15f6406b621680/app/src/main/java/com/freetime/ssmpc/data/status/ServerStatusRepository.kt) · [Theme source](https://github.com/FreetimeMaker/SuperSMP-Companion-App/blob/bef24070b407296991498e79ac15f6406b621680/app/src/main/java/com/freetime/ssmpc/ui/theme/Theme.kt)
 
 ## Release optimization
 
@@ -50,3 +71,5 @@ With SDK 37 and the JDK 21 daemon toolchain available:
 ```
 
 The application bytecode target remains 17; it is distinct from the JDK used to run Gradle.
+
+`./gradlew :app:testDebugUnitTest` is the local unit-test target. Device tests use `./gradlew :app:connectedDebugAndroidTest` with a prepared emulator/device. Neither target was executed here; remote status/shop/map need separate runtime checks. Use [Getting Started](./getting-started.md) for APK installation and a deterministic local-data goal.

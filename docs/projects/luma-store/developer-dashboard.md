@@ -2,9 +2,11 @@
 
 The [Luma Store Website](https://github.com/FreetimeMaker/Luma-Store-Website) combines public Discover pages with the authenticated developer experience. This source URL was verified against its local Git remote. It is separate from the developer pages in [All-API-FrontEnd](https://github.com/FreetimeMaker/All-API-FrontEnd).
 
+The [Linux Developer Console](./linux.md) is a separate Desktop JVM client for developer workflows. It uses the same Luma Supabase project and calls the website API for submission changes; its Linux packaging does not add Linux app publishing support.
+
 ## Stack
 
-- Next.js 16.4.2
+- Next.js 16.4.5
 - React 19.3.1
 - TypeScript
 - Tailwind CSS 4
@@ -25,6 +27,15 @@ The submission backend verifies that the signed-in forge account owns the reposi
 Provider tokens are used for the matching forge only. A missing or expired provider authorization requires signing in with that provider again.
 
 The public navigation's **Developers** link opens `/login?next=/dashboard`. Its **Help** menu provides FAQs on browsing, source tracking, developer sign-in, submissions, updates, funding and privacy. Codeberg guidance explicitly asks developers to sign in with Codeberg and grant repository access for ownership/Write-access verification. This is source/UI guidance, not a verified OAuth or production-permissions test.
+
+## A practical publishing path
+
+1. Open **Developers**, sign in, and create a draft before collecting all release data.
+2. Prepare the public repository, Android package/version data and APK download. Repository verification is a server-side check, not merely a successful sign-in.
+3. Load Android Fastlane metadata, check the imported listing and submit for review. The current dashboard loader is GitHub-only even though the final submission API verifies GitHub, GitLab and Codeberg repositories.
+4. Read the saved review status/history. After a requested change, update and resubmit rather than assuming a local form edit updates the public catalog.
+
+The [submission guide](./submissions.md) explains the metadata layout, accepted states and archive behavior. The form still contains legacy multi-platform data structures; the server's Android/APK filter is the effective publishing boundary.
 
 ## Dashboard capabilities
 
@@ -50,7 +61,7 @@ Discover remains separate from developer authentication. Public app and develope
 
 ## Local development
 
-Configure `.env.local` from the repository's `.env.example` first; see [Getting Started](./getting-started.md). The following scripts are declared in the website package:
+Configure `.env.local` from the repository's public `.env.example` first; see [Getting Started](./getting-started.md#getting-started-website-and-developer-dashboard). The following scripts are declared in the website package:
 
 ```bash
 npm install

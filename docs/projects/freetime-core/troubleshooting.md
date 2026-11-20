@@ -1,6 +1,6 @@
 # Troubleshooting
 
-These checks follow the reviewed 3.2.0 source. Expected results below are diagnostic targets, not claims that builds, installations or public artifact requests were executed during this review. Run shell commands from the Freetime Core checkout unless noted.
+These checks follow the reviewed 4.0.1 source. Expected results below are diagnostic targets, not claims that builds, installations or public artifact requests were executed during this review. Run shell commands from the Freetime Core checkout unless noted.
 
 ## Gradle fails before compilation
 
@@ -18,17 +18,11 @@ cat local.properties
 
 ## A consumer cannot resolve a library
 
-**3.2.0 status:** the inspected README marks this version as prepared but not yet uploaded. Unavailable 3.2.0 artifacts are not evidence of an incorrect API or a need for credentials. Use local project dependencies before publication; Notifications did not exist in the five-module 3.1.0 release. The following command intentionally probes the historical 3.1.0 coordinate, not the prepared release.
+**Check:** compare repository, root artifact names and variant metadata with [Getting Started](./getting-started.md). The source disables remote publishing; 4.0.1 public availability is not verified. Upstream reports an incomplete 4.0.0 upload.
 
-**Check:** compare the consumer's `settings.gradle.kts` and dependency declarations with [Getting Started](./getting-started.md). To inspect public POM availability independently of Gradle, if curl is installed:
+**Expected:** a usable KMP publication includes `.module` metadata and both Android/desktop artifacts, not just a POM/root JAR. Android/desktop selection comes from the root coordinate, not a separately named target package.
 
-```bash
-curl --fail --show-error --location --max-time 30 'https://repo.free-time.me/maven/com/freetime/Design/3.1.0/Design-3.1.0.pom'
-```
-
-**Expected:** HTTP success and Maven XML for `com.freetime:Design:3.1.0`. This checks one POM only, not its AAR or transitive dependencies; availability was not verified here.
-
-**Fix:** use the exact case-sensitive module name, align module versions, and declare the public repository in dependency resolution. Do not add publisher credentials to a public consumer. For HTTP/DNS/TLS errors, investigate connectivity or repository availability before changing source code. The local `:Sample` uses project dependencies and does not prove that a public release is downloadable.
+**Fix:** use local projects/sample until a complete release is verified. Keep Gradle Module Metadata enabled and align module versions. Do not use 4.0.0, add publisher credentials to public consumers, or interpret a working local sample as proof of Maven availability.
 
 ## Notifications are silent or delayed
 
@@ -36,7 +30,7 @@ curl --fail --show-error --location --max-time 30 'https://repo.free-time.me/mav
 
 **Expected:** the first successful check is silent by default. GitHub changelogs require a newer release with a nonblank body; F-Droid has no changelog alerts. `requestCheck` only queues best-effort work. Periodic checks default to six hours and can be delayed by Android.
 
-**Fix:** let the host Activity request Android 13+ permission after user opt-in, supply a valid host icon and localized channels, and handle reported source failures/rate limits without aggressive retries. Use suspending `checkNow` for a foreground check, not a promise of a posted notification. Do not clear app data to bypass intentional deduplication; `stop` retains history and overrides. See [Notifications](./modules.md#notifications).
+**Fix:** let the host Activity request Android 13+ permission after user opt-in, supply a valid host icon and localized channels, and handle reported source failures/rate limits without aggressive retries. Use suspending `checkNow` for a foreground check, not a promise of a posted notification. Do not clear app data to bypass intentional deduplication; `stop` retains history and overrides. See [Notifications](./modules.md#modules-notifications).
 
 ## The sample does not install or open
 
@@ -44,17 +38,17 @@ curl --fail --show-error --location --max-time 30 'https://repo.free-time.me/mav
 
 ```bash
 adb devices
-ls Sample/build/outputs/apk/debug/
+ls Sample/androidApp/build/outputs/apk/debug/
 adb shell am start -n com.freetime.sample/.MainActivity
 ```
 
-**Expected:** one authorized target marked `device`, a debug APK, and the sample activity opening on API 24+. See the [first-success checkpoints](./getting-started.md#first-success-in-five-minutes).
+**Expected:** one authorized target marked `device`, a debug APK, and the sample activity opening on API 24+. See the [first-success checkpoints](./getting-started.md#getting-started-local-sample-targets).
 
 **Fix:** start or authorize the device, select a target with adb's `-s` option if several are attached, and install the actual APK filename. If installation reports an incompatible signing certificate, use a separate emulator or back up data before uninstalling the older app; do not clear data as a first diagnostic step.
 
 ## Old components are unresolved, or the theme draws no navigation
 
-**Check:** compare imports and calls against `Design/src/main/java/com/freetime/design/Theme.kt` and `Sample/src/main/java/com/freetime/sample/MainActivity.kt`.
+**Check:** compare imports and calls against `Design/src/commonMain/kotlin/com/freetime/design/Theme.kt` and `Sample/src/commonMain/kotlin/com/freetime/sample/SampleApp.kt`.
 
 **Expected:** `AppTheme` wraps host-owned composables. It does not create navigation, a preferences controller or a `FreetimeApp` shell.
 
@@ -67,3 +61,11 @@ adb shell am start -n com.freetime.sample/.MainActivity
 **Expected:** the preference store exposes `read()`, `update { ... }` and `reset()`, not an observable UI controller. Stored accessibility flags do not automatically affect every component.
 
 **Fix:** keep observable state in the host, update it after preference changes, and map stored modes and flags into theme/component arguments. Do not reset all preferences just to force recomposition.
+
+## Desktop integrations fail or polling stops after exit
+
+**Check:** distinguish desktop compilation from GUI execution. Inspect returned browser/wallet/clipboard failures, AWT tray support, the private notification storage directory and whether `initialize()`/`resume()` ran after startup.
+
+**Expected:** desktop has no Material You, embedded browser engine or OS background notification scheduler. The Context-free browser facade is desktop-capable, but Android shared UI must use the remembered launcher. A desktop process that has exited cannot keep polling.
+
+**Fix:** run GUI integrations in a supported graphical session, show returned failures to the user, use one notification instance per directory and call suspending `shutdown()` on UI teardown. Do not call blocking `close()` on the AWT event thread or promise delivery while the app is closed.

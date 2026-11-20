@@ -1,6 +1,6 @@
 # Android client
 
-The Luma Store Android application is the native mobile store client. The inspected app version is **4.4.1** (version code **31**).
+The Luma Store Android application is the native mobile store client. The inspected app version is **4.4.2** (version code **32**).
 
 Source code: [Luma-Store-Android](https://github.com/FreetimeMaker/Luma-Store-Android), verified against the local Git remote.
 
@@ -16,7 +16,7 @@ Source code: [Luma-Store-Android](https://github.com/FreetimeMaker/Luma-Store-An
 
 ## UI
 
-The current client uses Material 3 Expressive and Material You through Freetime Core 3.2.0. Liquid Glass is used for the new floating bottom navigation rather than generic content surfaces.
+The Compose client depends on Freetime Core/Design 3.2.0. Source configuration is not a visual validation of the running interface; no device or emulator was used in this review.
 
 ## Discover and app details
 
@@ -45,7 +45,7 @@ APK installation is handled by the platform integration in `install/ApkInstaller
 
 ## Build dependencies
 
-The wrapper now selects Gradle **9.9.1**, and daemon criteria request JDK **21**. Kotlin serialization is pinned to **1.13.0**. The repository changed from JitPack to `https://repo.free-time.me/maven`, but the catalog still declares Freetime artifacts under `com.github.FreetimeMaker.Freetime-Core` at **3.2.0**, unlike GeoWeather's `com.freetime` coordinates. Dependency resolution was not tested; do not infer successful publication from this configuration.
+The wrapper selects Gradle **9.9.1**, and daemon criteria request JDK **21**. Kotlin serialization is **1.13.0**. `settings.gradle.kts` includes `https://repo.free-time.me/maven`; the version catalog declares `com.freetime:Core`, `com.freetime:Design` and `com.freetime:FreetimeWarn` at **3.2.0**. Dependency resolution/publication was not tested. JDK 21 is the daemon requirement; the app's Java source/target compatibility is separately set to Java 11.
 
 ## Build
 

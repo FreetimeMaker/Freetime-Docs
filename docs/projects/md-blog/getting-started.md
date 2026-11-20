@@ -1,17 +1,10 @@
 # Getting Started
 
-MD-Blog is now a static site. Node.js is needed for builds and local preview, not for production request handling.
-
 ## Prerequisites
 
-- Git, npm and a recent Node.js runtime compatible with the dependencies. The Pages workflow uses **Node.js 26**; the README still mentions 24. The npm scripts no longer use `--use-system-ca`.
-- Network access for dependency installation. API route discovery is attempted during builds, but local Markdown is a fallback.
-- A browser with JavaScript enabled for the blog listing and posts. The pre-rendered homepage does not require JavaScript.
-- For deployment, repository/Pages permissions and custom-domain DNS access; no API secrets belong in the static bundle.
+Use Git, npm and a Node runtime compatible with the dependency lockfile. The Pages workflow selects **Node 26**; the README's Node 24 guidance differs. Installation needs npm registry access, and every build needs the public post-list API. A browser needs JavaScript and API CORS access to display blog content.
 
-## First success in five minutes
-
-The estimate assumes the runtime and checkout are ready and dependency downloads are complete or fast. API discovery can wait up to 20 seconds before falling back; build duration is not guaranteed.
+## Build and preview
 
 ```bash
 git clone https://github.com/FreetimeMaker/MD-Blog.git
@@ -20,33 +13,30 @@ npm ci
 npm run dev
 ```
 
-`npm run dev` builds `dist` and starts the static preview at `http://localhost:3000`. `npm start` does the same. Set `PORT` to change the preview port.
+Open `http://localhost:3000`. Expected: `/` displays the homepage from `public/md/index.md`; `/blog/` loads the list and categories from the API. `npm start` runs the same build-and-preview sequence. `PORT` changes the preview port.
 
-1. Open `/` and expect the homepage generated from `public/md/index.md`.
-2. Edit homepage prose, stop and rerun `npm run dev`, then reload. There is no watcher; changing source alone does not change `dist`.
-3. Open `/blog/`. JavaScript requests posts and categories from All API, using bundled local Markdown when a request fails.
+There is no watcher. Edit the homepage, stop the process, rerun `npm run dev` and reload to see the change. A failed API discovery stops the build before preview starts; follow [build failure checks](./troubleshooting.md#troubleshooting-build-cannot-discover-posts).
 
-These are expected checkpoints from source, not a preview session executed during this review.
+## Publish content or change the backend
 
-## Content and backend configuration
+Publish posts through the external API's content process. Adding `public/blogs/example.md` alone does not publish or bundle a post. Existing API content is fetched live; new title paths need a deployment to receive HTTP 200.
 
-Edit `public/md/index.md` for the homepage. Local fallback posts live in `public/blogs`, including subdirectories. Use a unique filename slug, an H1 title, comma-separated `Categories:` metadata and, for dated ordering, `Released on <t:UNIX_SECONDS>`. Rebuild to include changes in the local JSON and generated paths. Adding a local file does not publish it to All API or merge it into a successful API listing.
+To change the backend, edit `API` in both `scripts/post-pages.js` and `public/scripts/blog.js`, then rebuild. `ALL_API_URL` is unused. The preview serves static files only and cannot proxy requests or repair API CORS headers. Never put a secret in frontend constants.
 
-The build and browser use `https://api.free-time.me/v2`. To use another backend, change `API` in `scripts/post-pages.js` and `public/scripts/blog.js`, then rebuild. The former `ALL_API_URL` environment variable has no effect. The preview does not proxy requests; the backend must permit browser CORS access.
-
-## Build and tests
+## Test changes
 
 ```bash
 npm run build
 npm test
 ```
 
-Run tests after a completed build: they use generated artifacts and mocked API responses. These commands are instructions, not a claim that this documentation review ran them.
+Expected: a completed build supplies `dist` for Node tests covering mocked browser requests, route validation, security and preview behavior. Tests use mocked API responses, but the preceding build requires the real post-list endpoint. These are suggested commands, not executed review results.
 
-## Deploy
+## Deploy with Pages
 
-Use `.github/workflows/pages.yml`: pushes to `main` and manual dispatch build, test and deploy `dist` to GitHub Pages. Select **GitHub Actions** in repository Pages settings and configure the custom domain `blog.free-time.me` and its DNS/HTTPS separately. The code assumes that domain's root, not a GitHub repository subpath.
+1. Select **GitHub Actions** in repository Pages settings.
+2. Configure `blog.free-time.me`, its DNS and HTTPS separately.
+3. Push to `main` or dispatch `.github/workflows/pages.yml` manually.
+4. Check the job results and deployed paths: `/`, `/blog/` and a generated post path.
 
-Rebuild/deploy after adding API posts to create HTTP-200 title paths. Otherwise new paths may render through the JavaScript 404 shell while retaining HTTP 404. Local Markdown changes always require a rebuild/deployment. The old Vercel configuration and serverless handlers are no longer present.
-
-See [Architecture](./architecture.md) and [Troubleshooting](./troubleshooting.md).
+The workflow installs, builds, tests and uploads only `dist`. Root-relative assets require the custom-domain root; a repository subpath is not supported without changes. There is no scheduled rebuild or API publish hook. A configured workflow is not evidence of successful deployment. See [HTTP 404 behavior](./troubleshooting.md#troubleshooting-post-renders-with-http-404).

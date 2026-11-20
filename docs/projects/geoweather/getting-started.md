@@ -14,11 +14,11 @@ GeoWeather is an Android app for API 26+. The local source declares version **4.
 | Optional        | Notifications and a launcher supporting widgets                         | Explore alerts and widgets after the basic forecast check. Configure each widget's location separately. |
 | Publishing only | Distribution-account access and release-signing setup                   | Not needed for this debug-build walkthrough; no publishing credentials are required here.               |
 
-## First success in five minutes
+## Build and save a first location
 
-Allow five minutes only for a **prepared environment** with the checkout, SDK/JDK, device and dependency caches ready. Initial Gradle/dependency downloads, SDK installation and emulator startup are excluded; compilation and network response times can exceed this target.
+Goal: install the debug app, save a city and distinguish a fresh forecast from cached content. Prepare the checkout, SDK/JDK and device first; initial dependency downloads, compilation and network response times have no fixed budget.
 
-1. Obtain the source if necessary (outside the timed exercise):
+1. Obtain the source if necessary (before building):
 
    ```bash
    git clone https://github.com/FreetimeMaker/GeoWeather.git
@@ -44,7 +44,7 @@ If search, installation or refresh fails, follow [Troubleshooting](./troubleshoo
 
 Choose units and startup/display preferences in Settings. Saved forecasts remain readable offline, but check their update timestamps. Configure notifications and each widget's location separately when using those features.
 
-The dependency catalog currently pins Freetime Core **3.2.0** under `com.freetime`, resolved through `https://repo.free-time.me/maven/` rather than JitPack. Do not substitute library versions as part of this walkthrough.
+The dependency catalog currently pins Freetime Core **3.2.0** under `com.freetime`, resolved through `https://repo.free-time.me/maven/` rather than JitPack. Do not substitute library versions as part of this walkthrough. Core 4.0.1 is a separate breaking KMP migration, not this app’s current pin. If 3.2.0 resolution fails, diagnose repository availability rather than silently upgrading.
 
 ## Next steps
 
