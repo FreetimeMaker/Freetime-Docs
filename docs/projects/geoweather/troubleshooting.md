@@ -69,7 +69,7 @@ cat gradle/libs.versions.toml
 cat settings.gradle.kts
 ```
 
-**Expected:** daemon criteria request JDK 21, the app compiles with SDK 37 and targets JVM 11, and Freetime Core 3.2.0 uses `com.freetime` coordinates and resolves through `https://repo.free-time.me/maven/`, not JitPack. `java -version` shows the launcher, not necessarily Gradle's selected daemon. SDK 26+ is required on the device.
+**Expected:** daemon criteria request JDK 21, the app compiles with SDK 37 and targets JVM 11, and Freetime Core 3.2.0 uses `com.freetime` coordinates and resolves through [`https://repo.free-time.me/maven/`](../repositories/maven-gradle.md), not JitPack. `java -version` shows the launcher, not necessarily Gradle's selected daemon. SDK 26+ is required on the device.
 
 **Fix:** use the repository wrapper with SDK 37 configured and JDK 21 available. Distinguish repository/dependency-resolution failures from compiler errors. Do not silently replace the pinned Core dependency or change the JVM target to match the daemon version.
 

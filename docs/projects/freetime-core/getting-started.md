@@ -40,6 +40,8 @@ For desktop, use a graphical session and a JDK 17 toolchain in addition to the d
 
 ## Repository and dependencies
 
+See the [Maven / Gradle repository guide](../repositories/maven-gradle.md) for setup and dependency-resolution checks.
+
 For integration into an existing Android Compose app, add the public Maven repository in `settings.gradle.kts` (this is separate from the local sample route):
 
 ```kotlin

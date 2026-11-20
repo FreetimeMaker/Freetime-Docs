@@ -21,7 +21,7 @@ Use the build configuration rather than the README's older API-24 badge when det
 
 The local `SuperSMPTheme` uses Material 3 `MaterialTheme`, app typography/fallback palettes and `SuperSMPLiquidGlassRoot`; the `ui/glass` helpers are still present. Automatic mode checks the local hour every minute and uses dark before 07:00 or from 19:00. On Android 12+ the implementation chooses dynamic palettes directly; the `dynamicColor` and `oledBlack` parameters do not currently alter that selection, so do not promise those switches affect rendering.
 
-Core, Design, Browser, Donations and FreetimeWarn use **3.1.0**, under `com.freetime`, from `https://repo.free-time.me/maven/`. KSP is pinned to **2.3.13**. This app has not adopted Core 4.0.1 or Notifications.
+Core, Design, Browser, Donations and FreetimeWarn use **3.1.0**, under `com.freetime`, from [`https://repo.free-time.me/maven/`](../repositories/maven-gradle.md). KSP is pinned to **2.3.13**. This app has not adopted Core 4.0.1 or Notifications.
 
 ## Data and remote content
 

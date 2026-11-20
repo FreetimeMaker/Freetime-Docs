@@ -10,6 +10,8 @@ The [Luma Store desktop repository](https://github.com/FreetimeMaker/Luma-Store-
 Linux package formats are declared in Gradle. No installer, supported distribution or CPU architecture, or published release was verified. These package formats distribute the Developer Console itself; they do not enable Linux app submissions or Linux packages in the public store API.
 :::
 
+The [APT](../repositories/apt.md) and [DNF / YUM](../repositories/dnf-yum.md) guides configure the generic Freetime package sources; they do not establish that the Developer Console is published there.
+
 ## Build configuration
 
 | Item | Source declaration |

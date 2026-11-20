@@ -50,7 +50,7 @@ Shop, map and voting pages are remote services, not native implementations of th
 
 Compose/Material 3 and Navigation Compose render the app. Ktor/OkHttp with Kotlin serialization retrieves status; Room stores coordinates. The build retains WorkManager, but that dependency alone does not establish background status polling or release notifications. `SuperSMPApplication.onCreate()` has no notification initialization in this checkout.
 
-Freetime Core, Design, Browser, Donations and FreetimeWarn are pinned to 3.1.0 under `com.freetime` from `https://repo.free-time.me/maven/`. Do not copy the current Core 4.0.1 API assumptions into this app without a deliberate migration.
+Freetime Core, Design, Browser, Donations and FreetimeWarn are pinned to 3.1.0 under `com.freetime` from [`https://repo.free-time.me/maven/`](../repositories/maven-gradle.md). Do not copy the current Core 4.0.1 API assumptions into this app without a deliberate migration.
 
 ## Distribution
 

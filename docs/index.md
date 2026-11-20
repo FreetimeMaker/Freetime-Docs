@@ -13,6 +13,8 @@ Setup, integration and troubleshooting guides for Freetime Maker projects. Start
 - **Connect a service:** read [Using All API](./projects/all-api/using-the-api.md) or set up [MD-Blog](./projects/md-blog/getting-started.md).
 - **Install a JetBrains plugin:** see [Multi AI Chat](./projects/multi-ai-chat/index.md) for setup, compatibility and privacy notes.
 
+- **Set up a package source:** see [Repositories](./projects/repositories/index.md) for Android, Linux and JVM clients.
+
 ## About this edition
 
 Use the version selector at the top of the sidebar to switch between the current **v2.x** documentation and the historical **v1.x** archive. Documentation versions are independent of application releases.

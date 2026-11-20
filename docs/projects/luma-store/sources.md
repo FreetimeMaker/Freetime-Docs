@@ -59,3 +59,5 @@ Removing a website tracked URL does not archive a published app. Enabling an And
 ## Debugging
 
 For tracked sources, check HTTPS URL syntax, latest release existence, APK asset names, provider login/permissions and rate limits. For catalogs, inspect HTTP status, response parsing, app visibility, source settings and client filters independently. A successful empty result is not equivalent to a transport error.
+
+For the hosted Freetime catalog URL and fingerprint, see the [F-Droid repository guide](../repositories/f-droid.md).

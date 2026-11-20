@@ -44,7 +44,7 @@ If search, installation or refresh fails, follow [Troubleshooting](./troubleshoo
 
 Choose units and startup/display preferences in Settings. Saved forecasts remain readable offline, but check their update timestamps. Configure notifications and each widget's location separately when using those features.
 
-The dependency catalog currently pins Freetime Core **3.2.0** under `com.freetime`, resolved through `https://repo.free-time.me/maven/` rather than JitPack. Do not substitute library versions as part of this walkthrough. Core 4.0.1 is a separate breaking KMP migration, not this app’s current pin. If 3.2.0 resolution fails, diagnose repository availability rather than silently upgrading.
+The dependency catalog currently pins Freetime Core **3.2.0** under `com.freetime`, resolved through [`https://repo.free-time.me/maven/`](../repositories/maven-gradle.md) rather than JitPack. Do not substitute library versions as part of this walkthrough. Core 4.0.1 is a separate breaking KMP migration, not this app’s current pin. If 3.2.0 resolution fails, diagnose repository availability rather than silently upgrading.
 
 ## Next steps
 

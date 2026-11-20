@@ -12,7 +12,7 @@ implementation("com.freetime:FreetimeWarn:4.0.1")
 
 This is the intended 4.0.1 coordinate after complete publication, not a verified download.
 
-Add `https://repo.free-time.me/maven/` as described in [Getting Started](./getting-started.md). The current UI uses Material 3 directly, not the removed Freetime-prefixed Design components.
+Add [`https://repo.free-time.me/maven/`](../repositories/maven-gradle.md) as described in [Getting Started](./getting-started.md). The current UI uses Material 3 directly, not the removed Freetime-prefixed Design components.
 
 ## Required app name
 

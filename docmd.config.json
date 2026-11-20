@@ -32,7 +32,7 @@
         {
           "title": "GitHub",
           "path": "https://github.com/FreetimeMaker/Freetime-Docs",
-          "icon": "github",
+          "icon": "iconify:lucide:github",
           "external": true
         }
       ]

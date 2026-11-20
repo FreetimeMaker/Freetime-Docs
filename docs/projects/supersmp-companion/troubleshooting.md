@@ -43,7 +43,7 @@ cat settings.gradle.kts
 
 **Expected:** daemon criteria request JDK 21, Java/Kotlin output targets 17, and the app compiles against SDK 37. The local minimum SDK is 26, despite older API-24 wording in the upstream README. The launcher reported by `java -version` is not necessarily the selected daemon.
 
-**Fix:** use the repository wrapper, configure SDK 37 and make JDK 21 available. Freetime dependencies use `com.freetime` version 3.1.0 from `https://repo.free-time.me/maven/`, no longer JitPack. Check that repository and the module coordinates in the catalog before treating a resolution failure as a source error. KSP is pinned to 2.3.13; do not silently substitute other versions.
+**Fix:** use the repository wrapper, configure SDK 37 and make JDK 21 available. Freetime dependencies use `com.freetime` version 3.1.0 from [`https://repo.free-time.me/maven/`](../repositories/maven-gradle.md), no longer JitPack. Check that repository and the module coordinates in the catalog before treating a resolution failure as a source error. KSP is pinned to 2.3.13; do not silently substitute other versions.
 
 ## Expected release notifications are absent
 

@@ -246,6 +246,21 @@
         "icon": "iconify:lucide:messages-square"
       },
       {
+        "title": "Repositories",
+        "collapsible": true,
+        "icon": "iconify:lucide:package",
+        "children": [
+          { "title": "Repositories", "path": "/projects/repositories/" },
+          { "title": "APT", "path": "/projects/repositories/apt/" },
+          { "title": "DNF / YUM", "path": "/projects/repositories/dnf-yum/" },
+          { "title": "F-Droid", "path": "/projects/repositories/f-droid/" },
+          {
+            "title": "Maven / Gradle",
+            "path": "/projects/repositories/maven-gradle/"
+          }
+        ]
+      },
+      {
         "title": "SuperSMP Companion",
         "children": [
           {

@@ -2,7 +2,7 @@
 
 ## Install the app
 
-The app README lists [GitHub Releases](https://github.com/FreetimeMaker/GeoWeather/releases/latest), [F-Droid](https://f-droid.org/packages/com.freetime.geoweather/), [OpenAPK](https://www.openapk.net/de/geoweather/com.freetime.geoweather/), [GitHub Store](https://github-store.org/app?repo=FreetimeMaker/GeoWeather) and [Luma Store](https://luma.free-time.me/com.freetime.geoweather). Previously documented website links also include [Freetime Repository](https://fdroid.free-time.me) and [Luma’s discover page](https://luma.free-time.me/discover/com.freetime.geoweather); the website was not re-reviewed here. These links do not verify downloads, channel versions or deployment success. The Android package is `com.freetime.geoweather`; the local source requires API 26+.
+The app README lists [GitHub Releases](https://github.com/FreetimeMaker/GeoWeather/releases/latest), [F-Droid](https://f-droid.org/packages/com.freetime.geoweather/), [OpenAPK](https://www.openapk.net/de/geoweather/com.freetime.geoweather/), [GitHub Store](https://github-store.org/app?repo=FreetimeMaker/GeoWeather) and [Luma Store](https://luma.free-time.me/com.freetime.geoweather). Previously documented website links also include [Freetime F-Droid repository](../repositories/f-droid.md) and [Luma’s discover page](https://luma.free-time.me/discover/com.freetime.geoweather); the website was not re-reviewed here. These links do not verify downloads, channel versions or deployment success. The Android package is `com.freetime.geoweather`; the local source requires API 26+.
 
 ## Build requirements
 
@@ -26,7 +26,7 @@ The local build declares version 4.7.3 (code 92). Release availability in indivi
 
 ## Project layout
 
-There is one Android `:app` module and no shared multiplatform module. Runtime dependencies include Freetime Core 3.2.0 (`com.freetime` artifacts via `https://repo.free-time.me/maven/`), Ktor, Room/bundled SQLite, Coil, WorkManager, Glance and osmdroid.
+There is one Android `:app` module and no shared multiplatform module. Runtime dependencies include Freetime Core 3.2.0 (`com.freetime` artifacts via [`https://repo.free-time.me/maven/`](../repositories/maven-gradle.md)), Ktor, Room/bundled SQLite, Coil, WorkManager, Glance and osmdroid.
 
 ## Build and integration targets
 

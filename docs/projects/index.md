@@ -12,6 +12,8 @@ Choose a project for its setup guide, technical details and source code. For too
 | [MD-Blog](./md-blog/index.md)                       | Markdown blog frontend backed by All API                          | [Quickstart](./md-blog/getting-started.md)            | [Blog](https://github.com/FreetimeMaker/MD-Blog)                                                                                                                                                       |
 | [Multi AI Chat](./multi-ai-chat/index.md)           | Multi-provider chat plugin for JetBrains IDEs                     | [Quickstart](./multi-ai-chat/getting-started.md)      | [Plugin](https://github.com/FreetimeMaker/Multi-AI-Chat)                                                                                                                                               |
 
+Looking for package sources? See [Repositories](./repositories/index.md) for client-specific setup and signing-key checks.
+
 ## Integration paths
 
 - [Build a Luma client](./luma-store/custom-clients.md) against the [All API catalog](./all-api/api-reference.md), or [submit an Android app](./luma-store/submissions.md).

@@ -6,6 +6,8 @@ Freetime Docs provides setup guides, architecture notes and source links for sev
 
 Open the [Projects overview](../projects/index.md) to choose an application, library or service. Each project overview links to its source repositories and practical starting points. Setup and troubleshooting pages distinguish required prerequisites from optional tools and publishing credentials.
 
+See [Repositories](../projects/repositories/index.md) if you need to set up F-Droid, APT, DNF / YUM or Maven / Gradle before following a project guide.
+
 ## Find your way around
 
 Open **Projects** in the sidebar and expand a project group. Its first link opens the project overview, followed by **Getting Started** and the rest of the guides. Use the page outline to jump to a section or the search box to find a topic.

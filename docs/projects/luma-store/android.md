@@ -45,7 +45,7 @@ APK installation is handled by the platform integration in `install/ApkInstaller
 
 ## Build dependencies
 
-The wrapper selects Gradle **9.9.1**, and daemon criteria request JDK **21**. Kotlin serialization is **1.13.0**. `settings.gradle.kts` includes `https://repo.free-time.me/maven`; the version catalog declares `com.freetime:Core`, `com.freetime:Design` and `com.freetime:FreetimeWarn` at **3.2.0**. Dependency resolution/publication was not tested. JDK 21 is the daemon requirement; the app's Java source/target compatibility is separately set to Java 11.
+The wrapper selects Gradle **9.9.1**, and daemon criteria request JDK **21**. Kotlin serialization is **1.13.0**. `settings.gradle.kts` includes [`https://repo.free-time.me/maven`](../repositories/maven-gradle.md); the version catalog declares `com.freetime:Core`, `com.freetime:Design` and `com.freetime:FreetimeWarn` at **3.2.0**. Dependency resolution/publication was not tested. JDK 21 is the daemon requirement; the app's Java source/target compatibility is separately set to Java 11.
 
 ## Build
 

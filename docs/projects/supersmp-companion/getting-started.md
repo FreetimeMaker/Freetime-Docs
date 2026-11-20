@@ -44,8 +44,10 @@ If a checkpoint differs, use [Troubleshooting](./troubleshooting.md). Do not use
 
 The navigation graph provides home/server status, command reference, saved coordinates, links, shop, map and settings. Coordinates are stored locally in Room. Voting links, shop and map need their remote websites; server status uses a separate Ktor API request.
 
-The five Freetime modules are pinned to **3.1.0** under `com.freetime` from `https://repo.free-time.me/maven/`. Notifications is not included in this local revision. Do not substitute Core 3.2.0/4.0.1 merely because another project uses it.
+The five Freetime modules are pinned to **3.1.0** under `com.freetime` from [`https://repo.free-time.me/maven/`](../repositories/maven-gradle.md). Notifications is not included in this local revision. Do not substitute Core 3.2.0/4.0.1 merely because another project uses it.
 
 For installable releases, use the project's [GitHub Releases](https://github.com/FreetimeMaker/SuperSMP-Companion-App/releases/latest) or its [F-Droid package](https://f-droid.org/packages/com.freetime.ssmpc). Those distribution links do not establish that a downloaded release matches the local checkout version.
 
 See [Development](./development.md) for the stack and [Troubleshooting](./troubleshooting.md) for build and remote-content checks.
+
+To add Freetime’s separate Android catalog, follow the [F-Droid repository guide](../repositories/f-droid.md).
