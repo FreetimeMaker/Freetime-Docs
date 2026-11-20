@@ -1,6 +1,6 @@
 # Getting Started
 
-Freetime Docs provides setup guides, architecture notes and source links for seven Freetime Maker projects. The current documentation is rendered by **docmd** with the Summer theme.
+Freetime Docs provides setup guides, architecture notes and source links for 8 Freetime Maker projects. The current documentation is rendered by **docmd** with the Summer theme.
 
 ## Choose a project
 
