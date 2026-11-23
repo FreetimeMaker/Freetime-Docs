@@ -1,6 +1,6 @@
 # Freetime Docs
 
-English-language documentation for the Freetime Maker ecosystem, built with [docmd](https://docmd.io/). The site uses the Summer template, the Sky theme and a shared Material 3 Expressive-inspired CSS layer.
+English-language documentation for the Freetime Maker ecosystem, built with [docmd](https://docmd.io/). The site uses the Summer template and Sky theme, with integrated Material You colors and Material 3 Expressive styling.
 
 **Website:** [docs.free-time.me](https://docs.free-time.me)
 
@@ -19,11 +19,13 @@ The CLI reports the local address. To choose a port and prevent the browser from
 npx --no-install docmd dev --port 3000 --no-open
 ```
 
-The CLI is installed locally through `@docmd/core`; a global installation is not required for these commands. There are currently no `dev`, `build` or test scripts in `package.json`.
+The CLI is installed locally through `@docmd/core`; a global installation is not required for these commands. There are no `dev` or site `build` scripts in `package.json`; design asset generation and palette tests have their own npm scripts.
 
 ## Build and validation
 
 ```bash
+npm run test:design
+npm run build:design
 npx --no-install docmd validate
 npx --no-install docmd build
 ```
@@ -36,7 +38,7 @@ To fail a build when docmd detects missing referenced files or assets:
 npx --no-install docmd build --strict
 ```
 
-A successful build is not a browser test, accessibility audit or verification of the documented applications and services. This repository currently has no dedicated unit-test, typecheck or browser-test suite.
+A successful build is not a browser test, accessibility audit or verification of the documented applications and services. `npm run test:design` checks settings validation, deterministic palettes and text contrast for light/dark schemes across ten seed colors. Tests use the same bundler as the browser asset. There is no general documentation unit-test, typecheck or committed browser-test suite.
 
 ## Repository structure
 
@@ -46,7 +48,11 @@ A successful build is not a browser test, accessibility audit or verification of
 - `docs/navigation.json` and `docs-v1/navigation.json` — Independent sidebar navigation for each version.
 - `assets/images/` — Shared logos and favicons.
 - `assets/css/material3.css` — Shared Material 3 Expressive-inspired presentation.
+- `assets/css/material-you.css` — Integrated accent-color controls; expressive shapes remain shared.
 - `assets/css/custom.css` — Sidebar cursor and collapsible hover overrides.
+- `scripts/design-picker.js` and `scripts/design-palette.js` — Accent-color selection, browser persistence and Material tonal palette generation.
+- `assets/js/material-you.js` — Committed browser bundle; regenerate with `npm run build:design`, do not edit directly.
+- `tests/design-palette.test.js` — Palette and settings tests.
 - `.github/workflows/deploy.yml` — GitHub Pages build and deployment.
 
 The current project guides cover All API, Freetime Core, GeoWeather, Luma Store, MD-Blog, Multi AI Chat and SuperSMP Companion.
@@ -61,9 +67,17 @@ The visual layer is implemented with CSS over docmd's existing Summer template, 
 - Visible keyboard-focus outlines and reduced-motion overrides.
 - Consistent hover colors and hand cursors for collapsible sidebar groups and links.
 
-`theme.customCss` loads `material3.css` first and `custom.css` second, so the interaction overrides remain in effect. Both files apply to both documentation versions. Keep ordinary document text selectable; cursor rules should target interactive navigation elements only.
+`theme.customCss` loads `material3.css`, `material-you.css` and then `custom.css`, so the interaction overrides remain in effect. All styles apply to both documentation versions. Keep ordinary document text selectable; cursor rules should target interactive navigation elements only.
 
 Material color roles are declared as `--md-*` variables and mapped to Summer's `--summer-*` tokens. When changing a background, update and check its paired foreground in both themes. Semantic callout colors remain separate from the primary and tertiary accents.
+
+### Integrated Material You colors
+
+Material You is the site's color system, not a separate design mode. It is always combined with the expressive typography, shapes and motion. Google's `@material/material-color-utilities` derives light and dark tonal palettes from the accent seed; no remote color API or external font is loaded.
+
+Open **Accent color** in the sidebar to personalize the palette. The default seed is blue (`#00639b`). The existing light/dark theme setting remains independent. Only the seed is stored under `freetime-docs-design` in browser local storage and shared across documentation versions and tabs on the same origin. Legacy design selections are ignored while their valid seed colors are retained. **Reset color** restores the default seed without disabling Material You. The picker can still change the in-memory selection when storage is unavailable; unrelated docmd features may have their own storage requirements. Without JavaScript, the static light/dark palettes match the default seed.
+
+The browser cannot read the operating system's wallpaper palette; users choose their own accent. Rebuild the committed JS bundle after changing either design script or the Material color dependency, and commit the generated asset with its sources. The deployment workflow serves that bundle without a separate design compilation step.
 
 ## Navigation and Iconify
 

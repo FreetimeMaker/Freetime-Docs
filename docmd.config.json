@@ -14,7 +14,12 @@
   "favicon": "assets/images/favicon.ico",
   "theme": {
     "appearance": "system",
-    "customCss": ["assets/css/material3.css", "assets/css/custom.css"],
+    "customCss": [
+      "assets/css/material3.css",
+      "assets/css/material-you.css",
+      "assets/css/custom.css"
+    ],
+    "customJs": ["assets/js/material-you.js"],
     "copyWidgets": {
       "enabled": false
     },
