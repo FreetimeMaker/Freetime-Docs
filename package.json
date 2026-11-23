@@ -1,15 +1,7 @@
 {
   "name": "freetime-docs",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "type": "module",
-  "scripts": {
-    "build:design": "esbuild scripts/design-picker.js --bundle --minify --legal-comments=eof --format=iife --target=es2020 --outfile=assets/js/material-you.js",
-    "test:design": "esbuild tests/design-palette.test.js --bundle --platform=node --format=esm --outfile=.docmd/cache/tests/design-palette.test.mjs && node --test .docmd/cache/tests/design-palette.test.mjs"
-  },
-  "devDependencies": {
-    "@material/material-color-utilities": "0.4.0",
-    "esbuild": "0.28.2"
-  },
   "dependencies": {
     "@docmd/core": "^0.10.1",
     "@docmd/plugin-iconify": "^0.10.1"
