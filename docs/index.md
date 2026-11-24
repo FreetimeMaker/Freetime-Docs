@@ -12,6 +12,7 @@ Setup, integration and troubleshooting guides for Freetime Maker projects. Start
 - **Use an Android app:** start with [GeoWeather](./projects/geoweather/getting-started.md), [Luma Store](./projects/luma-store/getting-started.md) or [SuperSMP Companion](./projects/supersmp-companion/getting-started.md).
 - **Connect a service:** read [Using All API](./projects/all-api/using-the-api.md) or set up [MD-Blog](./projects/md-blog/getting-started.md).
 - **Install a JetBrains plugin:** see [Multi AI Chat](./projects/multi-ai-chat/index.md) for setup, compatibility and privacy notes.
+- **Generate a license file offline:** use [License Generator](./projects/license-generator/index.md) through its Python CLI or Linux desktop interface.
 
 - **Set up a package source:** see [Repositories](./projects/repositories/index.md) for Android, Linux and JVM clients.
 

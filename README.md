@@ -42,7 +42,7 @@ A successful build is not a browser test, accessibility audit or verification of
 ## Repository structure
 
 - `docmd.config.json` — Site metadata, template, theme, CSS, versions and plugin configuration.
-- `docs/` — Current documentation (`v2`), including the homepage, Getting Started and seven project guides.
+- `docs/` — Current documentation (`v2`), including the homepage, Getting Started, eight project guides and package-repository documentation.
 - `docs-v1/` — Archived documentation (`v1`), including historical project guides.
 - `docs/navigation.json` and `docs-v1/navigation.json` — Independent sidebar navigation for each version.
 - `assets/images/` — Shared logos and favicons.
@@ -52,7 +52,7 @@ A successful build is not a browser test, accessibility audit or verification of
 
 - `.github/workflows/deploy.yml` — GitHub Pages build and deployment.
 
-The current project guides cover All API, Freetime Core, GeoWeather, Luma Store, MD-Blog, Multi AI Chat and SuperSMP Companion.
+The current project guides cover All API, Freetime Core, GeoWeather, License Generator, Luma Store, MD-Blog, Multi AI Chat and SuperSMP Companion.
 
 ## Design and interactions
 

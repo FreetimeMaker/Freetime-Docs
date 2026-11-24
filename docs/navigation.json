@@ -140,6 +140,33 @@
         "icon": "iconify:lucide:cloud-sun"
       },
       {
+        "title": "License Generator",
+        "collapsible": true,
+        "icon": "iconify:lucide:file-check",
+        "children": [
+          {
+            "title": "License Generator",
+            "path": "/projects/license-generator/",
+            "icon": "iconify:lucide:file-check"
+          },
+          {
+            "title": "Getting Started",
+            "path": "/projects/license-generator/getting-started/",
+            "icon": "iconify:lucide:rocket"
+          },
+          {
+            "title": "Development",
+            "path": "/projects/license-generator/development/",
+            "icon": "iconify:lucide:code"
+          },
+          {
+            "title": "Troubleshooting",
+            "path": "/projects/license-generator/troubleshooting/",
+            "icon": "iconify:lucide:wrench"
+          }
+        ]
+      },
+      {
         "title": "Luma Store",
         "children": [
           {
