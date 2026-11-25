@@ -1,11 +1,11 @@
 # Features
 
-GeoWeather is a native Android weather app. The local build version is 4.7.3.
+GeoWeather is a native Android weather app. The local build version is 4.7.6.
 
 ## Forecasts and locations
 
 - Save multiple cities and search by name or coordinates.
-- View current conditions, hourly data and a 16-day Open-Meteo forecast.
+- View current conditions, hourly forecasts for the next 24 hours in the location’s time zone, and daily details from the 16-day Open-Meteo forecast.
 - Switch Celsius/Fahrenheit, km/h/mph and hPa/mmHg units.
 - Read saved forecasts offline with their update timestamp; offline data is not a new forecast.
 
@@ -13,7 +13,7 @@ GeoWeather is a native Android weather app. The local build version is 4.7.3.
 
 In **Settings → Startup and display**, choose overview (the default), last viewed location or current location. The former favorite startup option is no longer offered; existing `favorite` values fall back to overview. Back opens the overview. Current location falls back to saved data when device location is unavailable.
 
-Compact mode emphasizes essentials; Detailed mode adds analyses. The UI uses Material 3, Material You and Freetime Core 3.2.0 theme/navigation integration, rather than a standalone Liquid component library.
+Compact mode emphasizes essentials; Detailed mode adds analyses. The UI uses Freetime’s Material 3 Expressive theme with Material You dynamic colors and no Liquid Glass. On the overview, current location, donation and settings are in the top bar; city search is a floating button at the bottom right.
 
 ## Local day planner
 

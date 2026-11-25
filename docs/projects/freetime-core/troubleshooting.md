@@ -1,24 +1,25 @@
 # Troubleshooting
 
-These checks follow the reviewed 4.0.1 source. Expected results below are diagnostic targets, not claims that builds, installations or public artifact requests were executed during this review. Run shell commands from the Freetime Core checkout unless noted.
+These checks follow the reviewed 4.0.2 source. Expected results below are diagnostic targets, not claims that builds, installations or public artifact requests were executed during this review. Run shell commands from the Freetime Core checkout unless noted.
 
 ## Gradle fails before compilation
 
-**Check:** inspect the daemon requirement and SDK path without starting a build:
+**Check:** inspect the wrapper, daemon requirement and SDK path without starting a build:
 
 ```bash
 java -version
+cat gradle/wrapper/gradle-wrapper.properties
 cat gradle/gradle-daemon-jvm.properties
 cat local.properties
 ```
 
-**Expected:** the criteria file requests `toolchainVersion=25`; Android SDK 37 is installed and the SDK path is configured. A missing `local.properties` is not itself an error if the SDK is configured through the environment. The launcher JDK shown by `java -version` is not necessarily the daemon JDK selected by Gradle.
+**Expected:** the wrapper points to `gradle-9.9.2-bin.zip`; the criteria file requests `toolchainVersion=25`; Android SDK 37 is installed and the SDK path is configured. A missing `local.properties` is not itself an error if the SDK is configured through the environment. The launcher JDK shown by `java -version` is not necessarily the daemon JDK selected by Gradle.
 
 **Fix:** make JDK 25 available to the daemon/toolchain resolver and configure the SDK in Android Studio or a local, untracked `sdk.dir` entry. Java output target 17 does not mean the daemon should run on JDK 17. Use the checked-in wrapper, not a system Gradle installation.
 
 ## A consumer cannot resolve a library
 
-**Check:** compare repository, root artifact names and variant metadata with [Getting Started](./getting-started.md). The source disables remote publishing; 4.0.1 public availability is not verified. Upstream reports an incomplete 4.0.0 upload.
+**Check:** compare repository, root artifact names and variant metadata with [Getting Started](./getting-started.md). The source disables remote publishing; 4.0.2 public availability is not verified. Upstream reports an incomplete 4.0.0 upload.
 
 **Expected:** a usable KMP publication includes `.module` metadata and both Android/desktop artifacts, not just a POM/root JAR. Android/desktop selection comes from the root coordinate, not a separately named target package.
 

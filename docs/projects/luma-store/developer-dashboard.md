@@ -2,15 +2,15 @@
 
 The [Luma Store Website](https://github.com/FreetimeMaker/Luma-Store-Website) combines public Discover pages with the authenticated developer experience. This source URL was verified against its local Git remote. It is separate from the developer pages in [All-API-FrontEnd](https://github.com/FreetimeMaker/All-API-FrontEnd).
 
-The [Linux Developer Console](./linux.md) is a separate Desktop JVM client for developer workflows. It uses the same Luma Supabase project and calls the website API for submission changes; its Linux packaging does not add Linux app publishing support.
+The [Linux Developer Console](./linux.md) is a separate Desktop JVM client for developer workflows. It uses the same Luma Supabase project and calls the website API to submit already-hosted Android APKs and resubmit metadata edits. Its Linux packaging does not add Linux app publishing support. The [Android developer area](./android.md) shows published-app analytics and submission details, but no longer edits or resubmits listings.
 
 ## Stack
 
-- Next.js 16.4.5
+- Next.js 16.4.6
 - React 19.3.1
 - TypeScript
-- Tailwind CSS 4
-- Supabase SSR / Supabase JavaScript client
+- Tailwind CSS (`^4.3.5`)
+- Supabase SSR (`^0.12.7`) / Supabase JavaScript client (`^2.119.2`)
 
 ## Sign-in and repository verification
 

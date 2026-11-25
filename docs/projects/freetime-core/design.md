@@ -1,6 +1,6 @@
 # Design & Liquid Glass
 
-Freetime Core 4.0.1 uses **Material 3 Expressive + Material You** as the shared Android UI foundation. The Design module no longer acts as a separate Material-free component framework.
+Freetime Core 4.0.2 uses **Material 3 Expressive + Material You** as the shared Android UI foundation. The Design module no longer acts as a separate Material-free component framework.
 
 ## App theme
 
@@ -21,7 +21,7 @@ The default automatic schedule uses light mode from 07:00 and dark mode from 19:
 
 ## App-owned theme templates
 
-Introduced in 3.1.0 and retained in 4.0.1, the copyable templates are under `com.freetime.design.templates.material3` and `com.freetime.design.templates.expressive`. The former uses classic `MaterialTheme`, the latter `MaterialExpressiveTheme` and expressive motion. Both separate colors, typography, shapes and theme composition, with light/dark previews and optional Freetime adapters that disable navigation glass.
+Introduced in 3.1.0 and retained in 4.0.2, the copyable templates are under `com.freetime.design.templates.material3` and `com.freetime.design.templates.expressive`. The former uses classic `MaterialTheme`, the latter `MaterialExpressiveTheme` and expressive motion. Both separate colors, typography, shapes and theme composition, with light/dark previews and optional Freetime adapters that disable navigation glass.
 
 The templates use Material defaults as starting values, make Material You opt-in and leave scheduling/OLED behavior to the app. They do not change the root `AppTheme` defaults. Their source guide is in `Design/src/commonMain/kotlin/com/freetime/design/templates/README.md`. Maintainers can compile-check them with `sh gradlew :Design:checkTemplates`.
 

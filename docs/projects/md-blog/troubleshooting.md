@@ -6,17 +6,17 @@ These are source-derived checks, not observed runtime results. Start with the fa
 
 **Check:** Read the error from `scripts/post-pages.js` and check access to `https://api.free-time.me/v2/blog/posts`.
 
-**Expected:** A valid `posts` array within 20 seconds. An explicitly empty array is valid; network/HTTP/JSON errors are not.
+**Expected:** A valid `posts` array within 20 seconds, or a `[build] API unavailable; using local blog posts:` warning and a build using local routes. An explicitly empty API array is valid.
 
-**Action:** Restore API access or fix invalid metadata, then rebuild. There is no local fallback. Discovery/validation failure preserves the previous artifact, but later build failures may not. Do not deploy a partial `dist`.
+**Action:** Restore API access or fix invalid metadata if you need shells for API-only posts. If the build stops before replacing `dist`, check local Markdown, filename slugs and routes first. Later failures can still leave a partial artifact. Do not deploy a partial `dist`.
 
 ## Invalid or conflicting routes
 
-**Check:** Compare API slugs and titles named in the error.
+**Check:** Compare the slugs and titles named in the error in the API response or local Markdown.
 
 **Expected:** Portable slugs and non-empty ASCII title paths of at most 180 characters, without duplicate or alias collisions.
 
-**Action:** Correct API metadata rather than removing validation. Title-only non-ASCII text can normalize to an empty path. See [routing rules](./architecture.md#architecture-routes-and-canonical-urls).
+**Action:** Correct API metadata or local filenames and headings rather than removing validation. Title-only non-ASCII text can normalize to an empty path. See [routing rules](./architecture.md#architecture-routes-and-canonical-urls).
 
 ## Homepage edits do not appear
 
@@ -24,15 +24,15 @@ These are source-derived checks, not observed runtime results. Start with the fa
 
 **Expected:** Preview serves the generated artifact, not source.
 
-**Action:** Stop and rerun `npm run dev`. There is no watcher. A file added under `public/blogs/` is not published content.
+**Action:** Stop and rerun `npm run dev`. There is no watcher. A file added under `public/blogs/` becomes fallback content only after rebuilding; it does not change the homepage or publish to the API.
 
 ## Blog unavailable or stuck loading
 
 **Check:** Inspect browser script/vendor requests and API requests for posts, categories and individual post content.
 
-**Expected:** JavaScript assets load and the API permits credential-free CORS requests. List rendering requires both posts and categories. There is no bundled fallback.
+**Expected:** JavaScript assets load. The API permits credential-free CORS requests or the browser resolves a failed request using `/data/local-posts.json`. List rendering needs both posts and categories, even if they come from different sources.
 
-**Action:** Deploy complete assets and fix API availability/CORS. `no-cors` makes JSON unreadable and is not a fix. A working homepage does not prove blog requests work. Check the console's `[blog]` and `[blog routes]` errors without sharing sensitive data.
+**Action:** Verify that `/data/local-posts.json` is deployed and contains the expected local post. A successful API list omits local-only entries; the fallback is not a merge. If a local-only title path fails while live discovery succeeds, try its filename-slug alias. Fix API availability/CORS for live content. `no-cors` makes JSON unreadable and is not a fix. A working homepage does not prove blog requests work. Check the console's `[blog]` and `[blog routes]` errors without sharing sensitive data.
 
 ## Post renders with HTTP 404
 

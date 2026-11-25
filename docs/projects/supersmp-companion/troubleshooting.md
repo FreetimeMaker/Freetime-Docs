@@ -1,6 +1,6 @@
 # Troubleshooting
 
-Expected results below are diagnostic targets derived from local source, not executed builds, device tests or live-service checks. Run checkout commands from the SuperSMP Companion repository root.
+Expected results below are diagnostic targets derived from the reviewed source, not executed builds, device tests or live-service checks. Run checkout commands from the SuperSMP Companion repository root.
 
 ## Map, shop or voting content is blank
 
@@ -41,17 +41,17 @@ cat gradle/libs.versions.toml
 cat settings.gradle.kts
 ```
 
-**Expected:** daemon criteria request JDK 21, Java/Kotlin output targets 17, and the app compiles against SDK 37. The local minimum SDK is 26, despite older API-24 wording in the upstream README. The launcher reported by `java -version` is not necessarily the selected daemon.
+**Expected:** daemon criteria request JDK 21, Java/Kotlin output targets 17, and the app compiles against SDK 37.2 and targets API 37. The minimum SDK is 26, despite older API-24 wording in the upstream README. The launcher reported by `java -version` is not necessarily the selected daemon.
 
-**Fix:** use the repository wrapper, configure SDK 37 and make JDK 21 available. Freetime dependencies use `com.freetime` version 3.1.0 from [`https://repo.free-time.me/maven/`](../repositories/maven-gradle.md), no longer JitPack. Check that repository and the module coordinates in the catalog before treating a resolution failure as a source error. KSP is pinned to 2.3.13; do not silently substitute other versions.
+**Fix:** use the Gradle 9.9.2 wrapper, configure SDK 37.2 and make JDK 21 available. Check `https://jitpack.io/` and the `com.github.FreetimeMaker.Freetime-Core` module coordinates if dependency resolution fails. The version is `4.0.1` without a `v` prefix; KSP is pinned to `2.3.14`. Do not substitute the older `com.freetime` coordinates when diagnosing this revision.
 
 ## Expected release notifications are absent
 
-**Check:** inspect the catalog/app dependencies and `SuperSMPApplication.kt` in the same revision you built.
+**Check:** open **Settings → App notifications → Open notification settings** and check the app permission and the **App updates** or **Release notes** channel. Confirm the installed build actually includes Notifications; the older documented snapshot did not. For initialization failures, check logcat for `SuperSMPNotifications`.
 
-**Expected:** this checkout pins five Freetime 3.1.0 modules, has no Notifications dependency and does not initialize release feeds. WorkManager alone does not implement notification delivery.
+**Expected:** the app configures GitHub and F-Droid release feeds, suppresses notifications on the first check and caps notifications at five per check. The configured six-hour interval is not a delivery deadline. An enabled permission alone does not show that a new release was detected or that a channel is enabled.
 
-**Fix:** do not search for a permission toggle to enable a feature absent from this revision. Treat release notifications as new integration work; compare the source/revision when following documentation for another build.
+**Fix:** enable the app permission and relevant channels, verify device connectivity to the feeds, and test with a new release after the first check. Do not use Minecraft server status as a proxy for release-feed health.
 
 ## APK installation fails
 

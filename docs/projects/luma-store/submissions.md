@@ -1,6 +1,8 @@
 # App submissions
 
-The standalone website's [submission handler](https://github.com/FreetimeMaker/Luma-Store-Website/blob/HEAD/app/api/luma/submissions/route.ts) implements developer draft, final submission and archive operations. It is separate from the submission API in [All-API-FrontEnd](https://github.com/FreetimeMaker/All-API-FrontEnd).
+The standalone website's [submission handler](https://github.com/FreetimeMaker/Luma-Store-Website/blob/ff8504f3d54ffa3cd2ac6035f94c342dc7acbca4/app/api/luma/submissions/route.ts) implements developer draft, final submission and archive operations. It is separate from the submission API in [All-API-FrontEnd](https://github.com/FreetimeMaker/All-API-FrontEnd).
+
+Use the website dashboard for the full publishing workflow. The [Desktop Developer Console](./linux.md) can submit a hosted Android APK and resubmit eligible metadata edits through the website API. The [Android client](./android.md) can display submissions but no longer edits or resubmits them.
 
 ## Authentication and platform requirements
 
@@ -24,7 +26,7 @@ When separate platform repositories are enabled, the handler also validates repo
 
 ## Android Fastlane listing
 
-The website's [Fastlane loader](https://github.com/FreetimeMaker/Luma-Store-Website/blob/6af34c11fc609055318a358e48413f8816d8e94e/app/dashboard/page.tsx) requires a positive integer Android `versionCode` and a GitHub repository. It tries locales `en-US`, `en-GB`, `de-DE`, `en` and `de`. At least one locale must provide all of the following:
+The website's [Fastlane loader](https://github.com/FreetimeMaker/Luma-Store-Website/blob/ff8504f3d54ffa3cd2ac6035f94c342dc7acbca4/app/dashboard/page.tsx) requires a positive integer Android `versionCode` and a GitHub repository. It tries locales `en-US`, `en-GB`, `de-DE`, `en` and `de`. At least one locale must provide all of the following:
 
 ```text
 fastlane/metadata/android/<locale>/

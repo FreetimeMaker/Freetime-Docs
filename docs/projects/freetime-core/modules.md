@@ -1,6 +1,6 @@
 # Modules
 
-Freetime Core **4.0.1** provides six selectable Android/desktop JVM libraries. Use case-sensitive `com.freetime:<Module>:4.0.1` coordinates only after complete publication is verified; for now prefer the local sample. [Getting Started](./getting-started.md) covers repositories and KMP metadata.
+Freetime Core **4.0.2** provides six selectable Android/desktop JVM libraries. Use case-sensitive `com.freetime:<Module>:4.0.2` coordinates only after complete publication is verified; for now prefer the local sample. [Getting Started](./getting-started.md) covers repositories and KMP metadata.
 
 | Module | Android | Desktop JVM |
 | --- | --- | --- |

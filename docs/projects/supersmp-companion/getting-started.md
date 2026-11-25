@@ -1,15 +1,15 @@
 # Getting Started
 
-SuperSMP Companion is an unofficial Android companion app requiring API 26+. The local build is **2.0.1** (code 23).
+SuperSMP Companion is an unofficial Android companion app requiring API 26+. The reviewed source declares **2.0.1** (code 23).
 
 ## Prerequisites
 
 | Scope           | Requirement                                                             | Purpose                                                                               |
 | --------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| Required        | Git checkout, Android SDK 37 and configured SDK path                    | Build the single `:app` module.                                                       |
+| Required        | Git checkout, Android SDK 37.2 and configured SDK path                  | Build the single `:app` module.                                                       |
 | Required        | Repository Gradle wrapper and JDK 21 available to the daemon            | Daemon criteria request 21; Java/Kotlin output targets 17.                            |
 | Required        | Running API 26+ emulator or USB-debugging device and SDK Platform Tools | Install and launch. `adb devices` should show one authorized target as `device`.      |
-| Required        | Network access for initial dependency resolution                        | Prepare Gradle, plugins and dependencies before building.                   |
+| Required        | Network access (including JitPack) for initial dependency resolution    | Prepare Gradle, plugins and dependencies before building.                             |
 | Optional        | Android Studio                                                          | Import and run the app through the IDE.                                               |
 | Optional        | Device internet access and a working Android System WebView provider    | Server status, voting links, shop and map; not needed to save local coordinates.      |
 | Publishing only | Release-signing setup and distribution-account access                   | Not needed to build or install the debug APK; this guide does not perform publishing. |
@@ -35,7 +35,7 @@ Goal: install the debug app and save a coordinate locally without relying on ser
 
    On Windows, use `.\gradlew.bat :app:assembleDebug`. Expected checkpoints: `BUILD SUCCESSFUL`, an APK at the install path and adb's `Success`. These are expected results, not commands executed during this source review.
 
-3. Open **Coords**, press the **+** action, and enter name **First base**, X **100**, Y **64**, Z **-200**. Keep the default dimension and press **Add** (labels follow the device language).
+3. Open **Coords** using its bottom-bar icon, press the **+** action, and enter name **First base**, X **100**, Y **64**, Z **-200**. Keep the default dimension and press **Add** (labels follow the device language).
 4. Expected UI: a coordinate card named **First base**, the entered X/Y/Z values and the dimension. Navigate away and back: the record should still be listed because it is stored locally in Room. This checks local functionality independently of server status or embedded websites. The test record can be removed with its delete action.
 
 If a checkpoint differs, use [Troubleshooting](./troubleshooting.md). Do not use an online-server indicator as the only installation test.
@@ -44,9 +44,15 @@ If a checkpoint differs, use [Troubleshooting](./troubleshooting.md). Do not use
 
 The navigation graph provides home/server status, command reference, saved coordinates, links, shop, map and settings. Coordinates are stored locally in Room. Voting links, shop and map need their remote websites; server status uses a separate Ktor API request.
 
-The five Freetime modules are pinned to **3.1.0** under `com.freetime` from [`https://repo.free-time.me/maven/`](../repositories/maven-gradle.md). Notifications is not included in this local revision. Do not substitute Core 3.2.0/4.0.1 merely because another project uses it.
+The six Freetime modules, including Notifications, are pinned to `4.0.1` via JitPack. See [Development](./development.md) for the exact coordinates.
 
-For installable releases, use the project's [GitHub Releases](https://github.com/FreetimeMaker/SuperSMP-Companion-App/releases/latest) or its [F-Droid package](https://f-droid.org/packages/com.freetime.ssmpc). Those distribution links do not establish that a downloaded release matches the local checkout version.
+## Enable release notifications
+
+In **Settings → App notifications**, tap **Enable notifications**. On Android 13 or later, grant permission when Android asks. If permission was denied or a channel is disabled, use **Open notification settings** to check the app’s **App updates** and **Release notes** channels. Opening the screen alone does not prompt.
+
+Release checks use public GitHub and F-Droid metadata. The first check is configured not to notify, so granting permission is not expected to produce an immediate alert. Notifications are not needed for the local coordinate exercise.
+
+For installable releases, use the project's [GitHub Releases](https://github.com/FreetimeMaker/SuperSMP-Companion-App/releases/latest) or its [F-Droid package](https://f-droid.org/packages/com.freetime.ssmpc). Those distribution links do not establish that a downloaded release matches the reviewed source version.
 
 See [Development](./development.md) for the stack and [Troubleshooting](./troubleshooting.md) for build and remote-content checks.
 

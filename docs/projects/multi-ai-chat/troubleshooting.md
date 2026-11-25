@@ -1,10 +1,8 @@
 # Troubleshooting
 
-::: callout warning Prior source snapshot only
-The local plugin repository was missing on 2026-11-20. Technical details and commands on this page are inherited from the previous review, not current-source verification. See [review scope](./index.md#multi-ai-chat-source-review).
-:::
+Source reviewed on **2026-11-25**. See [Source review](./index.md#source-review) for the pinned commit and validation limits.
 
-Work from the symptom below. Commands are suggested local checks, not outputs observed during this documentation review. Use your configured ports/origins; never include credentials in shared logs.
+Work from the symptom below. Commands are suggested local checks, not outputs observed during this documentation review. When sharing diagnostics, never include credentials in shared logs.
 
 ## Provider request fails
 
@@ -14,7 +12,7 @@ Work from the symptom below. Commands are suggested local checks, not outputs ob
 
 **Fix:** Verify provider, model identifier and API key independently. The bundled defaults (`gpt-4o`, `claude-3-5-sonnet-20240620`, `gemini-3.6-flash`) are source identifiers and may be unavailable to your account; live availability was not verified. A valid key does not guarantee model access. Check provider billing, quotas and the HTTP error shown by the client.
 
-Gemini HTTP failures now display `Gemini API Error` with the status, message and response body. Use the body to distinguish model, authentication and quota failures, but redact sensitive content before sharing it. Gemini puts the API key in the request URL query string; never share the complete URL.
+Gemini HTTP failures display `Gemini API Error` with the status, message and response body. Use the body to distinguish model, authentication and quota failures, but redact sensitive content before sharing it. Gemini puts the API key in the request URL query string; never share the complete URL.
 
 The HTTP clients use a 30-second connect timeout and a 60-second read timeout. Proxy, TLS or connectivity failures can surface as `Connection Error` messages.
 
@@ -44,7 +42,7 @@ Locate the plugin JAR, then inspect its `META-INF/plugin.xml` for the generated 
 
 **Check:** Distinguish waiting for a completed response from an HTTP or parsing error.
 
-**Expected:** Although the client calls `streamGenerateContent`, it reads the entire successful response body before parsing and emitting text. The 1.2.0 change does not add incremental Gemini network streaming.
+**Expected:** Although the client calls `streamGenerateContent`, it reads the entire successful response body before parsing and emitting text. The client can emit several text chunks after buffering, but it does not display them as they arrive over the network.
 
 ## Shell build helper fails
 

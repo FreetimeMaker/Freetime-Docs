@@ -2,8 +2,8 @@
 
 ## Source code and stack
 
-- [All-API-Node](https://github.com/FreetimeMaker/All-API-Node): package **2.8.1**, CommonJS, Express ^5.3.0, Supabase JavaScript, Axios, CORS, dotenv, Helmet and JSON Web Tokens; esbuild is a development dependency.
-- [All-API-FrontEnd](https://github.com/FreetimeMaker/All-API-FrontEnd): separate frontend; unavailable locally, so its current stack and scripts are not verified.
+- [All-API-Node](https://github.com/FreetimeMaker/All-API-Node): package **2.8.1**, CommonJS, Express ^5.3.0, Supabase JavaScript, Axios ^1.21.1, CORS, dotenv ^18.0.10, Helmet and JSON Web Tokens; esbuild is a development dependency.
+- [All-API-FrontEnd](https://github.com/FreetimeMaker/All-API-FrontEnd): package **2.2.0**, Next.js **16.3.3** App Router, React **19.2.8**, TypeScript, Tailwind CSS 4 and Supabase.
 
 The backend package no longer declares Appwrite, TweetNaCl, Umi or Metaplex Bubblegum dependencies. The current routers do not mount GeoWeather, F-Port or Arcade.
 
@@ -47,7 +47,9 @@ Focused Node tests exist in `src/lib/luma-metadata.test.js`, `src/lib/sync-luma-
 
 ## Separate frontend
 
-The All API frontend checkout was unavailable. Earlier docs described `API_BASE`, a health-prechecking proxy, support/payment handlers and a manually reviewed submission feed. Those details are historical context, not verified current setup or API contracts. Use the frontend repository's own current template and scripts before deploying it. The independently inspected [Luma website setup](../luma-store/getting-started.md#getting-started-website-and-developer-dashboard) is not a replacement configuration for that frontend.
+Run `npm run lint` for ESLint and `npm run type-check` for `tsc --noEmit`. `npm run build` builds the Next.js app; `npm start` serves the production build. The package declares no test script. See [Getting Started](./getting-started.md#optional-accountdashboard-frontend) for local configuration and [API Reference](./api-reference.md#separate-frontend-routes) for the route inventory.
+
+Use the checked-in `.env.example`, `package.json` and route tree as the source of truth at the reviewed revision. The frontend README references `supabase/migrations/20260910_luma_submission_updates.sql` and `/dashboard/developer/status`, but neither is present at that revision. The [Luma website setup](../luma-store/getting-started.md#getting-started-website-and-developer-dashboard) is for a separate project.
 
 ## Secrets
 

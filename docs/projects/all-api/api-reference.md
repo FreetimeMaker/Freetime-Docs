@@ -40,7 +40,7 @@ For example, use `GET /v2/health`; it returns `{"status":"ok"}`. Both auth and W
 ### Shared handler behavior
 
 | Routes (after `/v1` or `/v2`) | Request / authorization |
-| --- | --- |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `GET /auth/config` | Public configuration booleans; `configured` tests client construction, while `hasUrl` / `hasAnonKey` inspect the primary environment names, not fallback names |
 | `GET /auth/login`, `GET /auth/login/:provider`, `POST /auth/login` | Start generic-project OAuth; GET redirects, JSON POST returns redirect information; see [callback setup](./authentication.md#authentication-start-a-generic-oauth-login) |
 | `GET /auth/me`, `GET /auth/linked-accounts` | Generic-project user bearer token |
@@ -123,14 +123,20 @@ The router reads Markdown from the MD-Blog repository. Lists return `{posts: [..
 
 ## Separate frontend routes
 
-Earlier documentation listed `/api/health`, `/api/proxy/[...path]`, `/api/luma/apps`, `/api/luma/submissions`, `/api/luma/status-webhook`, `/api/support` and `/api/payment/verify` in [All-API-FrontEnd](https://github.com/FreetimeMaker/All-API-FrontEnd). That checkout is unavailable locally, so this is not a verified current route inventory. These Next.js paths must not be added to the Express endpoint list.
+These handlers are on the Next.js origin, not Express. See the [source review](./index.md#source-review) for the inspected revision.
+
+| Method | Next.js path | Behavior |
+| ----------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| GET | `/api/health` | Checks `API_BASE/v2/health` with a three-second abort timer. An upstream HTTP response is wrapped in HTTP 200 JSON with `ok`, `status` and `body`; a fetch failure returns HTTP 503. |
+| GET, POST, PUT, DELETE, PATCH | `/api/proxy/[...path]` | Forwards to `API_BASE` with the captured path and query string. Most paths require a successful `/v2/health` precheck. |
+| POST | `/api/luma/status-webhook` | Frontend Luma status notification handler, distinct from the Express metadata sync webhook. |
+| POST | `/api/support` | Support ticket submission handler. |
+| POST | `/api/payment/verify` | Solana payment verification handler. |
+
+The frontend README mentions `/api/luma/apps` and `/api/luma/submissions`, but neither has a handler in the inspected route tree. For the Express catalog, use `/v2/lumastore/apps`.
 
 The separately inspected Luma website has its own submission handler; see [App submissions](../luma-store/submissions.md).
 
 ## Errors
 
 Check HTTP status and handle empty/204 responses before parsing JSON. Error mapping is handler-specific: some database failures are returned as 401 or 404 as well as genuine authentication/missing-resource errors. Read `error` and `message` where present; do not infer the underlying cause from status alone.
-
-:::callout info Separate frontend not revalidated
-`All-API-FrontEnd` was unavailable locally on 2026-11-20. References to its submission feed or proxy describe earlier documentation, not a current source-verified contract.
-:::

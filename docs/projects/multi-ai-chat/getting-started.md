@@ -1,15 +1,13 @@
 # Getting Started
 
-::: callout warning Prior source snapshot only
-The local plugin repository was missing on 2026-11-20. Technical details and commands on this page are inherited from the previous review, not current-source verification. See [review scope](./index.md#multi-ai-chat-source-review).
-:::
+Source reviewed on **2026-11-25**. See [Source review](./index.md#source-review) for the pinned commit and validation limits.
 
 ## Prerequisites
 
 | Scope           | Prerequisite                                                                                                                                                                                                                                       |
 | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Required        | A compatible JetBrains IDE, an installed plugin archive, network access and an API key/account with access to a model offered by the plugin. Provider billing or quota may be required.                                                            |
-| Optional        | For source builds: Git, the Gradle wrapper and a Java 17-compatible compilation toolchain; the configured target IDE is IDEA 2026.1. Gradle/IDE downloads can take longer than five minutes and may need a newer runtime to run the build tooling. |
+| Optional        | For source builds: Git, the Gradle wrapper and a JDK that can run Gradle 9.9.1 and the IntelliJ Platform build tooling. The build declares Java 17 source/target compatibility and targets IDEA 2026.1; these declarations do not specify the Gradle runtime JDK. |
 | Publishing only | Plugin distribution access and any credentials required by your chosen release process; not needed to install from disk.                                                                                                                           |
 
 ## Test one provider response
@@ -20,7 +18,7 @@ The local plugin repository was missing on 2026-11-20. Technical details and com
 2. Open the right-side chat tool window and choose that provider and a model in its model selector. Model selection is in the tool window, not the API-key settings page.
 3. Enter `Reply with a short greeting.` and click **Send**. Expect your prompt and a provider response in the conversation; exact wording is not deterministic. This sends data to that provider and may incur charges. Do not use private code for this test.
 
-Version 1.2.0 offers `gemini-3.6-flash` and `gemini-3.6-pro`, with Flash as the default. These are bundled source identifiers, not verified live model availability. OpenAI and Anthropic choices remain unchanged. If no offered model is available to your account, the source model list needs updating; entering a valid key alone cannot fix that. See [Troubleshooting](./troubleshooting.md).
+Version 1.2.0 offers `gemini-3.6-flash` and `gemini-3.6-pro`, with Flash as the default. These are bundled source identifiers, not verified live model availability. If no offered model is available to your account, the source model list needs updating; entering a valid key alone cannot fix that. See [Troubleshooting](./troubleshooting.md).
 
 ## Build from source
 
@@ -32,14 +30,14 @@ cd Multi-AI-Chat
 ./gradlew buildPlugin
 ```
 
-Use the wrapper directly: the added `build_plugin.sh` incorrectly calls `./gradle` rather than `./gradlew`. On Windows, use `gradlew.bat buildPlugin`. No build was executed during this source review.
+Use the wrapper directly: `build_plugin.sh` incorrectly calls `./gradle` rather than `./gradlew`. On Windows, use `gradlew.bat buildPlugin`. No build was executed during this source review.
 
 ## Install and configure
 
-1. Build with a Java 17-compatible toolchain and install the ZIP from `build/distributions/` using the IDE's **Install Plugin from Disk** action.
+1. Build with the wrapper and install the ZIP from `build/distributions/` using the IDE's **Install Plugin from Disk** action.
 2. Open the **Multi AI Chat** settings page and enter the key for the provider you want to use.
 3. Open the right-side **Multi AI Chat** tool window and choose the provider and model.
-4. To explain a selection, select editor text and invoke **Explain Code** from the editor context menu.
+4. To explain a selection, select editor text and choose **Multi AI → Explain Code** from the editor context menu.
 
 For a development IDE, run `./gradlew runIde` instead of installing the archive manually. The configured target is IntelliJ IDEA **2026.1**; verify generated plugin compatibility for other IDE builds.
 

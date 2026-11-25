@@ -69,8 +69,8 @@ cat gradle/libs.versions.toml
 cat settings.gradle.kts
 ```
 
-**Expected:** daemon criteria request JDK 21, the app compiles with SDK 37 and targets JVM 11, and Freetime Core 3.2.0 uses `com.freetime` coordinates and resolves through [`https://repo.free-time.me/maven/`](../repositories/maven-gradle.md), not JitPack. `java -version` shows the launcher, not necessarily Gradle's selected daemon. SDK 26+ is required on the device.
+**Expected:** daemon criteria request JDK 21, the app compiles with SDK 37.2, targets API 37 and emits JVM 11 bytecode, and Freetime Core 4.0.1 uses `com.github.FreetimeMaker.Freetime-Core` coordinates from JitPack. `java -version` shows the launcher, not necessarily Gradle's selected daemon. SDK 26+ is required on the device.
 
-**Fix:** use the repository wrapper with SDK 37 configured and JDK 21 available. Distinguish repository/dependency-resolution failures from compiler errors. Do not silently replace the pinned Core dependency or change the JVM target to match the daemon version.
+**Fix:** use the repository’s Gradle 9.9.2 wrapper with SDK 37.2 configured and JDK 21 available. Distinguish repository/dependency-resolution failures from compiler errors. If Gradle reports a missing Freetime Android AAR, check that `settings.gradle.kts` still applies the 4.0.1 metadata correction to the Android API and runtime variants. Do not bypass Gradle module metadata, silently replace the pinned Core dependency or change the JVM target to match the daemon version.
 
 Return to [Getting Started](./getting-started.md) or see [Installation & Build](./installation.md).

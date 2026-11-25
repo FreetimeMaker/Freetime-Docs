@@ -18,7 +18,7 @@ The current public catalog contains Android platform rows only. Tracked release 
 
 **Expected:** The deployed alias must resolve to the intended versioned handler. Source code alone does not confirm that it exists in production.
 
-**Fix:** The website calls the unversioned `https://api.free-time.me/lumastore` alias. The inspected Express entry point mounts `/v2/lumastore`; it does not define that alias. Check deployed proxy/rewrite configuration separately. Production routing was not tested during this source review.
+**Fix:** The website calls the unversioned `https://api.free-time.me/lumastore` alias. The inspected Express entry point mounts `/v2/lumastore`; it does not define that alias. Check deployed proxy/rewrite configuration separately. The backend repository removed its root `CNAME` file, but that does not establish whether the live hostname or alias changed. Production routing was not tested. See the [All API reference](../all-api/api-reference.md) for the versioned routes.
 
 ## App details return 404
 
@@ -44,6 +44,18 @@ The current public catalog contains Android platform rows only. Tracked release 
 
 **Fix:** Final submissions require an Android APK download and a public supported repository with verified ownership/write access. Confirm matching forge authorization. Check review/publication/archive state before treating dashboard/catalog differences as a rendering bug; a submission row and a published `store_apps` row are different records.
 
+## Android reports an API outage
+
+**Check:** For HTTP 402, inspect `X-Vercel-Error` and the response body. Android 4.4.3 treats `DEPLOYMENT_DISABLED` in that header or on its own body line as a hosting outage.
+
+**Next step:** Eligible catalog, profile, ratings/reviews and favorites operations can use Supabase fallback on that outage, server errors or I/O failures. If fallback also fails, check Supabase connectivity, policies and the user session where required. A plain 402 or an authentication/authorization error does not trigger this fallback.
+
+## Android download analytics are missing
+
+**Check:** In the developer area, open **Download analytics for published apps**, not **Submissions**. Check the active account and whether the app is published and not archived.
+
+**Next step:** Retry if the app list or statistics failed to load. A missing period is not a zero; a dashboard total is unavailable if any listed app lacks that metric. For persistent failures, check access to the developer’s `store_apps` rows and the `get_my_luma_download_stats` RPC.
+
 ## Developer notifications do not appear
 
 **Check:** Check the saved developer session and Android notification permission/settings. Inspect `NotificationSyncJobService` scheduling and errors using Android Studio Logcat.
@@ -64,7 +76,7 @@ The current public catalog contains Android platform rows only. Tracked release 
 
 **Check:** Compare the version catalog and configured Maven repositories with [Android build dependencies](./android.md#android-client-build-dependencies).
 
-**Expected configuration:** Gradle 9.9.1, daemon JDK 21, and `com.freetime` Core/Design/FreetimeWarn 3.2.0 from the configured repositories. The former `com.github.FreetimeMaker.Freetime-Core` coordinates are not the declarations in this reviewed revision.
+**Expected configuration:** Gradle 9.9.2, daemon JDK 21, compile SDK 37 with minor API level 2, and Core/Design/FreetimeWarn 4.0.2 from JitPack under `com.github.FreetimeMaker.Freetime-Core`. For missing AARs, check the Android variant metadata rule in `settings.gradle.kts`.
 
 **Next step:** Inspect the specific unresolved artifact, SDK requirement or JDK error. This review did not resolve dependencies or establish that every declared artifact is published; do not treat configuration as a passing build.
 
@@ -74,7 +86,7 @@ The current public catalog contains Android platform rows only. Tracked release 
 
 **Expected:** Type-check and lint should finish successfully before investigating a production build. The first failure identifies the next issue; these commands have not been run for this documentation review.
 
-**Fix:** Configure `.env.local` from the [website's example](https://github.com/FreetimeMaker/Luma-Store-Website/blob/HEAD/.env.example). Run the declared checks in order:
+**Fix:** Configure `.env.local` from the [website's example](https://github.com/FreetimeMaker/Luma-Store-Website/blob/ff8504f3d54ffa3cd2ac6035f94c342dc7acbca4/.env.example). Run the declared checks in order:
 
 ```bash
 npm run type-check

@@ -3,7 +3,7 @@
 ## Prerequisites
 
 | Scope | Prerequisite |
-| --- | --- |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Required | Git, Node.js/npm compatible with the repository dependencies, a terminal and curl; a free local port. |
 | Optional | Frontend checkout and browser; a configured Supabase project and user account for database/authentication features. Neither is needed for the local health check. |
 | Publishing only | Deployment access and the appropriate server-side credentials, database schema and policies for the features you deploy. |
@@ -35,13 +35,22 @@ Luma Store uses separate `LUMASTORE_SUPABASE_URL` and `LUMASTORE_SUPABASE_PUBLIS
 
 ## Optional account/dashboard frontend
 
-[All-API-FrontEnd](https://github.com/FreetimeMaker/All-API-FrontEnd) is a separate checkout, unavailable in this review. Its previous setup described an `API_BASE` backend origin and public Supabase configuration, but its current template, scripts and proxy behavior could not be checked. Follow that repository's current instructions rather than treating these docs as a verified frontend setup.
+Run [All-API-FrontEnd](https://github.com/FreetimeMaker/All-API-FrontEnd) from its own checkout. With the backend on port 3000, use a different frontend port:
 
-When running multiple services locally, use distinct ports; the backend defaults to 3000.
+```bash
+npm ci
+cp .env.example .env.local
+# Edit .env.local before starting Next.js.
+npm run dev -- --port 3001
+```
+
+Set `API_BASE=http://localhost:3000` to use the local backend. If unset, both frontend health and proxy handlers target `https://api.free-time.me`. For sign-in, configure `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` for the intended project. The login page hard-codes `https://dashboard.free-time.me/auth/callback`; running on localhost does not change that destination. To test sign-in locally, change the callback in your frontend checkout and allow that URL in Supabase.
+
+For server-side features, the template also lists `SUPABASE_SERVICE_ROLE_KEY`, `LUMA_STATUS_WEBHOOK_SECRET`, `RESEND_API_KEY`, `EMAIL_FROM` and `EMAIL_NOTIFICATION_TO`. Do not leave the example values in an environment you deploy. These setup steps were checked against source, not run.
 
 ## URL conventions
 
-Clients in the inspected sources use `https://api.free-time.me` as the backend origin. Append `/v1` or `/v2`, not `/api/v2`. Previously documented Next.js paths such as `/api/proxy/v2/health` and `/api/luma/apps` refer to the separate, locally unavailable frontend, not Express. Production rewrites/aliases are deployment-specific and were not verified here.
+Use your configured backend origin. Append `/v1` or `/v2`, not `/api/v2`. `https://api.free-time.me` remains the inspected frontend's default, but the newer backend revision no longer contains its `CNAME` file; verify your deployment origin separately. On the Next.js origin, `/api/proxy/v2/health` forwards to the backend's `/v2/health`, while `/api/health` wraps the upstream health result in JSON. Production rewrites/aliases are deployment-specific and were not verified here.
 
 :::callout danger
 Never expose service-role credentials, OAuth client secrets, email keys or webhook secrets in browser or Android configuration.

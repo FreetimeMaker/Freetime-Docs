@@ -14,7 +14,7 @@ curl -i --max-time 5 http://localhost:3000/v2/health
 
 **Fix:** The current Express backend mounts `/v1` and `/v2`, not `/api/v1` or `/api/v2`. GeoWeather, F-Port, Arcade and Luma `/package-formats` are not mounted in backend 2.8.1. Consult the [API Reference](./api-reference.md) before debugging deployment routing.
 
-Next.js `/api/luma/apps` is a separate manually reviewed submission feed, not an alias for `/v2/lumastore/apps`.
+The inspected Next.js source does not define `/api/luma/apps`, even though the frontend README lists it. Use `/v2/lumastore/apps` on the Express origin for the catalog.
 
 ## API returns 401
 
@@ -54,7 +54,9 @@ curl -i --max-time 20 "http://localhost:3000/v2/lumastore/apps?platform=Android"
 
 ## Frontend proxy returns 503
 
-The frontend checkout was absent locally. Earlier docs described a two-second health precheck and a 15-second forwarding timeout; neither was reverified. Inspect the current frontend handler, configured backend origin and deployment logs before relying on those values. A successful backend `/v2/health` still does not test database access.
+If the proxy returns HTTP 503 with `API not reachable`, check `API_BASE` and call `/v2/health` from the frontend server's environment. The precheck requires a successful upstream HTTP status and has a two-second abort timer. It is skipped for paths containing `health` or ending in a recognized static asset extension, so `/api/proxy/v2/health` can work even when another proxied path fails the precheck.
+
+The forwarding fetch has a separate 15-second abort timer; a thrown forwarding error returns HTTP 500 with `Proxy failure`. For `/api/health`, inspect the JSON `ok` and `status` fields rather than relying on HTTP 200 alone. A successful backend `/v2/health` does not test database access.
 
 ## Supabase operations fail
 
@@ -77,8 +79,4 @@ Compare them with the revision recorded by your deployment.
 
 **Expected:** A full commit SHA and either an empty status (clean) or a list of local changes. Matching docs does not establish matching deployment routing.
 
-**Fix:** These pages describe the inspected local sources. Docs versions, local revisions and deployed services may differ. Compare the [backend](https://github.com/FreetimeMaker/All-API-Node) and [frontend](https://github.com/FreetimeMaker/All-API-FrontEnd) revisions with the deployed artifacts; aliases and production availability were not tested.
-
-:::callout info Separate frontend not revalidated
-`All-API-FrontEnd` was unavailable locally on 2026-11-20. References to its submission feed or proxy describe earlier documentation, not a current source-verified contract.
-:::
+**Fix:** These pages describe the [inspected source revisions](./index.md#source-review). Docs versions, local revisions and deployed services may differ. Compare the [backend](https://github.com/FreetimeMaker/All-API-Node) and [frontend](https://github.com/FreetimeMaker/All-API-FrontEnd) revisions with the deployed artifacts; aliases and production availability were not tested.

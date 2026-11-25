@@ -5,7 +5,7 @@
 | Scope           | Prerequisite                                                                                                                                                                                                                                                       |
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Required        | For the quick start: an already installed Android client on Android API 24+, network access and a reachable, configured public catalog.                                                                                                                            |
-| Optional        | For Android source builds: Git and the repository-compatible Gradle JDK/Android SDK (compile SDK 37). For website development: Node.js/npm, a browser and configured public Supabase values.                                                                       |
+| Optional        | For Android source builds: Git and the repository-compatible Gradle JDK/Android SDK (compile SDK 37, minor API level 2). For website development: Node.js/npm, a browser and configured public Supabase values.                                                                       |
 | Publishing only | A developer Supabase session, a supported public forge repository with verified ownership/write access, Android APK data and the dashboard/backend schema and policies. Deployment/email/webhook operations also need their corresponding server-only credentials. |
 
 ## First success in five minutes
@@ -28,7 +28,7 @@ cd Luma-Store-Android
 ./gradlew assembleDebug
 ```
 
-The inspected app is **4.4.2**, targets/compiles SDK 37 and supports Android API 24 or later. The wrapper selects Gradle 9.9.1 and daemon criteria request JDK 21. Install the required Android SDK before building. See [Android build dependencies](./android.md#android-client-build-dependencies) for the Maven repository and declared `com.freetime` Core coordinates.
+The inspected app is **4.4.3**, targets SDK 37, compiles against SDK 37 minor API level 2, and supports Android API 24 or later. The wrapper selects Gradle 9.9.2 and daemon criteria request JDK 21. Install the required Android SDK before building. See [Android build dependencies](./android.md#android-client-build-dependencies) for the JitPack repository and declared Freetime Core coordinates.
 
 ## Website and Developer Dashboard
 
@@ -42,7 +42,7 @@ npm install
 npm run dev
 ```
 
-The website uses Next.js **16.4.5**, React **19.3.1**, TypeScript and Tailwind CSS 4. Configure:
+The website uses Next.js **16.4.6**, React **19.3.1**, TypeScript and Tailwind CSS 4. Configure:
 
 | Variable                               | Purpose                               |
 | -------------------------------------- | ------------------------------------- |

@@ -4,7 +4,7 @@ Luma Store has two distinct source mechanisms: tracked release URLs in the websi
 
 ## Tracked release sources
 
-The [website's sources page](https://github.com/FreetimeMaker/Luma-Store-Website/blob/HEAD/app/sources/page.tsx) accepts a source URL and currently fixes the platform to **Android**. Supported forge hosts are:
+The [website's sources page](https://github.com/FreetimeMaker/Luma-Store-Website/blob/ff8504f3d54ffa3cd2ac6035f94c342dc7acbca4/app/sources/page.tsx) accepts a source URL and currently fixes the platform to **Android**. Supported forge hosts are:
 
 - `github.com`
 - `gitlab.com`
@@ -12,7 +12,7 @@ The [website's sources page](https://github.com/FreetimeMaker/Luma-Store-Website
 
 Other HTTPS URLs are treated as direct downloads. Tracked sources do not require a developer submission. The list is saved in browser local storage, not synchronized as an account-owned source list. Refresh checks the latest release again.
 
-The [backend resolver](https://github.com/FreetimeMaker/All-API-Node/blob/HEAD/src/v2/lumastore/store.js) recognizes `.apk` asset names as Android and filters out all other assets. A direct non-APK URL or a latest release without APK assets can return an empty list even when resolution succeeds. Linux/Windows assets are not supported by this implementation.
+The [backend resolver](https://github.com/FreetimeMaker/All-API-Node/blob/e7010ad906104bd8e597634c6e0cf7718b88fd5e/src/v2/lumastore/store.js) recognizes `.apk` asset names as Android and filters out all other assets. A direct non-APK URL or a latest release without APK assets can return an empty list even when resolution succeeds. Linux/Windows assets are not supported by this implementation.
 
 ## Signed-in forge access
 
@@ -34,13 +34,13 @@ The response includes `source_url`, `provider`, latest release `version` / `titl
 
 ## Android catalog repositories
 
-The [Android repository layer](https://github.com/FreetimeMaker/Luma-Store-Android/blob/HEAD/app/src/main/java/com/freetime/lumastore/data/AppRepository.kt) enables the Luma Store catalog by default:
+The [Android repository layer](https://github.com/FreetimeMaker/Luma-Store-Android/blob/4ca4752c99d0d95fae5c92cc16d925050d187b91/app/src/main/java/com/freetime/lumastore/data/AppRepository.kt) enables the Luma Store catalog by default:
 
 ```text
 https://api.free-time.me/v2/lumastore/apps?platform=android
 ```
 
-Built-in Freetime F-Droid, F-Droid and IzzyOnDroid repositories are disabled by default and can be enabled separately. Custom F-Droid-compatible sources are also supported. These catalogs are separate from the website's locally tracked release URLs.
+Built-in Freetime F-Droid, F-Droid and IzzyOnDroid repositories are disabled by default and can be enabled separately. As of Android 4.4.3, the built-in Freetime source uses `https://repo.free-time.me/fdroid/repo/index-v2.json` instead of the old `fdroid.free-time.me` host. Custom F-Droid-compatible sources are also supported. These catalogs are separate from the website's locally tracked release URLs.
 
 ## Public catalog filters
 

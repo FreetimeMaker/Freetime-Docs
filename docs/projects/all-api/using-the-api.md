@@ -4,7 +4,7 @@ All API exposes versioned HTTP contracts for Freetime Maker services.
 
 ## Base URL
 
-The inspected clients use `https://api.free-time.me`. Append the documented `/v1` or `/v2` path, without an `/api` prefix. This source review does not verify production routing.
+Use the origin of your backend deployment, or `http://localhost:3000` for the default local backend. Append the documented `/v1` or `/v2` path, without an `/api` prefix. The inspected clients use `https://api.free-time.me`, but the backend repository no longer declares that hostname in `CNAME`. Production routing was not verified.
 
 ## Versioning
 
@@ -13,7 +13,7 @@ Use v2 for new Luma Store and MD-Blog integrations. The current backend does not
 ## Shared request helper
 
 ```js
-const API_BASE = "https://api.free-time.me";
+const API_BASE = "http://localhost:3000"; // Replace with your deployed backend origin when needed.
 
 async function api(path, options = {}) {
   const response = await fetch(API_BASE + path, {

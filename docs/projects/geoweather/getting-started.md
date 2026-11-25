@@ -1,13 +1,13 @@
 # Getting Started
 
-GeoWeather is an Android app for API 26+. The local source declares version **4.7.3** (code 92).
+GeoWeather is an Android app for API 26+. The local source declares version **4.7.6** (code 95).
 
 ## Prerequisites
 
 | Scope           | Requirement                                                             | Purpose                                                                                                 |
 | --------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| Required        | Git checkout, Android SDK 37 and configured SDK path                    | Build the single `:app` module.                                                                         |
-| Required        | Repository Gradle wrapper and JDK 21 available to the daemon            | Daemon criteria request 21; Kotlin bytecode targets JVM 11.                                             |
+| Required        | Git checkout, Android SDK 37.2 and configured SDK path                    | Build the single `:app` module.                                                                         |
+| Required        | Repository Gradle 9.9.2 wrapper and JDK 21 available to the daemon            | Daemon criteria request 21; Kotlin bytecode targets JVM 11.                                             |
 | Required        | Running API 26+ emulator or USB-debugging device and SDK Platform Tools | Install and launch; `adb devices` should show one authorized target as `device`.                        |
 | Required        | Network access                                                          | Resolve dependencies initially and search/fetch weather from Open-Meteo on first use.                   |
 | Optional        | Android Studio                                                          | Import the checkout and run the app through the IDE.                                                    |
@@ -35,7 +35,7 @@ Goal: install the debug app, save a city and distinguish a fresh forecast from c
 
    On Windows, use `.\gradlew.bat :app:assembleDebug`. Expected checkpoints are `BUILD SUCCESSFUL`, an APK at the install path and adb's `Success`. These commands were not executed during this source review.
 
-3. Complete or skip onboarding if shown. Open city search, enter **Berlin**, and select the result whose region/country matches your intended location. Expected UI: search results show city names with region/country (or coordinates); selecting one saves it and returns from search.
+3. Complete or skip onboarding if shown. Tap the search button at the bottom right of the overview, enter **Berlin**, and select the result whose region/country matches your intended location. Expected UI: search results show city names with region/country (or coordinates); selecting one saves it and returns from search.
 4. Open the saved location's forecast. Expected UI after a successful fetch: the selected location's name, weather/temperature data and an update timestamp. Verify that timestamp rather than assuming any visible forecast is fresh. Exact temperatures and result ordering depend on the live service and are not fixed test values.
 
 If search, installation or refresh fails, follow [Troubleshooting](./troubleshooting.md). A successful build alone does not verify weather service availability.
@@ -44,7 +44,7 @@ If search, installation or refresh fails, follow [Troubleshooting](./troubleshoo
 
 Choose units and startup/display preferences in Settings. Saved forecasts remain readable offline, but check their update timestamps. Configure notifications and each widget's location separately when using those features.
 
-The dependency catalog currently pins Freetime Core **3.2.0** under `com.freetime`, resolved through [`https://repo.free-time.me/maven/`](../repositories/maven-gradle.md) rather than JitPack. Do not substitute library versions as part of this walkthrough. Core 4.0.1 is a separate breaking KMP migration, not this app’s current pin. If 3.2.0 resolution fails, diagnose repository availability rather than silently upgrading.
+The dependency catalog currently pins Freetime Core **4.0.1** under `com.github.FreetimeMaker.Freetime-Core`, resolved through JitPack. Do not substitute library versions as part of this walkthrough. If resolution fails, diagnose repository availability before changing the pin.
 
 ## Next steps
 

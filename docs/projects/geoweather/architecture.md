@@ -4,7 +4,7 @@ GeoWeather is a native Android app with one Gradle module, `:app`, under package
 
 ## UI and state
 
-Jetpack Compose and Material 3 render weather, location, settings and radar screens. ViewModels expose screen state. The app pins Freetime Core 3.2.0 for Core, Design, Browser, Donations, FreetimeWarn and Notifications functionality, using the expressive `FreetimeTheme`.
+Jetpack Compose and Material 3 render weather, location, settings and radar screens. ViewModels expose screen state. The app pins Freetime Core 4.0.1 for Core, Design, Browser, Donations, FreetimeWarn and Notifications functionality, using the expressive `FreetimeTheme`.
 
 ## Networking
 

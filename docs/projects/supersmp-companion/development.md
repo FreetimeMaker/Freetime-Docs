@@ -2,16 +2,19 @@
 
 ## Android configuration
 
-| Setting                       | Local source value   |
+| Setting                       | Reviewed source value   |
 | ----------------------------- | -------------------- |
 | Application ID / namespace    | `com.freetime.ssmpc` |
 | Version                       | `2.0.1` (code `23`)  |
 | Minimum SDK                   | `26`                 |
-| Compile / target SDK          | `37`                 |
+| Compile / target SDK          | `37.2` / `37`        |
 | Gradle daemon JDK criteria    | `21`                 |
 | Java / Kotlin bytecode target | `17`                 |
-| Android Gradle Plugin         | `9.5.1`              |
+| Android Gradle Plugin         | `9.5.2`              |
 | Kotlin                        | `2.4.21`             |
+| KSP                            | `2.3.14`             |
+| Gradle wrapper                 | `9.9.2`              |
+| Compose BOM                    | `2026.11.01`         |
 
 Use the build configuration rather than the README's older API-24 badge when determining device support.
 
@@ -19,9 +22,9 @@ Use the build configuration rather than the README's older API-24 badge when det
 
 `MainActivity` hosts `SuperSMPTheme`, the FreetimeWarn notice and a Navigation Compose graph. Routes cover home, server commands, coordinates, links, shop, map and settings.
 
-The local `SuperSMPTheme` uses Material 3 `MaterialTheme`, app typography/fallback palettes and `SuperSMPLiquidGlassRoot`; the `ui/glass` helpers are still present. Automatic mode checks the local hour every minute and uses dark before 07:00 or from 19:00. On Android 12+ the implementation chooses dynamic palettes directly; the `dynamicColor` and `oledBlack` parameters do not currently alter that selection, so do not promise those switches affect rendering.
+`SuperSMPTheme` wraps Design’s Expressive `AppTheme` and delegates automatic dark mode to `rememberDarkTheme(ThemeMode.AUTO_TIME)`. It forwards `dynamicColor`; when dark mode and `oledBlack` are both enabled, it overrides the background and surface with black. The app-owned glass helpers were removed. The bottom bar uses Material 3 `NavigationBar` and icon-only `NavigationBarItem`s with accessible descriptions. FreetimeWarn gets its app name from `FreetimeCore.appName`.
 
-Core, Design, Browser, Donations and FreetimeWarn use **3.1.0**, under `com.freetime`, from [`https://repo.free-time.me/maven/`](../repositories/maven-gradle.md). KSP is pinned to **2.3.13**. This app has not adopted Core 4.0.1 or Notifications.
+Core, Design, Browser, Donations, FreetimeWarn and Notifications use `com.github.FreetimeMaker.Freetime-Core:<module>:4.0.1` from `https://jitpack.io/`, not the previous `com.freetime` repository coordinates. These are source declarations, not verified artifact resolution.
 
 ## Data and remote content
 
@@ -29,9 +32,11 @@ Core, Design, Browser, Donations and FreetimeWarn use **3.1.0**, under `com.free
 
 Shop and map screens embed remote websites in Android WebViews. Do not assume a WebView loading failure is a Ktor API failure.
 
-## Background integration boundary
+## Release notifications
 
-`SuperSMPApplication.onCreate()` only calls its superclass. There is no Notifications module dependency or release-feed setup in the inspected checkout. WorkManager remains a dependency, not evidence of background status refresh. A future notification integration needs explicit dependency, lifecycle, permission/channel and delivery testing.
+[`SuperSMPApplication.onCreate()`](https://github.com/FreetimeMaker/SuperSMP-Companion-App/blob/9e4fab3887bc8f5d277f58668d0ef11519a26bd2/app/src/main/java/com/freetime/ssmpc/SuperSMPApplication.kt) initializes Freetime Notifications asynchronously with the app’s GitHub Releases and F-Droid feeds. It configures a 360-minute check interval, no notifications on the first check, and a cap of five notifications per check. Update and changelog channels are configured separately; developer messages are disabled. The configured interval is not a delivery guarantee, and this integration does not poll Minecraft server status.
+
+The manifest declares `POST_NOTIFICATIONS` and `ACCESS_NETWORK_STATE`. Settings hosts [`NotificationPermissionHelper`](https://github.com/FreetimeMaker/SuperSMP-Companion-App/blob/9e4fab3887bc8f5d277f58668d0ef11519a26bd2/app/src/main/java/com/freetime/ssmpc/NotificationPermissionHelper.kt), which does not prompt on entry. **Enable notifications** requests a check if permission is already available, otherwise it can launch the first Android 13+ permission request. A grant triggers a check if permission is available; later attempts without permission open Android’s app notification settings. The settings shortcut also provides access to channel controls.
 
 ## Status API example
 
@@ -56,7 +61,7 @@ suspend fun readStatus(
 
 Unlike this helper, the current `ServerStatusViewModel.refreshStatus` catches exceptions without exposing detailed error state. Inspect the failure at the repository boundary when debugging. Do not infer that an absent status means the Minecraft server is offline.
 
-[Repository source](https://github.com/FreetimeMaker/SuperSMP-Companion-App/blob/bef24070b407296991498e79ac15f6406b621680/app/src/main/java/com/freetime/ssmpc/data/status/ServerStatusRepository.kt) · [Theme source](https://github.com/FreetimeMaker/SuperSMP-Companion-App/blob/bef24070b407296991498e79ac15f6406b621680/app/src/main/java/com/freetime/ssmpc/ui/theme/Theme.kt)
+[Repository source](https://github.com/FreetimeMaker/SuperSMP-Companion-App/blob/9e4fab3887bc8f5d277f58668d0ef11519a26bd2/app/src/main/java/com/freetime/ssmpc/data/status/ServerStatusRepository.kt) · [Theme source](https://github.com/FreetimeMaker/SuperSMP-Companion-App/blob/9e4fab3887bc8f5d277f58668d0ef11519a26bd2/app/src/main/java/com/freetime/ssmpc/ui/theme/Theme.kt)
 
 ## Release optimization
 
@@ -64,7 +69,7 @@ Release builds enable code minification and resource shrinking with Android's op
 
 ## Build
 
-With SDK 37 and the JDK 21 daemon toolchain available:
+With SDK 37.2 and the JDK 21 daemon toolchain available:
 
 ```bash
 ./gradlew :app:assembleDebug

@@ -4,7 +4,7 @@ A custom mobile, desktop, CLI or web client can browse the public catalog withou
 
 ## Source code
 
-- [All-API-Node](https://github.com/FreetimeMaker/All-API-Node/blob/HEAD/src/v2/lumastore/store.js) — backend contract.
+- [All-API-Node](https://github.com/FreetimeMaker/All-API-Node/blob/e7010ad906104bd8e597634c6e0cf7718b88fd5e/src/v2/lumastore/store.js) — backend contract.
 - [Luma-Store-Android](https://github.com/FreetimeMaker/Luma-Store-Android) — native client and F-Droid adapters.
 - [Luma-Store-Website](https://github.com/FreetimeMaker/Luma-Store-Website) — web client and developer workflow.
 
@@ -20,7 +20,7 @@ GET /v2/lumastore/apps/:id/ratings
 GET /v2/lumastore/apps/:id/reviews
 ```
 
-The [backend handlers](https://github.com/FreetimeMaker/All-API-Node/blob/f743d19fd760a7a337e23e1af8ddff9fa1c3708b/src/v2/lumastore/store.js) define the contract. The list endpoint returns an array and accepts `category` (category ID), `platform` and `search` (name matching). It excludes archived apps and normalizes platform rows to Android only. Linux/Windows filters do not return matching apps. `/package-formats` and `package_format` are not implemented.
+The [backend handlers](https://github.com/FreetimeMaker/All-API-Node/blob/e7010ad906104bd8e597634c6e0cf7718b88fd5e/src/v2/lumastore/store.js) define the contract. The list endpoint returns an array and accepts `category` (category ID), `platform` and `search` (name matching). It excludes archived apps and normalizes platform rows to Android only. Linux/Windows filters do not return matching apps. `/package-formats` and `package_format` are not implemented.
 
 App detail requests require the catalog's store app ID. Ratings, reviews and per-app favorites resolve either a UUID or a package name. Do not apply that flexible identifier contract to app details.
 
