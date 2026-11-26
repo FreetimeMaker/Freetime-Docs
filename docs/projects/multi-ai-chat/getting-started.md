@@ -1,6 +1,6 @@
 # Getting Started
 
-Source reviewed on **2026-11-25**. See [Source review](./index.md#source-review) for the pinned commit and validation limits.
+Source reviewed on **2026-11-25**. See [Source review](./index.md#multi-ai-chat-source-review) for the pinned commit and validation limits.
 
 ## Prerequisites
 

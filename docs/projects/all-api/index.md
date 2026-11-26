@@ -22,7 +22,7 @@ All API is the Express backend for shared Freetime Maker services. A separate Ne
 | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | [All-API-Node](https://github.com/FreetimeMaker/All-API-Node) | Package **2.8.1**, CommonJS, Express **^5.3.0**; `npm start`; no Node engine constraint declared |
 | Backend mounts | `/v1` and `/v2`: health, generic Supabase auth and Wallora; v2 additionally provides Luma Store and MD-Blog |
-| [All-API-FrontEnd](https://github.com/FreetimeMaker/All-API-FrontEnd) | Package **2.2.0**, Next.js **16.3.3**, React **19.2.8**; see [frontend setup](./getting-started.md#optional-accountdashboard-frontend) |
+| [All-API-FrontEnd](https://github.com/FreetimeMaker/All-API-FrontEnd) | Package **2.2.0**, Next.js **16.3.3**, React **19.2.8**; see [frontend setup](./getting-started.md#getting-started-optional-accountdashboard-frontend) |
 | Luma distribution | Android platform metadata and APK release assets; not a Linux/Windows package catalog |
 
 Versions are source declarations, not release or deployment claims. The v1 version-info handler marks v1 deprecated; use v2 for new integrations. GeoWeather, F-Port and Sol Arcade are not mounted in the inspected backend.

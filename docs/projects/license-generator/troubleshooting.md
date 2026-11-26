@@ -40,7 +40,7 @@
 
 **Expected:** The holder must be nonempty and single-line. A year is four ASCII digits or an ascending `YYYY-YYYY` range. Other templates do not substitute holder/year fields.
 
-**Fix:** Pass a valid `--holder` and `--year`, or correct saved defaults. The CLI supports `--ls`, not `--list`. For a copyleft license, use the exact variant listed by `--ls`; unsuffixed aliases such as `gpl-3.0` select `-only`, not `-or-later`. See [Supported licenses](./index.md#supported-licenses).
+**Fix:** Pass a valid `--holder` and `--year`, or correct saved defaults. The CLI supports `--ls`, not `--list`. For a copyleft license, use the exact variant listed by `--ls`; unsuffixed aliases such as `gpl-3.0` select `-only`, not `-or-later`. See [Supported licenses](./index.md#license-generator-supported-licenses).
 
 ## Saved settings prevent startup
 

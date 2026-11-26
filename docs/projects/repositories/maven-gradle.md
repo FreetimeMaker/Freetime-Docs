@@ -8,7 +8,7 @@ maven("https://repo.free-time.me/maven/") {
 }
 ```
 
-For example, a compatible Kotlin Multiplatform project can declare `implementation("com.freetime:Core:4.0.1")` in the relevant Gradle source-set dependencies. Check the [Freetime Core setup guide](../freetime-core/getting-started.md) before changing a version pin or choosing a target.
+For example, a compatible Kotlin Multiplatform project can declare `implementation("com.freetime:Core:4.0.2")` in the relevant Gradle source-set dependencies. Check the [Freetime Core setup guide](../freetime-core/getting-started.md) before changing a version pin or choosing a target.
 
 For Maven, add the endpoint under `<repositories>` in `pom.xml`:
 

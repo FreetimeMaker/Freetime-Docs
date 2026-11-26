@@ -123,7 +123,7 @@ The router reads Markdown from the MD-Blog repository. Lists return `{posts: [..
 
 ## Separate frontend routes
 
-These handlers are on the Next.js origin, not Express. See the [source review](./index.md#source-review) for the inspected revision.
+These handlers are on the Next.js origin, not Express. See the [source review](./index.md#all-api-source-review) for the inspected revision.
 
 | Method | Next.js path | Behavior |
 | ----------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |

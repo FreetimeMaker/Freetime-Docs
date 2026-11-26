@@ -1,6 +1,6 @@
 # Troubleshooting
 
-Source reviewed on **2026-11-25**. See [Source review](./index.md#source-review) for the pinned commit and validation limits.
+Source reviewed on **2026-11-25**. See [Source review](./index.md#multi-ai-chat-source-review) for the pinned commit and validation limits.
 
 Work from the symptom below. Commands are suggested local checks, not outputs observed during this documentation review. When sharing diagnostics, never include credentials in shared logs.
 

@@ -79,4 +79,4 @@ Compare them with the revision recorded by your deployment.
 
 **Expected:** A full commit SHA and either an empty status (clean) or a list of local changes. Matching docs does not establish matching deployment routing.
 
-**Fix:** These pages describe the [inspected source revisions](./index.md#source-review). Docs versions, local revisions and deployed services may differ. Compare the [backend](https://github.com/FreetimeMaker/All-API-Node) and [frontend](https://github.com/FreetimeMaker/All-API-FrontEnd) revisions with the deployed artifacts; aliases and production availability were not tested.
+**Fix:** These pages describe the [inspected source revisions](./index.md#all-api-source-review). Docs versions, local revisions and deployed services may differ. Compare the [backend](https://github.com/FreetimeMaker/All-API-Node) and [frontend](https://github.com/FreetimeMaker/All-API-FrontEnd) revisions with the deployed artifacts; aliases and production availability were not tested.

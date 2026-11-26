@@ -1,6 +1,6 @@
 # Getting Started
 
-Freetime Docs provides setup guides, architecture notes and source links for 8 Freetime Maker projects. The current documentation is rendered by **docmd** with the Summer theme.
+Freetime Docs provides setup guides, architecture notes and source links for Freetime Maker projects. The current documentation is rendered by **docmd** with the Summer theme.
 
 ## Choose a project
 
@@ -10,7 +10,7 @@ See [Repositories](../projects/repositories/index.md) if you need to set up F-Dr
 
 ## Find your way around
 
-Open **Projects** in the sidebar and expand a project group. Its first link opens the project overview, followed by **Getting Started** and the rest of the guides. Use the page outline to jump to a section or the search box to find a topic.
+Open **Projects** in the sidebar and expand a project group. Its first link opens the project overview, followed by the available guides in alphabetical order. Use the page outline to jump to a section or the search box to find a topic.
 
 The Summer theme provides native navigation, search and code-block copy controls. Appearance follows your system by default; use the theme switch to choose light or dark mode. The GitHub link opens the documentation repository. AI integration and whole-page copy widgets are disabled in this site's configuration.
 

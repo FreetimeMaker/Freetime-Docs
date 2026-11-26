@@ -47,7 +47,7 @@ Focused Node tests exist in `src/lib/luma-metadata.test.js`, `src/lib/sync-luma-
 
 ## Separate frontend
 
-Run `npm run lint` for ESLint and `npm run type-check` for `tsc --noEmit`. `npm run build` builds the Next.js app; `npm start` serves the production build. The package declares no test script. See [Getting Started](./getting-started.md#optional-accountdashboard-frontend) for local configuration and [API Reference](./api-reference.md#separate-frontend-routes) for the route inventory.
+Run `npm run lint` for ESLint and `npm run type-check` for `tsc --noEmit`. `npm run build` builds the Next.js app; `npm start` serves the production build. The package declares no test script. See [Getting Started](./getting-started.md#getting-started-optional-accountdashboard-frontend) for local configuration and [API Reference](./api-reference.md#api-reference-separate-frontend-routes) for the route inventory.
 
 Use the checked-in `.env.example`, `package.json` and route tree as the source of truth at the reviewed revision. The frontend README references `supabase/migrations/20260910_luma_submission_updates.sql` and `/dashboard/developer/status`, but neither is present at that revision. The [Luma website setup](../luma-store/getting-started.md#getting-started-website-and-developer-dashboard) is for a separate project.
 
