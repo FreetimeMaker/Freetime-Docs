@@ -1,6 +1,6 @@
 {
   "name": "freetime-docs",
-  "version": "2.5.1",
+  "version": "2.5.3",
   "type": "module",
   "dependencies": {
     "@docmd/core": "^0.10.2",
