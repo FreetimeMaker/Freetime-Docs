@@ -4,6 +4,7 @@
   "type": "module",
   "dependencies": {
     "@docmd/core": "^0.10.2",
-    "@docmd/plugin-iconify": "^0.10.2"
+    "@docmd/plugin-iconify": "^0.10.2",
+    "@docmd/plugin-git": "^0.10.2"
   }
 }

@@ -57,7 +57,15 @@
     "ai": false,
     "iconify": {
       "enabled": true
-    }
+    },
+    "git": {
+          "repo": "https://github.com/FreetimeMaker/Freetime-Docs",
+          "branch": "main",
+          "editLink": true,
+          "lastUpdated": true,
+          "commitHistory": true,
+          "maxCommits": 5
+        }
   },
   "markdown": {
     "breaks": false
