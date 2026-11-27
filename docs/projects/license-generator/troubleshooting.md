@@ -58,9 +58,21 @@
 
 **Check:** Verify the current directory, parent-directory existence, permissions and `--project` value.
 
-**Expected:** Project names are sanitized for the suggested filename only. Explicit output paths are not sanitized, and parent directories are not created automatically. The application does not itself expand `~` in a path.
+**Expected:** Project names are sanitized for the suggested filename only. Explicit output paths are not sanitized, and parent directories are not created automatically. The CLI does not itself expand `~` in an output path.
 
 **Fix:** Create the parent directory and use `-o` with the intended path; use `-o LICENSE` to override a project-derived filename.
+
+## GUI targets LICENSE at the repository root
+
+**Check:** Read **Target** before saving. If the selected folder is inside a detected Git working tree, the filename field is locked and the app targets `LICENSE` at the root.
+
+**Fix:** To save to a different path inside the repository, use CLI generation with `-o`. In the GUI, select a folder outside the working tree to edit the filename. The GUI still asks before replacing an existing file.
+
+## SPDX text is unavailable or differs from the bundled copy
+
+**Expected:** The app tries SPDX first and falls back to bundled text on a failed request or invalid response. Both outcomes are cached for the running process. `--ls` does not contact SPDX.
+
+**Fix:** If connectivity returns after the GUI loaded a fallback, restart it to retry. Review the resulting text before publishing.
 
 ## GUI ignores CLI generation fields
 

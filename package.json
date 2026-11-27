@@ -1,9 +1,9 @@
 {
   "name": "freetime-docs",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "type": "module",
   "dependencies": {
-    "@docmd/core": "^0.10.1",
-    "@docmd/plugin-iconify": "^0.10.1"
+    "@docmd/core": "^0.10.2",
+    "@docmd/plugin-iconify": "^0.10.2"
   }
 }
